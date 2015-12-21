@@ -3,17 +3,17 @@
 <head>
   <meta charset="utf-8">
   
-  <title>about | Hexo</title>
+  <title>tags | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description">
 <meta property="og:type" content="website">
-<meta property="og:title" content="about">
-<meta property="og:url" content="http://yoursite.com/about/index.html">
+<meta property="og:title" content="tags">
+<meta property="og:url" content="http://yoursite.com/tags/index.html">
 <meta property="og:site_name" content="Hexo">
 <meta property="og:description">
-<meta property="og:updated_time" content="2015-12-21T03:13:03.000Z">
+<meta property="og:updated_time" content="2015-12-21T03:44:04.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="about">
+<meta name="twitter:title" content="tags">
 <meta name="twitter:description">
   
     <link rel="alternative" href="/atom.xml" title="Hexo" type="application/atom+xml">
@@ -197,8 +197,8 @@
       <div class="body-wrap"><article id="page-undefined" class="article article-type-page" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/about/index.html" class="article-date">
-  	<time datetime="2015-12-21T03:13:03.000Z" itemprop="datePublished">2015-12-21</time>
+      <a href="/tags/index.html" class="article-date">
+  	<time datetime="2015-12-21T03:44:04.000Z" itemprop="datePublished">2015-12-21</time>
 </a>
     </div>
   
@@ -211,7 +211,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      about
+      tags
     </h1>
   
 
@@ -260,6 +260,74 @@
     padding: 0;
     }
 </style>
+
+
+    <!-- Tag Cloud Page -->
+    <hr>
+    <br>
+    
+
+    <p class="count"></p>
+
+    <div class="tags">
+        
+    </div>
+    <style>
+        .category-list li{
+            display: inline-block;
+            margin: 0 1em .5em 0;
+            padding: 4px;
+            border: 1px solid lightgray;
+            font-size: 1.2em;
+        }
+        .category-list a {
+            color: gray;
+        }
+        .category-list-item:hover a {
+            color: gray;
+            text-decoration: none;
+        }
+        .category-list-count {
+            margin-left: 2px;
+            font-size: .9em;
+        }
+        .article-entry ul li:before{
+            display: none;
+        }
+        .article-inner  {
+            text-align: center;
+        }
+        .tags {
+            max-width: 40em;
+            margin: 2em auto;
+            margin-top: 0em;
+        }
+        .tags a {
+            margin-right: 1em;
+            line-height: 65px;
+            border-bottom: 1px solid gray;
+            white-space: nowrap;
+        }
+        .tags a:hover {
+            border-bottom: 2px solid black;
+            text-decoration: none;
+            font-style: italic;
+        }
+        #count > span {
+            margin: auto .2em;
+            font-weight: bold;
+        }
+    </style>
+
+    <!-- Count tags and categories -->
+    <script src="http://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
+    <p id="count">
+            已有<span><script>document.write($(".category-list-item").length)</script></span>个分类，
+            共计<span><script>document.write($(".tags > a").length)</script></span>个标签。
+    </p>
+    <script>
+        $('#count').appendTo('.count');
+    </script>
 
 
           
