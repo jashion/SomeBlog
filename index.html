@@ -64,16 +64,26 @@
     <article id="post-Hexo Blog 搭建（Hexo + Github）" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2015/12/21/Hexo Blog 搭建（Hexo + Github）/" class="article-date">
-  <time datetime="2015-12-21T02:23:23.000Z" itemprop="datePublished">2015-12-21</time>
+  <time datetime="2015-12-21T02:36:15.000Z" itemprop="datePublished">2015-12-21</time>
 </a>
     
   </div>
   <div class="article-inner">
     
     
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/12/21/Hexo Blog 搭建（Hexo + Github）/">Hexo Blog 搭建（Hexo + Github）</a>
+    </h1>
+  
+
+      </header>
+    
     <div class="article-entry" itemprop="articleBody">
       
-        <h2 id="Hexo_Blog__u642D_u5EFA_uFF08Hexo_+_Github_uFF09"><a href="#Hexo_Blog__u642D_u5EFA_uFF08Hexo_+_Github_uFF09" class="headerlink" title="Hexo Blog 搭建（Hexo + Github）"></a>Hexo Blog 搭建（Hexo + Github）</h2><p>本Hexo版本是3.1.1，在搭建过程中遇到各种坑，被坑的不要不要的，内心是千万只草泥马奔腾而过，废话不多说，下面进入正文。</p>
+        <p>本Hexo版本是3.1.1，在搭建过程中遇到各种坑，被坑的不要不要的，内心是千万只草泥马奔腾而过，废话不多说，下面进入正文。</p>
 <h3 id="Node-js"><a href="#Node-js" class="headerlink" title="Node.js"></a>Node.js</h3><p>首先，你的电脑必须装有Node.js,Node.js,Node.js（重要的事情要说三遍），毕竟 Hexo开源Blog是居于Node.js的环境搭建的，至于怎么安装Node.js网上百度一大把的教程，在这就不重点描述。</p>
 <h3 id="Github"><a href="#Github" class="headerlink" title="Github"></a>Github</h3><p>关于这个Github账号，大家都知道，你的Blog搭建完成是需要一个服务端的，而Github就可以免费充当这个服务端，所以，没有Github账号的同学必须申请一个Github账号，这个很重要。<br>（1）创建Github账号，这个省略1000字<br>（2）新建一个公共的Repository(仓库)，改仓库的名字有讲究，貌似必须要这样的格式(具体原因不明，应该是Hexo/Github规定的格式)：<br>your_username.github.io  //your_username替换成个人的github名字，我的是jashion.github.io ，大家可以多多交流<br>（3）检查SSH keys的设置<br>check ssh key:<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ cd ~/.ssh   //<span class="operator"><span class="keyword">check</span> <span class="keyword">local</span> ssh <span class="keyword">key</span></span></span><br></pre></td></tr></table></figure></p>
 <p>如果提示：No such file or directory  则需要新建一个SSH Key</p>
@@ -98,14 +108,41 @@
 <h3 id="Hexo_u4E0A_u4F20_u5230Github"><a href="#Hexo_u4E0A_u4F20_u5230Github" class="headerlink" title="Hexo上传到Github"></a>Hexo上传到Github</h3><p>1.在你安装Hexo的目录上面找到_config.yml文件然后打开编辑，在最后面插入一段配置<br><figure class="highlight less"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">deploy</span>:</span><br><span class="line">  <span class="attribute">type</span>: git    <span class="comment">//3.1.1的版本都是git，不是github，而且冒号后面一定要留一个空格，这是一个坑</span></span><br><span class="line">  <span class="attribute">repository</span>: <span class="attribute">http</span>:<span class="comment">//github.com/jashion/jashion.github.io.git    //是http，不是https，这也是一个坑</span></span><br><span class="line">  <span class="attribute">branch</span>: master</span><br></pre></td></tr></table></figure></p>
 <p>2.然后执行保存命令<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ npm <span class="operator"><span class="keyword">install</span> hexo-deployer-git <span class="comment">--save</span></span></span><br></pre></td></tr></table></figure></p>
 <p>3.最后上传Github<br><figure class="highlight crystal"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$ </span>hexo deploy</span><br></pre></td></tr></table></figure></p>
-<p>在执行的过程中按照要求输入账号和密码：<br><img src="../../public/images/Hexo Blog/69C9F8BD-8DB3-4462-9B5A-D7333ADB2FFC.png" alt="Alt text"><br>4.上传成功后，在浏览器敲地址：<a href="https://jashion.github.io/" target="_blank" rel="external">https://jashion.github.io/</a>   //地址是你的Github上面建的的仓库后面的一段地址</p>
+<p>4.上传成功后，在浏览器敲地址：<a href="https://jashion.github.io/" target="_blank" rel="external">https://jashion.github.io/</a>   //地址是你的Github上面建的的仓库后面的一段地址</p>
 <p>5.添加博文<br><figure class="highlight actionscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo <span class="keyword">new</span> <span class="string">"postName"</span></span><br></pre></td></tr></table></figure></p>
-<p>在博客目录下面source/_posts自动生成postName.md<br>6.主题更改</p>
+<p>在博客目录下面source/_posts自动生成postName.md<br>我们可以通过MarkDown编辑器，在改文件夹新建.md文件，然后上传<br>6.主题更改</p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2015/12/21/Hexo Blog 搭建（Hexo + Github）/" data-id="ciifchl3g0000mtej8xux4i49" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2015/12/21/Hexo Blog 搭建（Hexo + Github）/" data-id="ciifcq1zn0000p4ej555ynscs" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-NewFile" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2015/12/21/NewFile/" class="article-date">
+  <time datetime="2015-12-21T02:34:58.000Z" itemprop="datePublished">2015-12-21</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>这是新建文件，这是新建文件</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2015/12/21/NewFile/" data-id="ciifcq20c0002p4ejnhmhuvrp" class="article-share-link">Share</a>
       
       
     </footer>
@@ -150,7 +187,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2015/12/19/hello-world/" data-id="ciifchl3s0001mtejl6je7c4r" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2015/12/19/hello-world/" data-id="ciifcq2090001p4ej87f196ey" class="article-share-link">Share</a>
       
       
     </footer>
@@ -175,7 +212,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/12/">December 2015</a><span class="archive-list-count">2</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/12/">December 2015</a><span class="archive-list-count">3</span></li></ul>
     </div>
   </div>
 
@@ -187,7 +224,11 @@
       <ul>
         
           <li>
-            <a href="/2015/12/21/Hexo Blog 搭建（Hexo + Github）/">(no title)</a>
+            <a href="/2015/12/21/Hexo Blog 搭建（Hexo + Github）/">Hexo Blog 搭建（Hexo + Github）</a>
+          </li>
+        
+          <li>
+            <a href="/2015/12/21/NewFile/">(no title)</a>
           </li>
         
           <li>
