@@ -15,7 +15,7 @@
 <meta property="og:image" content="http://yoursite.com/../images/HexoBlog/SSHKey.jpg">
 <meta property="og:image" content="http://yoursite.com/../images/HexoBlog/SetSSHKey.png">
 <meta property="og:image" content="http://yoursite.com/../images/HexoBlog/HexoHomePage.png">
-<meta property="og:updated_time" content="2015-12-21T03:11:06.000Z">
+<meta property="og:updated_time" content="2015-12-21T07:51:35.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Hexo Blog 搭建（Hexo + Github）">
 <meta name="twitter:description" content="本Hexo版本是3.1.1，在搭建过程中遇到各种坑，被坑的不要不要的，内心是千万只草泥马奔腾而过，废话不多说，下面进入正文。">
@@ -202,7 +202,7 @@
   
     <div class="article-meta">
       <a href="/2015/12/21/Hexo Blog 搭建（Hexo + Github）/" class="article-date">
-  	<time datetime="2015-12-21T03:11:06.000Z" itemprop="datePublished">2015-12-21</time>
+  	<time datetime="2015-12-21T07:51:35.000Z" itemprop="datePublished">2015-12-21</time>
 </a>
     </div>
   
@@ -260,7 +260,12 @@
 <p>3.最后上传Github<br><figure class="highlight crystal"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$ </span>hexo deploy</span><br></pre></td></tr></table></figure></p>
 <p>4.上传成功后，在浏览器敲地址：<a href="https://jashion.github.io/" target="_blank" rel="external">https://jashion.github.io/</a>   //地址是你的Github上面建的的仓库后面的一段地址</p>
 <p>5.添加博文<br><figure class="highlight actionscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo <span class="keyword">new</span> <span class="string">"postName"</span></span><br></pre></td></tr></table></figure></p>
-<p>在博客目录下面source/_posts自动生成postName.md<br>我们可以通过MarkDown编辑器，在改文件夹新建.md文件，然后上传<br>6.主题更改</p>
+<p>在博客目录下面source/_posts自动生成postName.md<br>我们可以通过MarkDown编辑器，在改文件夹新建.md文件，然后上传</p>
+<p>6.主题更改<br>主题去官网下载：<a href="https://hexo.io/themes/" target="_blank" rel="external">Hexo Themes</a><br>如果你下载的主题是Yelee,安装的过程中出现了比如头像不可用的情况，你可以打开浏览器的审查元素(我的用的是Chrome)，看一些一些JS文件是不是“http”没有改成”https”的，我就遇到这样的一个坑，有几个文件里面的JS引用没有将“http”改成”https”的，头像没有改变。还有一个Tips就是，如果要改配置文件的一些信息，最好去看看主题文件夹里面的配置的一些设置，比如头像的路径更改，等等。</p>
+<h3 id="Hexo__u603B_u7ED3"><a href="#Hexo__u603B_u7ED3" class="headerlink" title="Hexo 总结"></a>Hexo 总结</h3><p>如果把环境，搭建好了，我们日常一般只需要三个常用的命令：</p>
+<p>1.清理旧的文件<br><figure class="highlight crystal"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$ </span>hexo clean</span><br></pre></td></tr></table></figure></p>
+<p>2.打包静态文件<br><figure class="highlight crystal"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$ </span>hexo g</span><br></pre></td></tr></table></figure></p>
+<p>3.上传Github<br><figure class="highlight crystal"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$ </span>hexo d</span><br></pre></td></tr></table></figure></p>
 
       
     </div>
@@ -271,8 +276,8 @@
     <div class="copyright">
         <p><span>本文标题:</span><a href="/2015/12/21/Hexo Blog 搭建（Hexo + Github）/">Hexo Blog 搭建（Hexo + Github）</a></p>
         <p><span>文章作者:</span><a href="/" title="访问 JashionHuang 的个人博客">JashionHuang</a></p>
-        <p><span>发布时间:</span>2015年12月21日 - 11时11分</p>
-        <p><span>最后更新:</span>2015年12月21日 - 11时11分</p>
+        <p><span>发布时间:</span>2015年12月21日 - 15时51分</p>
+        <p><span>最后更新:</span>2015年12月21日 - 15时51分</p>
         <p>
             <span>原始链接:</span><a class="post-url" href="/2015/12/21/Hexo Blog 搭建（Hexo + Github）/" title="Hexo Blog 搭建（Hexo + Github）">http://yoursite.com/2015/12/21/Hexo Blog 搭建（Hexo + Github）/</a>
             <span class="copy-path" data-clipboard-text="原文: http://yoursite.com/2015/12/21/Hexo Blog 搭建（Hexo + Github）/　　作者: JashionHuang" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
@@ -288,12 +293,12 @@
 
     <nav id="article-nav">
         
-            <div id="article-nav-newer" class="article-nav-title">
+        
+            <div id="article-nav-older" class="article-nav-title">
                 <a href="/2015/12/21/hello-world/">
                     Hello World
                 </a>
             </div>
-        
         
     </nav>
 
@@ -302,7 +307,7 @@
 
     <div id="toc" class="toc-article">
     <strong class="toc-title">文章目录</strong>
-    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#Node-js"><span class="toc-number">1.</span> <span class="toc-text">Node.js</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Github"><span class="toc-number">2.</span> <span class="toc-text">Github</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Hexo"><span class="toc-number">3.</span> <span class="toc-text">Hexo</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Hexo_u4E0A_u4F20_u5230Github"><span class="toc-number">4.</span> <span class="toc-text">Hexo上传到Github</span></a></li></ol>
+    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#Node-js"><span class="toc-number">1.</span> <span class="toc-text">Node.js</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Github"><span class="toc-number">2.</span> <span class="toc-text">Github</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Hexo"><span class="toc-number">3.</span> <span class="toc-text">Hexo</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Hexo_u4E0A_u4F20_u5230Github"><span class="toc-number">4.</span> <span class="toc-text">Hexo上传到Github</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Hexo__u603B_u7ED3"><span class="toc-number">5.</span> <span class="toc-text">Hexo 总结</span></a></li></ol>
 </div>
 <style>
     .left-col .switch-btn {
@@ -380,14 +385,14 @@
 
 
         
-            <div  class="post-nav-button">
-                <a href="/2015/12/21/hello-world/" title="上一篇: Hello World">
-                <i class="fa fa-angle-left"></i>
-                </a>
-                <a href="/" title="回到主页"><i class="fa fa-home"></i></a>
-            </div>
-        
 
+        
+            <div  class="post-nav-button">
+                <a href="/" title="回到主页"><i class="fa fa-home"></i></a>
+                <a href="/2015/12/21/hello-world/" title="下一篇: Hello World">
+                <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
         
         
         
