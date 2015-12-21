@@ -13,13 +13,12 @@ Node.js首先，你的电脑必须装有Node.js,Node.js,Node.js（重要的事�
 <meta property="og:site_name" content="Hexo">
 <meta property="og:description" content="Hexo Blog 搭建（Hexo + Github）本Hexo版本是3.1.1，在搭建过程中遇到各种坑，被坑的不要不要的，内心是千万只草泥马奔腾而过，废话不多说，下面进入正文。
 Node.js首先，你的电脑必须装有Node.js,Node.js,Node.js（重要的事情要说三遍），毕竟 Hexo开源Blog是居于Node.js的环境搭建的，至于怎么安装Node.js网上百度一大把的教程，在这就">
-<meta property="og:image" content="http://yoursite.com/../../public/images/Hexo Blog/FBAB757D-A0D2-48EF-B0B5-5374192BF745.png">
-<meta property="og:image" content="http://yoursite.com/../../public/images/Hexo Blog/A3846248-484A-4C6D-92DA-52BCE1CD1EAD.png">
-<meta property="og:image" content="http://yoursite.com/../../public/images/Hexo Blog/80B71C24-D1FA-4E96-9E07-126990D1D099.png">
-<meta property="og:image" content="http://yoursite.com/../../public/images/Hexo Blog/248C9498-12B6-4C0C-9C25-6BFB8BCE05C0.png">
-<meta property="og:image" content="http://yoursite.com/../../public/images/Hexo Blog/DE3974A0-C020-413D-B1C8-8E4E98DCC1C3.png">
+<meta property="og:image" content="http://yoursite.com/../images/HexoBlog/setting.png">
+<meta property="og:image" content="http://yoursite.com/../images/HexoBlog/SSHKey.jpg">
+<meta property="og:image" content="http://yoursite.com/../images/HexoBlog/SetSSHKey.png">
+<meta property="og:image" content="http://yoursite.com/../images/HexoBlog/HexoHomePage.png">
 <meta property="og:image" content="http://yoursite.com/../../public/images/Hexo Blog/69C9F8BD-8DB3-4462-9B5A-D7333ADB2FFC.png">
-<meta property="og:updated_time" content="2015-12-21T02:00:01.000Z">
+<meta property="og:updated_time" content="2015-12-21T02:23:23.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Hexo">
 <meta name="twitter:description" content="Hexo Blog 搭建（Hexo + Github）本Hexo版本是3.1.1，在搭建过程中遇到各种坑，被坑的不要不要的，内心是千万只草泥马奔腾而过，废话不多说，下面进入正文。
@@ -72,7 +71,7 @@ Node.js首先，你的电脑必须装有Node.js,Node.js,Node.js（重要的事�
         <section id="main"><article id="post-Hexo Blog 搭建（Hexo + Github）" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2015/12/21/Hexo Blog 搭建（Hexo + Github）/" class="article-date">
-  <time datetime="2015-12-21T02:00:01.000Z" itemprop="datePublished">2015-12-21</time>
+  <time datetime="2015-12-21T02:23:23.000Z" itemprop="datePublished">2015-12-21</time>
 </a>
     
   </div>
@@ -89,20 +88,20 @@ Node.js首先，你的电脑必须装有Node.js,Node.js,Node.js（重要的事�
 <p>然后会提示输入钥匙串加密密码，这个密码是你提交项目的用到的验证，防止别人随便篡改你的Blog，可以不输入。（温习提示：最好创建一个密码，然后记住它）<br>创建成功后会出现一个虚线的方框，这里忘记截图了，请原谅我一时忘了截图。<br>（4）添加SSH Key到Github</p>
 <ul>
 <li>1:  打开本地C:\Documents and Settings\Administrator.ssh\id_rsa.pub文件</li>
-<li><p>2:  复制该文件的内容，然后登录Github，选择如下图：<br>  (1)选择setting<br><img src="../../public/images/Hexo Blog/FBAB757D-A0D2-48EF-B0B5-5374192BF745.png" alt="Alt text"></p>
-<p> (2)选择SSH keys<br> <img src="../../public/images/Hexo Blog/A3846248-484A-4C6D-92DA-52BCE1CD1EAD.png" alt="Alt text"><br>  (3)Title随便写，key就是1中的文件内容<br>  <img src="../../public/images/Hexo Blog/80B71C24-D1FA-4E96-9E07-126990D1D099.png" alt="Alt text"></p>
+<li><p>2:  复制该文件的内容，然后登录Github，选择如下图：<br>  (1)选择setting<br><img src="../images/HexoBlog/setting.png" alt="Alt text"></p>
+<p> (2)选择SSH keys<br> <img src="../images/HexoBlog/SSHKey.jpg" alt="Alt text"><br>  (3)Title随便写，key就是1中的文件内容<br>  <img src="../images/HexoBlog/SetSSHKey.png" alt="Alt text"></p>
 </li>
 <li>3:  测试是否关联Github账号成功<figure class="highlight crystal"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$ </span>ssh -<span class="constant">T</span> git<span class="variable">@github</span>.com</span><br></pre></td></tr></table></figure>
 </li>
 </ul>
-<p>会出现下面提示语句，回答yes就好。<br><img src="../../public/images/Hexo Blog/248C9498-12B6-4C0C-9C25-6BFB8BCE05C0.png" alt="Alt text"></p>
+<p>会出现一些提示语句，不用太过担心，只要回答yes就好。</p>
 <h3 id="Hexo"><a href="#Hexo" class="headerlink" title="Hexo"></a>Hexo</h3><p>现在正式搭建Hexo</p>
 <p>(1)下载Hexo<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ npm <span class="operator"><span class="keyword">install</span> -<span class="keyword">g</span> Hexo</span></span><br></pre></td></tr></table></figure></p>
 <p>(2)安装Hexo，最好自己新建一个目录放置文件，在文件里面执行初始化的命令<br><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ hexo <span class="keyword">init</span> </span><br><span class="line"><span class="comment">/*或者下面的命令*/</span></span><br><span class="line">$ hexo <span class="keyword">init</span> &lt;folder&gt;  <span class="comment">//放置Blog的文件名</span></span><br></pre></td></tr></table></figure></p>
 <p>(3)生成静态页面<br><figure class="highlight crystal"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$ </span>hexo generate</span><br></pre></td></tr></table></figure></p>
 <p>(4)本地启动服务，查看静态页面<br><figure class="highlight axapta"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo <span class="keyword">server</span></span><br></pre></td></tr></table></figure></p>
 <p>(5)本地查看静态页面的地址<br><figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">http:</span><span class="comment">//localhost:4000</span></span><br></pre></td></tr></table></figure></p>
-<p><img src="../../public/images/Hexo Blog/DE3974A0-C020-413D-B1C8-8E4E98DCC1C3.png" alt="Alt text"><br>看到这个页面说明已经搭建成功了，现在就剩最后一步，就是把本地静态化的Blog文件上传到自己的Github，这样所有人都可以访问了。</p>
+<p><img src="../images/HexoBlog/HexoHomePage.png" alt="Alt text"><br>看到这个页面说明已经搭建成功了，现在就剩最后一步，就是把本地静态化的Blog文件上传到自己的Github，这样所有人都可以访问了。</p>
 <h3 id="Hexo_u4E0A_u4F20_u5230Github"><a href="#Hexo_u4E0A_u4F20_u5230Github" class="headerlink" title="Hexo上传到Github"></a>Hexo上传到Github</h3><p>1.在你安装Hexo的目录上面找到_config.yml文件然后打开编辑，在最后面插入一段配置<br><figure class="highlight less"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">deploy</span>:</span><br><span class="line">  <span class="attribute">type</span>: git    <span class="comment">//3.1.1的版本都是git，不是github，而且冒号后面一定要留一个空格，这是一个坑</span></span><br><span class="line">  <span class="attribute">repository</span>: <span class="attribute">http</span>:<span class="comment">//github.com/jashion/jashion.github.io.git    //是http，不是https，这也是一个坑</span></span><br><span class="line">  <span class="attribute">branch</span>: master</span><br></pre></td></tr></table></figure></p>
 <p>2.然后执行保存命令<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ npm <span class="operator"><span class="keyword">install</span> hexo-deployer-git <span class="comment">--save</span></span></span><br></pre></td></tr></table></figure></p>
 <p>3.最后上传Github<br><figure class="highlight crystal"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$ </span>hexo deploy</span><br></pre></td></tr></table></figure></p>
@@ -113,7 +112,7 @@ Node.js首先，你的电脑必须装有Node.js,Node.js,Node.js（重要的事�
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2015/12/21/Hexo Blog 搭建（Hexo + Github）/" data-id="ciifax7kd0002h2ejrv5my89x" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2015/12/21/Hexo Blog 搭建（Hexo + Github）/" data-id="ciifbosvs0000k9ejp4sf3ufc" class="article-share-link">Share</a>
       
       
     </footer>
