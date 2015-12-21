@@ -5,26 +5,20 @@
   
   <title>Hexo Blog 搭建（Hexo + Github） | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="本Hexo版本是3.1.1，在搭建过程中遇到各种坑，被坑的不要不要的，内心是千万只草泥马奔腾而过，废话不多说，下面进入正文。
-Node.js首先，你的电脑必须装有Node.js,Node.js,Node.js（重要的事情要说三遍），毕竟 Hexo开源Blog是居于Node.js的环境搭建的，至于怎么安装Node.js网上百度一大把的教程，在这就不重点描述。
-Github关于这个Github账号，大">
+  <meta name="description" content="本Hexo版本是3.1.1，在搭建过程中遇到各种坑，被坑的不要不要的，内心是千万只草泥马奔腾而过，废话不多说，下面进入正文。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Hexo Blog 搭建（Hexo + Github）">
 <meta property="og:url" content="http://yoursite.com/2015/12/21/Hexo Blog 搭建（Hexo + Github）/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="本Hexo版本是3.1.1，在搭建过程中遇到各种坑，被坑的不要不要的，内心是千万只草泥马奔腾而过，废话不多说，下面进入正文。
-Node.js首先，你的电脑必须装有Node.js,Node.js,Node.js（重要的事情要说三遍），毕竟 Hexo开源Blog是居于Node.js的环境搭建的，至于怎么安装Node.js网上百度一大把的教程，在这就不重点描述。
-Github关于这个Github账号，大">
+<meta property="og:description" content="本Hexo版本是3.1.1，在搭建过程中遇到各种坑，被坑的不要不要的，内心是千万只草泥马奔腾而过，废话不多说，下面进入正文。">
 <meta property="og:image" content="http://yoursite.com/../images/HexoBlog/setting.png">
 <meta property="og:image" content="http://yoursite.com/../images/HexoBlog/SSHKey.jpg">
 <meta property="og:image" content="http://yoursite.com/../images/HexoBlog/SetSSHKey.png">
 <meta property="og:image" content="http://yoursite.com/../images/HexoBlog/HexoHomePage.png">
-<meta property="og:updated_time" content="2015-12-21T02:36:15.000Z">
+<meta property="og:updated_time" content="2015-12-21T03:11:06.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Hexo Blog 搭建（Hexo + Github）">
-<meta name="twitter:description" content="本Hexo版本是3.1.1，在搭建过程中遇到各种坑，被坑的不要不要的，内心是千万只草泥马奔腾而过，废话不多说，下面进入正文。
-Node.js首先，你的电脑必须装有Node.js,Node.js,Node.js（重要的事情要说三遍），毕竟 Hexo开源Blog是居于Node.js的环境搭建的，至于怎么安装Node.js网上百度一大把的教程，在这就不重点描述。
-Github关于这个Github账号，大">
+<meta name="twitter:description" content="本Hexo版本是3.1.1，在搭建过程中遇到各种坑，被坑的不要不要的，内心是千万只草泥马奔腾而过，废话不多说，下面进入正文。">
   
     <link rel="alternative" href="/atom.xml" title="Hexo" type="application/atom+xml">
   
@@ -73,7 +67,7 @@ Github关于这个Github账号，大">
         <section id="main"><article id="post-Hexo Blog 搭建（Hexo + Github）" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2015/12/21/Hexo Blog 搭建（Hexo + Github）/" class="article-date">
-  <time datetime="2015-12-21T02:36:15.000Z" itemprop="datePublished">2015-12-21</time>
+  <time datetime="2015-12-21T03:11:06.000Z" itemprop="datePublished">2015-12-21</time>
 </a>
     
   </div>
@@ -93,6 +87,7 @@ Github关于这个Github账号，大">
     <div class="article-entry" itemprop="articleBody">
       
         <p>本Hexo版本是3.1.1，在搭建过程中遇到各种坑，被坑的不要不要的，内心是千万只草泥马奔腾而过，废话不多说，下面进入正文。</p>
+<a id="more"></a>
 <h3 id="Node-js"><a href="#Node-js" class="headerlink" title="Node.js"></a>Node.js</h3><p>首先，你的电脑必须装有Node.js,Node.js,Node.js（重要的事情要说三遍），毕竟 Hexo开源Blog是居于Node.js的环境搭建的，至于怎么安装Node.js网上百度一大把的教程，在这就不重点描述。</p>
 <h3 id="Github"><a href="#Github" class="headerlink" title="Github"></a>Github</h3><p>关于这个Github账号，大家都知道，你的Blog搭建完成是需要一个服务端的，而Github就可以免费充当这个服务端，所以，没有Github账号的同学必须申请一个Github账号，这个很重要。<br>（1）创建Github账号，这个省略1000字<br>（2）新建一个公共的Repository(仓库)，改仓库的名字有讲究，貌似必须要这样的格式(具体原因不明，应该是Hexo/Github规定的格式)：<br>your_username.github.io  //your_username替换成个人的github名字，我的是jashion.github.io ，大家可以多多交流<br>（3）检查SSH keys的设置<br>check ssh key:<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ cd ~/.ssh   //<span class="operator"><span class="keyword">check</span> <span class="keyword">local</span> ssh <span class="keyword">key</span></span></span><br></pre></td></tr></table></figure></p>
 <p>如果提示：No such file or directory  则需要新建一个SSH Key</p>
@@ -124,7 +119,7 @@ Github关于这个Github账号，大">
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2015/12/21/Hexo Blog 搭建（Hexo + Github）/" data-id="ciifd9fkc0000r1ejmn3odn6b" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2015/12/21/Hexo Blog 搭建（Hexo + Github）/" data-id="ciifdyk6d0000s5ejtqsuvi5f" class="article-share-link">Share</a>
       
       
     </footer>
