@@ -11,11 +11,11 @@
 <meta property="og:url" content="http://yoursite.com/2015/12/21/Hexo Blog 搭建（Hexo + Github）/index.html">
 <meta property="og:site_name" content="Hexo">
 <meta property="og:description" content="本Hexo版本是3.1.1，在搭建过程中遇到各种坑，被坑的不要不要的，内心是千万只草泥马奔腾而过，废话不多说，下面进入正文。">
-<meta property="og:image" content="http://yoursite.com/../images/HexoBlog/setting.png">
-<meta property="og:image" content="http://yoursite.com/../images/HexoBlog/SSHKey.jpg">
-<meta property="og:image" content="http://yoursite.com/../images/HexoBlog/SetSSHKey.png">
-<meta property="og:image" content="http://yoursite.com/../images/HexoBlog/HexoHomePage.png">
-<meta property="og:updated_time" content="2015-12-21T07:51:35.000Z">
+<meta property="og:image" content="http://jashion.b0.upaiyun.com/images/setting.png">
+<meta property="og:image" content="http://jashion.b0.upaiyun.com/images/SSHKey.jpg">
+<meta property="og:image" content="http://jashion.b0.upaiyun.com/images/SetSSHKey.png">
+<meta property="og:image" content="http://jashion.b0.upaiyun.com/images/HexoHomePage.png">
+<meta property="og:updated_time" content="2015-12-21T09:35:04.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Hexo Blog 搭建（Hexo + Github）">
 <meta name="twitter:description" content="本Hexo版本是3.1.1，在搭建过程中遇到各种坑，被坑的不要不要的，内心是千万只草泥马奔腾而过，废话不多说，下面进入正文。">
@@ -38,7 +38,7 @@
 	<header id="header" class="inner">
 		<a href="/" class="profilepic">
 			
-			<img lazy-src="/img/avatar.png" class="js-avatar">
+			<img lazy-src="http://jashion.b0.upaiyun.com/images/avatar.png" class="js-avatar">
 			
 		</a>
 
@@ -164,7 +164,7 @@
 	<div class="intrude-less">
 		<header id="header" class="inner">
 			<a href="/" class="profilepic">
-				<img lazy-src="/img/avatar.png" class="js-avatar">
+				<img lazy-src="http://jashion.b0.upaiyun.com/images/avatar.png" class="js-avatar">
 			</a>
 			<hgroup>
 			  <h1 class="header-author"><a href="/" title="回到主页">JashionHuang</a></h1>
@@ -202,7 +202,7 @@
   
     <div class="article-meta">
       <a href="/2015/12/21/Hexo Blog 搭建（Hexo + Github）/" class="article-date">
-  	<time datetime="2015-12-21T07:51:35.000Z" itemprop="datePublished">2015-12-21</time>
+  	<time datetime="2015-12-21T09:35:04.000Z" itemprop="datePublished">2015-12-21</time>
 </a>
     </div>
   
@@ -241,8 +241,8 @@
 <p>然后会提示输入钥匙串加密密码，这个密码是你提交项目的用到的验证，防止别人随便篡改你的Blog，可以不输入。（温习提示：最好创建一个密码，然后记住它）<br>创建成功后会出现一个虚线的方框，这里忘记截图了，请原谅我一时忘了截图。<br>（4）添加SSH Key到Github</p>
 <ul>
 <li>1:  打开本地C:\Documents and Settings\Administrator.ssh\id_rsa.pub文件</li>
-<li><p>2:  复制该文件的内容，然后登录Github，选择如下图：<br>  (1)选择setting<br><img src="../images/HexoBlog/setting.png" alt="Alt text"></p>
-<p> (2)选择SSH keys<br> <img src="../images/HexoBlog/SSHKey.jpg" alt="Alt text"><br>  (3)Title随便写，key就是1中的文件内容<br>  <img src="../images/HexoBlog/SetSSHKey.png" alt="Alt text"></p>
+<li><p>2:  复制该文件的内容，然后登录Github，选择如下图：<br>  (1)选择setting<br><img src="http://jashion.b0.upaiyun.com/images/setting.png" alt="Alt text"></p>
+<p> (2)选择SSH keys<br> <img src="http://jashion.b0.upaiyun.com/images/SSHKey.jpg" alt="Alt text"><br>  (3)Title随便写，key就是1中的文件内容<br>  <img src="http://jashion.b0.upaiyun.com/images/SetSSHKey.png" alt="Alt text"></p>
 </li>
 <li>3:  测试是否关联Github账号成功<figure class="highlight crystal"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$ </span>ssh -<span class="constant">T</span> git<span class="variable">@github</span>.com</span><br></pre></td></tr></table></figure>
 </li>
@@ -254,7 +254,7 @@
 <p>(3)生成静态页面<br><figure class="highlight crystal"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$ </span>hexo generate</span><br></pre></td></tr></table></figure></p>
 <p>(4)本地启动服务，查看静态页面<br><figure class="highlight axapta"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo <span class="keyword">server</span></span><br></pre></td></tr></table></figure></p>
 <p>(5)本地查看静态页面的地址<br><figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">http:</span><span class="comment">//localhost:4000</span></span><br></pre></td></tr></table></figure></p>
-<p><img src="../images/HexoBlog/HexoHomePage.png" alt="Alt text"><br>看到这个页面说明已经搭建成功了，现在就剩最后一步，就是把本地静态化的Blog文件上传到自己的Github，这样所有人都可以访问了。</p>
+<p><img src="http://jashion.b0.upaiyun.com/images/HexoHomePage.png" alt="Alt text"><br>看到这个页面说明已经搭建成功了，现在就剩最后一步，就是把本地静态化的Blog文件上传到自己的Github，这样所有人都可以访问了。</p>
 <h3 id="Hexo_u4E0A_u4F20_u5230Github"><a href="#Hexo_u4E0A_u4F20_u5230Github" class="headerlink" title="Hexo上传到Github"></a>Hexo上传到Github</h3><p>1.在你安装Hexo的目录上面找到_config.yml文件然后打开编辑，在最后面插入一段配置<br><figure class="highlight less"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">deploy</span>:</span><br><span class="line">  <span class="attribute">type</span>: git    <span class="comment">//3.1.1的版本都是git，不是github，而且冒号后面一定要留一个空格，这是一个坑</span></span><br><span class="line">  <span class="attribute">repository</span>: <span class="attribute">http</span>:<span class="comment">//github.com/jashion/jashion.github.io.git    //是http，不是https，这也是一个坑</span></span><br><span class="line">  <span class="attribute">branch</span>: master</span><br></pre></td></tr></table></figure></p>
 <p>2.然后执行保存命令<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ npm <span class="operator"><span class="keyword">install</span> hexo-deployer-git <span class="comment">--save</span></span></span><br></pre></td></tr></table></figure></p>
 <p>3.最后上传Github<br><figure class="highlight crystal"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$ </span>hexo deploy</span><br></pre></td></tr></table></figure></p>
@@ -276,8 +276,8 @@
     <div class="copyright">
         <p><span>本文标题:</span><a href="/2015/12/21/Hexo Blog 搭建（Hexo + Github）/">Hexo Blog 搭建（Hexo + Github）</a></p>
         <p><span>文章作者:</span><a href="/" title="访问 JashionHuang 的个人博客">JashionHuang</a></p>
-        <p><span>发布时间:</span>2015年12月21日 - 15时51分</p>
-        <p><span>最后更新:</span>2015年12月21日 - 15时51分</p>
+        <p><span>发布时间:</span>2015年12月21日 - 17时35分</p>
+        <p><span>最后更新:</span>2015年12月21日 - 17时35分</p>
         <p>
             <span>原始链接:</span><a class="post-url" href="/2015/12/21/Hexo Blog 搭建（Hexo + Github）/" title="Hexo Blog 搭建（Hexo + Github）">http://yoursite.com/2015/12/21/Hexo Blog 搭建（Hexo + Github）/</a>
             <span class="copy-path" data-clipboard-text="原文: http://yoursite.com/2015/12/21/Hexo Blog 搭建（Hexo + Github）/　　作者: JashionHuang" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
