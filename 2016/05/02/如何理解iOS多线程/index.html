@@ -5,19 +5,16 @@
   
   <title>Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="#如何理解iOS的多线程
-###前言：前段时间，很想静下心来研究一下YYText，看了ibireme的一篇《iOS保持界面流畅的技巧》的博客，下了源码，发现里面用到多线程，异步渲染，异步记载，悲催的是，自己对于多线程并不很熟悉，只是在公司项目里面用过轻量级的GCD，所以，下定决心来补一下iOS多线程的知识。">
+  <meta name="description" content="如何理解iOS的多线程前言：前段时间，很想静下心来研究一下YYText，看了ibireme的一篇《iOS保持界面流畅的技巧》的博客，下了源码，发现里面用到多线程，异步渲染，异步记载，悲催的是，自己对于多线程并不很熟悉，只是在公司项目里面用过轻量级的GCD，所以，下定决心来补一下iOS多线程的知识。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Hexo">
 <meta property="og:url" content="http://yoursite.com/2016/05/02/如何理解iOS多线程/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="#如何理解iOS的多线程
-###前言：前段时间，很想静下心来研究一下YYText，看了ibireme的一篇《iOS保持界面流畅的技巧》的博客，下了源码，发现里面用到多线程，异步渲染，异步记载，悲催的是，自己对于多线程并不很熟悉，只是在公司项目里面用过轻量级的GCD，所以，下定决心来补一下iOS多线程的知识。">
-<meta property="og:updated_time" content="2016-05-02T07:37:18.000Z">
+<meta property="og:description" content="如何理解iOS的多线程前言：前段时间，很想静下心来研究一下YYText，看了ibireme的一篇《iOS保持界面流畅的技巧》的博客，下了源码，发现里面用到多线程，异步渲染，异步记载，悲催的是，自己对于多线程并不很熟悉，只是在公司项目里面用过轻量级的GCD，所以，下定决心来补一下iOS多线程的知识。">
+<meta property="og:updated_time" content="2016-05-02T07:40:27.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Hexo">
-<meta name="twitter:description" content="#如何理解iOS的多线程
-###前言：前段时间，很想静下心来研究一下YYText，看了ibireme的一篇《iOS保持界面流畅的技巧》的博客，下了源码，发现里面用到多线程，异步渲染，异步记载，悲催的是，自己对于多线程并不很熟悉，只是在公司项目里面用过轻量级的GCD，所以，下定决心来补一下iOS多线程的知识。">
+<meta name="twitter:description" content="如何理解iOS的多线程前言：前段时间，很想静下心来研究一下YYText，看了ibireme的一篇《iOS保持界面流畅的技巧》的博客，下了源码，发现里面用到多线程，异步渲染，异步记载，悲催的是，自己对于多线程并不很熟悉，只是在公司项目里面用过轻量级的GCD，所以，下定决心来补一下iOS多线程的知识。">
   
     <link rel="alternative" href="/atom.xml" title="Hexo" type="application/atom+xml">
   
@@ -203,7 +200,7 @@
   
     <div class="article-meta">
       <a href="/2016/05/02/如何理解iOS多线程/" class="article-date">
-  	<time datetime="2016-05-02T07:37:18.000Z" itemprop="datePublished">2016-05-02</time>
+  	<time datetime="2016-05-02T07:40:27.000Z" itemprop="datePublished">2016-05-02</time>
 </a>
     </div>
   
@@ -215,19 +212,15 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-        <p>#如何理解iOS的多线程</p>
-<p>###前言：<br \=""><br>前段时间，很想静下心来研究一下YYText，看了ibireme的一篇《iOS保持界面流畅的技巧》的博客，下了源码，发现里面用到多线程，异步渲染，异步记载，悲催的是，自己对于多线程并不很熟悉，只是在公司项目里面用过轻量级的GCD，所以，下定决心来补一下iOS多线程的知识。<br \=""></p>
+        <h1 id="u5982_u4F55_u7406_u89E3iOS_u7684_u591A_u7EBF_u7A0B"><a href="#u5982_u4F55_u7406_u89E3iOS_u7684_u591A_u7EBF_u7A0B" class="headerlink" title="如何理解iOS的多线程"></a>如何理解iOS的多线程</h1><h3 id="u524D_u8A00_uFF1A"><a href="#u524D_u8A00_uFF1A" class="headerlink" title="前言："></a>前言：<br \=""></h3><p>前段时间，很想静下心来研究一下YYText，看了ibireme的一篇《iOS保持界面流畅的技巧》的博客，下了源码，发现里面用到多线程，异步渲染，异步记载，悲催的是，自己对于多线程并不很熟悉，只是在公司项目里面用过轻量级的GCD，所以，下定决心来补一下iOS多线程的知识。<br \=""></p>
 <a id="more"></a>
-<p>###1.先弄清楚和线程有关的几个概念（大学读书不用功的同学伤不起T_T）<br \=""></p>
-<blockquote>
+<h3 id="1-_u5148_u5F04_u6E05_u695A_u548C_u7EBF_u7A0B_u6709_u5173_u7684_u51E0_u4E2A_u6982_u5FF5_uFF08_u5927_u5B66_u8BFB_u4E66_u4E0D_u7528_u529F_u7684_u540C_u5B66_u4F24_u4E0D_u8D77T_T_uFF09"><a href="#1-_u5148_u5F04_u6E05_u695A_u548C_u7EBF_u7A0B_u6709_u5173_u7684_u51E0_u4E2A_u6982_u5FF5_uFF08_u5927_u5B66_u8BFB_u4E66_u4E0D_u7528_u529F_u7684_u540C_u5B66_u4F24_u4E0D_u8D77T_T_uFF09" class="headerlink" title="1.先弄清楚和线程有关的几个概念（大学读书不用功的同学伤不起T_T）"></a>1.先弄清楚和线程有关的几个概念（大学读书不用功的同学伤不起T_T）<br \=""></h3><blockquote>
 <p>进程：一个包含多个线程的可执行文件。（The term process is used to refer to a running executable, which can encompass multiple threads.）<br \=""><br>线程：一段可以执行的对立代码。（The term thread is used to refer to a separate path of execution for code.）<br \=""><br>任务：对于所做工作的抽象概念。（The term task is used to refer to the abstract concept of work that needs to be performed.）<br \=""><br>队列：我的理解是，一个装载任务的容器。<br \=""><br>同步：在当前的线程执行任务，会阻塞当前线程的操作。<br \=""><br>异步：另开一个新线程执行任务，不会阻塞当前的线程操作。<br \=""><br>串行：队列的任务，根据FIFO的规则，一个个执行。<br \=""><br>并行：队列的任务，并行执行。如果CPU是多核，则会多个线程一齐执行，如果非多核，则会采取时间片轮转的调度方式，根据FIFO的规则执行，由于没个线程执行的时间很短，可以看成是同步执行的队列。<br \=""></p>
 </blockquote>
-<p>####进程，线程，任务和队列的区别和联系：<br \=""></p>
-<blockquote>
+<h4 id="u8FDB_u7A0B_uFF0C_u7EBF_u7A0B_uFF0C_u4EFB_u52A1_u548C_u961F_u5217_u7684_u533A_u522B_u548C_u8054_u7CFB_uFF1A"><a href="#u8FDB_u7A0B_uFF0C_u7EBF_u7A0B_uFF0C_u4EFB_u52A1_u548C_u961F_u5217_u7684_u533A_u522B_u548C_u8054_u7CFB_uFF1A" class="headerlink" title="进程，线程，任务和队列的区别和联系："></a>进程，线程，任务和队列的区别和联系：<br \=""></h4><blockquote>
 <p>（1）进程可以看作一个程序，可以理解成一个App就是一个进程，一个进程包括一个或者多个线程。<br \=""><br>（2）线程则是一个进程里面的概念，同一个进程包含的线程可以共享进程里面的数据，所以，多线程安全的问题也就突显出来了。线程里面的数据不共享，但线程和线程之间可以通信。<br \=""><br>（3）任务只是一个抽象的概念，一个线程里面的某个有意义的代码片段可以称之为任务，多个线程完成一个工作也可以称之为任务，所以，任务和线程不是同一层面的意思。<br \=""><br>（4）队列，可以简单的理解为，一个容纳任务的容器。<br \=""></p>
 </blockquote>
-<p>###2.iOS里面可用的多线程</p>
-<blockquote>
+<h3 id="2-iOS_u91CC_u9762_u53EF_u7528_u7684_u591A_u7EBF_u7A0B"><a href="#2-iOS_u91CC_u9762_u53EF_u7528_u7684_u591A_u7EBF_u7A0B" class="headerlink" title="2.iOS里面可用的多线程"></a>2.iOS里面可用的多线程</h3><blockquote>
 <ul>
 <li>PThread(现实中不怎么用到，所以略过)</li>
 <li>NSThread</li>
@@ -236,12 +229,12 @@
 </ul>
 </blockquote>
 <p>下面我会一一讲解，我所了解到的多线程。<br \=""><br>NSThread基于Objective-C对象，是苹果用来取代PThread的，方便使用，但是需要手动管理线程的生命周期(线程创建，调度和销毁等)。NSThread相比于GCD，NSOperation更趋向于系统级别的多线程的封装，使用起来没有GCDN和SOperation那么方便，但是，也有一些好用的功能，比如获取当前线程的相关信息：[NSThread currentThread];所以，多线程开发使用哪种实现，取决于你需要实现功能的情景，一般比较轻量级的，好用的就选GCD.GCD是苹果开发的，基于C语言的多线程，不需要手动管理线程的生命周期，而且它可以充分利用多核的优势。如果只想新开一个线程运行一些函数而不关心其他的东西，你可以选择GCD；但是如果你想实现更复杂的行为，那么应该选择NSOperation，因为NSOperation是基于GCD（以前基于NSThread）的更高层次的API，并且功能比CGD更强大，自由度更高，可以实现更复杂的线程依赖。             </p>
-<p>####NSThread<br>（1）启动一个NSThread的通用方法</p>
+<h4 id="NSThread"><a href="#NSThread" class="headerlink" title="NSThread"></a>NSThread</h4><p>（1）启动一个NSThread的通用方法</p>
 <figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//NSThread</span></span><br><span class="line"><span class="built_in">NSThread</span> *thread = [[<span class="built_in">NSThread</span> alloc] initWithTarget: <span class="keyword">self</span> selector: <span class="keyword">@selector</span>(runThread) object: <span class="literal">nil</span>];</span><br><span class="line">[thread start];    <span class="comment">//通过start启动线程，启动的时间可以自己设置，比如通过NSTimer延时启动</span></span><br><span class="line">    </span><br><span class="line">[<span class="built_in">NSThread</span> detachNewThreadSelector: <span class="keyword">@selector</span>(runThread) toTarget: <span class="keyword">self</span> withObject: <span class="literal">nil</span>];    <span class="comment">//自启动线程，不能掌握线程的启动时间</span></span><br></pre></td></tr></table></figure>
 <p>（2）其他的一些方法</p>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="keyword">void</span>)main    <span class="comment">//不会调用直接调用，线程调用start时会自动调用。如果自定义NSThread的子类，并想在自定义的线程进行一些操作时，就需要重写改方法</span></span><br><span class="line"></span><br><span class="line">+ sleepUntilDate:    <span class="comment">//在你设定的时间之前阻塞当前的线程</span></span><br><span class="line">+ <span class="built_in">exit</span>    <span class="comment">//结束当前线程，不过在之前会发NSThreadWillExitNotification</span></span><br><span class="line">+ currentThread    <span class="comment">//获取当前线程的相关信息，这个也是最常用的</span></span><br><span class="line">－ cancel    <span class="comment">//并不会停止正在进行的操作，只能更改还在队列里面，还没运行的任务</span></span><br><span class="line">+ setThreadPriority    <span class="comment">//设置当前线程的优先级</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//一些表示线程的状态值</span></span><br><span class="line">executing    <span class="comment">//A Boolean value that indicates whether the receiver is executing. (read-only)</span></span><br><span class="line">finished    <span class="comment">//A Boolean value that indicates whether the receiver has finished execution. (read-only)</span></span><br><span class="line">cancelled    <span class="comment">//A Boolean value that indicates whether the receiver is cancelled. (read-only)</span></span><br></pre></td></tr></table></figure>
 <p>小结：NSThread比较接近系统级别的多线程API，平时比较少用到，一般GCD和NSOperation就够用了。</p>
-<p>####GCD(Grand Central Dispatch)<br>GCD不得不说是苹果造福广大开发者的一大创举，充分利用手机的多核，自动管理生命周期，用起来简单，不用关系线程的调度。所以，一般不是要求太高的，用GCD就完全可以解决需要。废话不多说，我们继续进入状态。<br \=""></p>
+<h4 id="GCD_28Grand_Central_Dispatch_29"><a href="#GCD_28Grand_Central_Dispatch_29" class="headerlink" title="GCD(Grand Central Dispatch)"></a>GCD(Grand Central Dispatch)</h4><p>GCD不得不说是苹果造福广大开发者的一大创举，充分利用手机的多核，自动管理生命周期，用起来简单，不用关系线程的调度。所以，一般不是要求太高的，用GCD就完全可以解决需要。废话不多说，我们继续进入状态。<br \=""></p>
 <p>（1）创建全局并行队列</p>
 <pre><code>
 </code></pre>
@@ -254,8 +247,8 @@
     <div class="copyright">
         <p><span>本文标题:</span><a href="/2016/05/02/如何理解iOS多线程/"></a></p>
         <p><span>文章作者:</span><a href="/" title="访问 JashionHuang 的个人博客">JashionHuang</a></p>
-        <p><span>发布时间:</span>2016年05月02日 - 15时37分</p>
-        <p><span>最后更新:</span>2016年05月02日 - 15时37分</p>
+        <p><span>发布时间:</span>2016年05月02日 - 15时40分</p>
+        <p><span>最后更新:</span>2016年05月02日 - 15时40分</p>
         <p>
             <span>原始链接:</span><a class="post-url" href="/2016/05/02/如何理解iOS多线程/" title="">http://yoursite.com/2016/05/02/如何理解iOS多线程/</a>
             <span class="copy-path" data-clipboard-text="原文: http://yoursite.com/2016/05/02/如何理解iOS多线程/　　作者: JashionHuang" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
@@ -271,16 +264,10 @@
 
     <nav id="article-nav">
         
-            <div id="article-nav-newer" class="article-nav-title">
-                <a href="/2016/05/02/iOS内存管理/">
-                    
-                </a>
-            </div>
-        
         
             <div id="article-nav-older" class="article-nav-title">
-                <a href="/2016/05/02/iOS观察者模式/">
-                    iOS观察者模式
+                <a href="/2016/05/02/iOS内存管理/">
+                    
                 </a>
             </div>
         
@@ -291,7 +278,7 @@
 
     <div id="toc" class="toc-article">
     <strong class="toc-title">文章目录</strong>
-    
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#u5982_u4F55_u7406_u89E3iOS_u7684_u591A_u7EBF_u7A0B"><span class="toc-number">1.</span> <span class="toc-text">如何理解iOS的多线程</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#u524D_u8A00_uFF1A"><span class="toc-number">1.0.1.</span> <span class="toc-text">前言：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-_u5148_u5F04_u6E05_u695A_u548C_u7EBF_u7A0B_u6709_u5173_u7684_u51E0_u4E2A_u6982_u5FF5_uFF08_u5927_u5B66_u8BFB_u4E66_u4E0D_u7528_u529F_u7684_u540C_u5B66_u4F24_u4E0D_u8D77T_T_uFF09"><span class="toc-number">1.0.2.</span> <span class="toc-text">1.先弄清楚和线程有关的几个概念（大学读书不用功的同学伤不起T_T）</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#u8FDB_u7A0B_uFF0C_u7EBF_u7A0B_uFF0C_u4EFB_u52A1_u548C_u961F_u5217_u7684_u533A_u522B_u548C_u8054_u7CFB_uFF1A"><span class="toc-number">1.0.2.1.</span> <span class="toc-text">进程，线程，任务和队列的区别和联系：</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-iOS_u91CC_u9762_u53EF_u7528_u7684_u591A_u7EBF_u7A0B"><span class="toc-number">1.0.3.</span> <span class="toc-text">2.iOS里面可用的多线程</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#NSThread"><span class="toc-number">1.0.3.1.</span> <span class="toc-text">NSThread</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#GCD_28Grand_Central_Dispatch_29"><span class="toc-number">1.0.3.2.</span> <span class="toc-text">GCD(Grand Central Dispatch)</span></a></li></ol></li></ol></li></ol></li></ol>
 </div>
 <style>
     .left-col .switch-btn {
@@ -391,16 +378,14 @@
         
 
         
-        
-        
             <div  class="post-nav-button">
-                <a href="/2016/05/02/iOS内存管理/" title="上一篇: ">
-                <i class="fa fa-angle-left"></i>
-                </a>
-                <a href="/2016/05/02/iOS观察者模式/" title="下一篇: iOS观察者模式">
+                <a href="/" title="回到主页"><i class="fa fa-home"></i></a>
+                <a href="/2016/05/02/iOS内存管理/" title="下一篇: ">
                 <i class="fa fa-angle-right"></i>
                 </a>
             </div>
+        
+        
         
 
 

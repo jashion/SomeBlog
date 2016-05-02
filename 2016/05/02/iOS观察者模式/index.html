@@ -5,17 +5,17 @@
   
   <title>iOS观察者模式 | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="#iOS观察者模式学习">
+  <meta name="description" content="iOS观察者模式学习">
 <meta property="og:type" content="article">
 <meta property="og:title" content="iOS观察者模式">
 <meta property="og:url" content="http://yoursite.com/2016/05/02/iOS观察者模式/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="#iOS观察者模式学习">
+<meta property="og:description" content="iOS观察者模式学习">
 <meta property="og:image" content="http://jashion.b0.upaiyun.com/images/iOSObserving.gif">
-<meta property="og:updated_time" content="2016-05-02T07:30:56.000Z">
+<meta property="og:updated_time" content="2016-05-02T07:40:45.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="iOS观察者模式">
-<meta name="twitter:description" content="#iOS观察者模式学习">
+<meta name="twitter:description" content="iOS观察者模式学习">
   
     <link rel="alternative" href="/atom.xml" title="Hexo" type="application/atom+xml">
   
@@ -231,8 +231,7 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-        <p>#iOS观察者模式学习 <br></p>
-<a id="more"></a>
+        <h1 id="iOS_u89C2_u5BDF_u8005_u6A21_u5F0F_u5B66_u4E60"><a href="#iOS_u89C2_u5BDF_u8005_u6A21_u5F0F_u5B66_u4E60" class="headerlink" title="iOS观察者模式学习"></a>iOS观察者模式学习 <br></h1><a id="more"></a>
 <p>###（1）KVC与KVO简介<br></p>
 <ul>
 <li>KVC<br></li>
@@ -264,7 +263,7 @@
 <figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//1.setValue: forKey</span></span><br><span class="line">[car <span class="string">setValue:</span> @<span class="string">"奔驰"</span> <span class="string">forKey:</span> @<span class="string">"name"</span>];</span><br><span class="line">[car <span class="string">setValue:</span> [NSNumber <span class="string">numberWithFloat:</span> <span class="number">80</span>] <span class="string">forKey:</span> @<span class="string">"speed"</span>];</span><br><span class="line">[car <span class="string">setValue:</span> @<span class="string">"黑色"</span> <span class="string">forKey:</span> @<span class="string">"carPaint"</span>];</span><br><span class="line"></span><br><span class="line"><span class="comment">//1.valueForKey</span></span><br><span class="line">NSString *name = [currentCar <span class="string">valueForKey:</span> @<span class="string">"name"</span>];</span><br><span class="line">NSNumber *speed = [currentCar <span class="string">valueForKey:</span> @<span class="string">"speed"</span>];</span><br><span class="line">NSString *carPaint = [currentCar <span class="string">valueForKey:</span> @<span class="string">"carPaint"</span>];</span><br><span class="line"></span><br><span class="line"><span class="comment">//2.setValue:forKeyPath</span></span><br><span class="line">[car <span class="string">setValue:</span> [NSNumber <span class="string">numberWithFloat:</span> <span class="number">40</span>] <span class="string">forKeyPath:</span> @<span class="string">"engine.horsepower"</span>];</span><br><span class="line">self.showCarDetail.text = [self <span class="string">showCarDetail:</span> car];</span><br><span class="line"></span><br><span class="line"><span class="comment">//2.valueForKeyPath</span></span><br><span class="line">NSNumber *horsepower = [currentCar <span class="string">valueForKeyPath:</span> @<span class="string">"engine.horsepower"</span>];</span><br><span class="line"></span><br><span class="line"><span class="comment">//3.整体操作:访问数组，如果使用某个键值来访问一个NSArray数组，它实际上会查询相应数组中的每个对象，然后将查询结果大包到另一个数组并返回，但是不能直接在建路径中索引这些数组，如：tires[0].pressure</span></span><br><span class="line">NSArray *pressures = [currentCar <span class="string">valueForKeyPath:</span> @<span class="string">"tires.pressure"</span>];</span><br><span class="line">NSLog(@<span class="string">"%@"</span>, pressures);</span><br><span class="line"></span><br><span class="line"><span class="comment">//4.快速运算@count,@sum,@avg,@min,@max,@distinctUnionOfObjects</span></span><br><span class="line">NSNumber *count = [currentCar <span class="string">valueForKeyPath:</span> @<span class="string">"tires.@count"</span>];    <span class="comment">//对左边键值返回数组操作，获取数组数量</span></span><br><span class="line">NSNumber *sum = [currentCar <span class="string">valueForKeyPath:</span> @<span class="string">"tires.@sum.pressure"</span>];    <span class="comment">//对左边键值返回数组操作，获取每个数组里面的pressure值，求和</span></span><br><span class="line">NSNumber *avg = [currentCar <span class="string">valueForKeyPath:</span> @<span class="string">"tires.@avg.pressure"</span>];    <span class="comment">//对左边键值返回数组操作，获取每个数组里面的pressure值，求平均值</span></span><br><span class="line">NSNumber *min = [currentCar <span class="string">valueForKeyPath:</span> @<span class="string">"tires.@min.pressure"</span>];    <span class="comment">//对左边键值返回数组操作，获取每个数组里面的pressure值，找出最小值</span></span><br><span class="line">NSNumber *max = [currentCar <span class="string">valueForKeyPath:</span> @<span class="string">"tires.@max.pressure"</span>];    <span class="comment">//对左边键值返回数组操作，获取每个数组里面的pressure值，找出最大值</span></span><br><span class="line">NSArray *tireType = [currentCar <span class="string">valueForKeyPath:</span> @<span class="string">"tires.@distinctUnionOfObjects.pressure"</span>];    <span class="comment">//对左边键值返回数组操作，获取每个数组里面的pressure值，去掉重复的值，返回一个包含所有不重复值的数组</span></span><br><span class="line">NSLog(@<span class="string">"TiresCount: %@ Sum: %@, Avg: %@, Min: %@, Max: %@, TireType: %@"</span>, count, sum, avg, min, max, tireType);</span><br><span class="line"></span><br><span class="line"><span class="comment">//5.批处理</span></span><br><span class="line"><span class="comment">//字典里面不能为nil，如果返回值有nil，则KVC会自己处理，将返回[NSNull null]表示nil</span></span><br><span class="line"><span class="comment">//&lt;null&gt;和(null)的区别：前者是[NSNull null]对象，而后者是正真的nil。</span></span><br><span class="line">NSArray *keys = [NSArray <span class="string">arrayWithObjects:</span> @<span class="string">"make"</span>, @<span class="string">"modelYear"</span>, @<span class="string">"numberOfDoors"</span>, nil];</span><br><span class="line">NSDictionary *carValues = [currentCar <span class="string">dictionaryWithValuesForKeys:</span> keys];</span><br><span class="line">NSLog(@<span class="string">"%@"</span>, carValues);</span><br><span class="line">    </span><br><span class="line"><span class="comment">//6.nil处理</span></span><br><span class="line"><span class="comment">//可以自己运行一下，重写和没有重写setNilValueForKey:方法的代码</span></span><br><span class="line">[currentCar <span class="string">setValue:</span> nil <span class="string">forKey:</span> @<span class="string">"speed"</span>];</span><br><span class="line">NSLog(@<span class="string">"carSpeed: %@"</span>, [currentCar <span class="string">valueForKey:</span> @<span class="string">"speed"</span>]);</span><br><span class="line">    </span><br><span class="line"><span class="comment">//7.处理未定义的值</span></span><br><span class="line">[currentCar <span class="string">setValue:</span> [NSNumber <span class="string">numberWithFloat:</span> <span class="number">1500</span>] <span class="string">forKey:</span> @<span class="string">"mileage"</span>];</span><br><span class="line">[currentCar <span class="string">setValue:</span> [NSNull <span class="literal">null</span>] <span class="string">forKey:</span> @<span class="string">"price"</span>];</span><br><span class="line">[currentCar <span class="string">setValue:</span> nil <span class="string">forKey:</span> @<span class="string">"capacity"</span>];</span><br><span class="line">NSLog(@<span class="string">"Mileage: %@ Price: %@, Capacity: %@"</span>, [currentCar <span class="string">valueForKey:</span> @<span class="string">"mileage"</span>], [currentCar <span class="string">valueForKey:</span> @<span class="string">"price"</span>], [currentCar <span class="string">valueForKey:</span> @<span class="string">"capacity"</span>]);</span><br><span class="line"></span><br><span class="line"><span class="comment">//8.KVC有自动装箱的功能，当使用valueForKey时，它自动将标量值（int,float,struct...）放入NSNumber或NSValue中；当使用setValueForKey，它自动将标量值从这些对象取出。</span></span><br></pre></td></tr></table></figure>
 <p>###（3）KVO代码实现<br></p>
 <figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//应该在监听者里添加监听，而不是在被监听者里添加监听</span></span><br><span class="line"><span class="comment">//在被监听者添加监听会造成循环引用的问题</span></span><br><span class="line">car = [[Car alloc] init];</span><br><span class="line">[car <span class="string">addObserver:</span> self <span class="string">forKeyPath:</span> @<span class="string">"carPaint"</span> <span class="string">options:</span> NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld <span class="string">context:</span> nil];</span><br><span class="line"></span><br><span class="line">- (<span class="typename">void</span>)<span class="string">observeValueForKeyPath:</span>(NSString *)keyPath <span class="string">ofObject:</span>(id)object <span class="string">change:</span>(NSDictionary&lt;NSString *,id&gt; *)change <span class="string">context:</span>(<span class="typename">void</span> *)context &#123;</span><br><span class="line">    <span class="keyword">if</span> ([keyPath <span class="string">isEqualToString:</span> @<span class="string">"carPaint"</span>]) &#123;</span><br><span class="line">        NSLog(@<span class="string">"%@"</span>, [change <span class="string">objectForKey:</span> @<span class="string">"new"</span>]);    <span class="comment">//修改之后的值</span></span><br><span class="line">        self.showCarDetail.text = [NSString <span class="string">stringWithFormat:</span> @<span class="string">"车的颜色是%@"</span>, [change <span class="string">objectForKey:</span> @<span class="string">"new"</span>]];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (<span class="typename">void</span>)dealloc &#123;</span><br><span class="line">    <span class="comment">//监听者应该是self，被监听者是car</span></span><br><span class="line">    [car <span class="string">removeObserver:</span> self <span class="string">forKeyPath:</span> @<span class="string">"carPaint"</span>];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>###(4)Demo展示：<br><br><img src="http://jashion.b0.upaiyun.com/images/iOSObserving.gif" alt="Observer.gif"></p>
+<h3 id="284_29Demo_u5C55_u793A_uFF1A"><a href="#284_29Demo_u5C55_u793A_uFF1A" class="headerlink" title="(4)Demo展示："></a>(4)Demo展示：<br></h3><p><img src="http://jashion.b0.upaiyun.com/images/iOSObserving.gif" alt="Observer.gif"></p>
 <p><a href="https://github.com/jashion/iOSObserving" target="_blank" rel="external">Demo下载</a></p>
 
       
@@ -277,7 +276,7 @@
         <p><span>本文标题:</span><a href="/2016/05/02/iOS观察者模式/">iOS观察者模式</a></p>
         <p><span>文章作者:</span><a href="/" title="访问 JashionHuang 的个人博客">JashionHuang</a></p>
         <p><span>发布时间:</span>2016年05月02日 - 15时29分</p>
-        <p><span>最后更新:</span>2016年05月02日 - 15时30分</p>
+        <p><span>最后更新:</span>2016年05月02日 - 15时40分</p>
         <p>
             <span>原始链接:</span><a class="post-url" href="/2016/05/02/iOS观察者模式/" title="iOS观察者模式">http://yoursite.com/2016/05/02/iOS观察者模式/</a>
             <span class="copy-path" data-clipboard-text="原文: http://yoursite.com/2016/05/02/iOS观察者模式/　　作者: JashionHuang" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
@@ -294,7 +293,7 @@
     <nav id="article-nav">
         
             <div id="article-nav-newer" class="article-nav-title">
-                <a href="/2016/05/02/如何理解iOS多线程/">
+                <a href="/2016/05/02/iOS内存管理/">
                     
                 </a>
             </div>
@@ -313,7 +312,7 @@
 
     <div id="toc" class="toc-article">
     <strong class="toc-title">文章目录</strong>
-    
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#iOS_u89C2_u5BDF_u8005_u6A21_u5F0F_u5B66_u4E60"><span class="toc-number">1.</span> <span class="toc-text">iOS观察者模式学习 </span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#284_29Demo_u5C55_u793A_uFF1A"><span class="toc-number">1.0.1.</span> <span class="toc-text">(4)Demo展示：</span></a></li></ol></li></ol></li></ol>
 </div>
 <style>
     .left-col .switch-btn {
@@ -416,7 +415,7 @@
         
         
             <div  class="post-nav-button">
-                <a href="/2016/05/02/如何理解iOS多线程/" title="上一篇: ">
+                <a href="/2016/05/02/iOS内存管理/" title="上一篇: ">
                 <i class="fa fa-angle-left"></i>
                 </a>
                 <a href="/2016/05/02/UIDynamicAnimator/" title="下一篇: UIDynamicAnimator">
