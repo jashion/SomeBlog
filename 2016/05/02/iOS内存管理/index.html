@@ -5,28 +5,16 @@
   
   <title>Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="#如何理解iOS的多线程
-###前言：前段时间，很想静下心来研究一下YYText，看了ibireme的一篇《iOS保持界面流畅的技巧》的博客，下了源码，发现里面用到多线程，异步渲染，异步记载，悲催的是，自己对于多线程并不很熟悉，只是在公司项目里面用过轻量级的GCD，所以，下定决心来补一下iOS多线程的知识。
-###1.先弄清楚和线程有关的几个概念（大学读书不用功的同学伤不起T_T）
-
-进程：一个包">
+  <meta name="description" content="#浅谈iOS内存管理">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Hexo">
-<meta property="og:url" content="http://yoursite.com/2016/03/29/如何理解iOS多线程/index.html">
+<meta property="og:url" content="http://yoursite.com/2016/05/02/iOS内存管理/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="#如何理解iOS的多线程
-###前言：前段时间，很想静下心来研究一下YYText，看了ibireme的一篇《iOS保持界面流畅的技巧》的博客，下了源码，发现里面用到多线程，异步渲染，异步记载，悲催的是，自己对于多线程并不很熟悉，只是在公司项目里面用过轻量级的GCD，所以，下定决心来补一下iOS多线程的知识。
-###1.先弄清楚和线程有关的几个概念（大学读书不用功的同学伤不起T_T）
-
-进程：一个包">
-<meta property="og:updated_time" content="2016-03-29T14:55:09.000Z">
+<meta property="og:description" content="#浅谈iOS内存管理">
+<meta property="og:updated_time" content="2016-05-02T07:35:44.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Hexo">
-<meta name="twitter:description" content="#如何理解iOS的多线程
-###前言：前段时间，很想静下心来研究一下YYText，看了ibireme的一篇《iOS保持界面流畅的技巧》的博客，下了源码，发现里面用到多线程，异步渲染，异步记载，悲催的是，自己对于多线程并不很熟悉，只是在公司项目里面用过轻量级的GCD，所以，下定决心来补一下iOS多线程的知识。
-###1.先弄清楚和线程有关的几个概念（大学读书不用功的同学伤不起T_T）
-
-进程：一个包">
+<meta name="twitter:description" content="#浅谈iOS内存管理">
   
     <link rel="alternative" href="/atom.xml" title="Hexo" type="application/atom+xml">
   
@@ -208,11 +196,11 @@
 		</header>				
 	</div>
 </nav>
-      <div class="body-wrap"><article id="post-如何理解iOS多线程" class="article article-type-post" itemscope itemprop="blogPost">
+      <div class="body-wrap"><article id="post-iOS内存管理" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2016/03/29/如何理解iOS多线程/" class="article-date">
-  	<time datetime="2016-03-29T14:55:09.000Z" itemprop="datePublished">2016-03-29</time>
+      <a href="/2016/05/02/iOS内存管理/" class="article-date">
+  	<time datetime="2016-05-02T07:35:44.000Z" itemprop="datePublished">2016-05-02</time>
 </a>
     </div>
   
@@ -224,35 +212,22 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-        <p>#如何理解iOS的多线程</p>
-<p>###前言：<br \=""><br>前段时间，很想静下心来研究一下YYText，看了ibireme的一篇《iOS保持界面流畅的技巧》的博客，下了源码，发现里面用到多线程，异步渲染，异步记载，悲催的是，自己对于多线程并不很熟悉，只是在公司项目里面用过轻量级的GCD，所以，下定决心来补一下iOS多线程的知识。<br \=""></p>
-<p>###1.先弄清楚和线程有关的几个概念（大学读书不用功的同学伤不起T_T）<br \=""></p>
+        <p>#浅谈iOS内存管理</p>
+<a id="more"></a>
+<p>###1.MRC(Manul Reference Counting)人工引用计数</p>
+<p>在ARC出现之前，需要手动管理内存。如何手动管理内存呢？首先，得知道，在iOS系统里面，对象的生命周期是通过引用计数管理的。每个对象   都有着一个与之关联的整数。当使用alloc,new方法或者通过copy消息创建对象的时候，对象的保留计数器的值设置为1。当对象调用retain方法，该对象的保留计数增加1，反之，如果对象调用release方法，该对象的保留计数减少1（注意：如果对象本身的保留计数为0，再调用或者说发送release消息就会造成crash）。当一个对象的计数为0时，系统会自动向对象发送dealloc消息，销毁对象，释放内存。</p>
 <blockquote>
-<p>进程：一个包含多个线程的可执行文件。（The term process is used to refer to a running executable, which can encompass multiple threads.）<br \=""><br>线程：一段可以执行的对立代码。（The term thread is used to refer to a separate path of execution for code.）<br \=""><br>任务：对于所做工作的抽象概念。（The term task is used to refer to the abstract concept of work that needs to be performed.）<br \=""><br>队列：我的理解是，一个装载任务的容器。<br \=""><br>同步：在当前的线程执行任务，会阻塞当前线程的操作。<br \=""><br>异步：另开一个新线程执行任务，不会阻塞当前的线程操作。<br \=""><br>串行：队列的任务，根据FIFO的规则，一个个执行。<br \=""><br>并行：队列的任务，并行执行。如果CPU是多核，则会多个线程一齐执行，如果非多核，则会采取时间片轮转的调度方式，根据FIFO的规则执行，由于没个线程执行的时间很短，可以看成是同步执行的队列。<br \=""></p>
+<p>手动管理内存需要注意下面几点：<br \=""><br>（1）使用alloc,new或copy方法创建对象时，该对象的保留计数为1。当不再使用该对象时，向该对象发送一条release或者autorelease消息。<br \=""><br>（2）如果你通过其他方法获得一个对象，则不需要你来管理该对象的生命周期，除非你想在一段时间内拥有改对象，则需要在使用前retain，使用完成后release。<br \=""><br>（3）必须保证retain和release成对出现。<br \=""><br>（4）release操作只是使当前对象的保留计数减1，并不是销毁该对象。当该对象的保留计数为0时，系统才会发送dealloc消息，销毁对象。<br \=""><br>（5）把对象加入autorelease也不是立马使该对象的保留计数减1，而是在未来适当的时机release该对象。</p>
 </blockquote>
-<p>####进程，线程，任务和队列的区别和联系：<br \=""></p>
+<p>###2.ARC（Automatic reference counting）自动引用计数</p>
+<p>不得不说，苹果引入ARC是一个英明的决定，从此，苹果开发者告别手动管理内存的艰难时期，是广大开发者的福音。为什么ARC那么强大呢？其实ARC只是做了一件事，就是在编译时自动帮你的代码插入retain和release。恰恰，它强大之处就在于这里，避免开发者忘记添加retian和release，一两个对象不觉得的，如果对象很多的话，就很容易忘记，所以说，ARC帮我们解决了手动管理对象生命周期的痛苦，让我们更专注于代码的逻辑实现。<br \=""><br>虽然ARC很强大，但是并不是所有的对象都能用ARC,一些不能使用ARC的对象，还是得手动管理内存。<br \=""></p>
 <blockquote>
-<p>（1）进程可以看作一个程序，可以理解成一个App就是一个进程，一个进程包括一个或者多个线程。<br \=""><br>（2）线程则是一个进程里面的概念，同一个进程包含的线程可以共享进程里面的数据，所以，多线程安全的问题也就突显出来了。线程里面的数据不共享，但线程和线程之间可以通信。<br \=""><br>（3）任务只是一个抽象的概念，一个线程里面的某个有意义的代码片段可以称之为任务，多个线程完成一个工作也可以称之为任务，所以，任务和线程不是同一层面的意思。<br \=""><br>（4）队列，可以简单的理解为，一个容纳任务的容器。<br \=""></p>
+<p>可以使用ARC的对象：<br \=""><br>（1）block<br \=""><br>（2）Objective-C对象<br \=""><br>（3）_<em>attribute</em>((NSObject))修饰的对象<br \=""></p>
+<p>说说strong,weak,retain,assign,copy修饰符：<br \=""><br>（1）strong和weak<br \=""><br>以前一直不明白，strong和weak修饰变量，有什么用？网上的说法大多都是雷同，就是强引用和弱引用关系。现在才明白，其实强引用指的是修饰的变量指向的对象的关系，也就相对于对象的强引用和弱引用。比如，对象A用strong修饰，对象B用weak修饰，那么A引用B就是强引用，B引用A就是弱引用。strong和weak的区别在于对对象的束缚力。stackOver上有个比较有趣的例子形容strong和weak，就是在某棵树下有一条狗，strong就是那些拿着拴狗链的人，只要还有人在，狗就跑不了，而weak是没有拴狗链的人，只是语言上的规劝，要狗好好的呆着别动，但是狗还是可以跑的。总之一句话，有强哥在准跑不了。<br \=""><br>（2）strong和retain<br \=""><br>strong和retain差不多，没啥区别，只不过ARC以后都习惯用strong。<br \=""><br>（3）weak和assign<br \=""><br>weak和assign最大的区别在于，weak修饰的对象保留计数为0，则把该对象设置为nil，assign不会。设置为nil的好处在于，如果误发消息给该对象，不会crash，因为nil也是属于对象，如果是null就会crash。<br \=""><br>（4）retain和copy<br \=""></p>
 </blockquote>
-<p>###2.iOS里面可用的多线程</p>
-<blockquote>
-<ul>
-<li>PThread(现实中不怎么用到，所以略过)</li>
-<li>NSThread</li>
-<li>GCD(Grand Central Dispatch)</li>
-<li>NSOperation</li>
-</ul>
-</blockquote>
-<p>下面我会一一讲解，我所了解到的多线程。<br \=""><br>NSThread基于Objective-C对象，是苹果用来取代PThread的，方便使用，但是需要手动管理线程的生命周期(线程创建，调度和销毁等)。NSThread相比于GCD，NSOperation更趋向于系统级别的多线程的封装，使用起来没有GCDN和SOperation那么方便，但是，也有一些好用的功能，比如获取当前线程的相关信息：[NSThread currentThread];所以，多线程开发使用哪种实现，取决于你需要实现功能的情景，一般比较轻量级的，好用的就选GCD.GCD是苹果开发的，基于C语言的多线程，不需要手动管理线程的生命周期，而且它可以充分利用多核的优势。如果只想新开一个线程运行一些函数而不关心其他的东西，你可以选择GCD；但是如果你想实现更复杂的行为，那么应该选择NSOperation，因为NSOperation是基于GCD（以前基于NSThread）的更高层次的API，并且功能比CGD更强大，自由度更高，可以实现更复杂的线程依赖。             </p>
-<p>####NSThread<br>（1）启动一个NSThread的通用方法</p>
-<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//NSThread</span></span><br><span class="line"><span class="built_in">NSThread</span> *thread = [[<span class="built_in">NSThread</span> alloc] initWithTarget: <span class="keyword">self</span> selector: <span class="keyword">@selector</span>(runThread) object: <span class="literal">nil</span>];</span><br><span class="line">[thread start];    <span class="comment">//通过start启动线程，启动的时间可以自己设置，比如通过NSTimer延时启动</span></span><br><span class="line">    </span><br><span class="line">[<span class="built_in">NSThread</span> detachNewThreadSelector: <span class="keyword">@selector</span>(runThread) toTarget: <span class="keyword">self</span> withObject: <span class="literal">nil</span>];    <span class="comment">//自启动线程，不能掌握线程的启动时间</span></span><br></pre></td></tr></table></figure>
-<p>（2）其他的一些方法</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="keyword">void</span>)main    <span class="comment">//不会调用直接调用，线程调用start时会自动调用。如果自定义NSThread的子类，并想在自定义的线程进行一些操作时，就需要重写改方法</span></span><br><span class="line"></span><br><span class="line">+ sleepUntilDate:    <span class="comment">//在你设定的时间之前阻塞当前的线程</span></span><br><span class="line">+ <span class="built_in">exit</span>    <span class="comment">//结束当前线程，不过在之前会发NSThreadWillExitNotification</span></span><br><span class="line">+ currentThread    <span class="comment">//获取当前线程的相关信息，这个也是最常用的</span></span><br><span class="line">－ cancel    <span class="comment">//并不会停止正在进行的操作，只能更改还在队列里面，还没运行的任务</span></span><br><span class="line">+ setThreadPriority    <span class="comment">//设置当前线程的优先级</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//一些表示线程的状态值</span></span><br><span class="line">executing    <span class="comment">//A Boolean value that indicates whether the receiver is executing. (read-only)</span></span><br><span class="line">finished    <span class="comment">//A Boolean value that indicates whether the receiver has finished execution. (read-only)</span></span><br><span class="line">cancelled    <span class="comment">//A Boolean value that indicates whether the receiver is cancelled. (read-only)</span></span><br></pre></td></tr></table></figure>
-<p>小结：NSThread比较接近系统级别的多线程API，平时比较少用到，一般GCD和NSOperation就够用了。</p>
-<p>####GCD(Grand Central Dispatch)<br>GCD不得不说是苹果造福广大开发者的一大创举，充分利用手机的多核，自动管理生命周期，用起来简单，不用关系线程的调度。所以，一般不是要求太高的，用GCD就完全可以解决需要。废话不多说，我们继续进入状态。<br \=""></p>
-<p>（1）创建全局并行队列</p>
-<pre><code>
-</code></pre>
+<p>&gt;<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">\\retain</span><br><span class="line">- (void)<span class="built_in">set</span>TestObject: (id)newValue &#123;</span><br><span class="line">	<span class="keyword">if</span> (<span class="built_in">test</span>Object != newValue) &#123;</span><br><span class="line">		[<span class="built_in">test</span>Object release];</span><br><span class="line">		<span class="built_in">test</span>Object = [newValue retain];</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line">&gt;</span><br><span class="line">\\copy</span><br><span class="line">- (void)<span class="built_in">set</span>TestObject: (id)newValue &#123;</span><br><span class="line">	<span class="keyword">if</span> (<span class="built_in">test</span>Object != newValue) &#123;</span><br><span class="line">		[<span class="built_in">test</span>Object release];</span><br><span class="line">		<span class="built_in">test</span>Object = [newValue copy];</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>###3.ARC与autorelease<br>ARC的作用就是在编译时期帮代码自动插入retain和release，而autorelease就是将需要释放的对象加入到一个stack里面，并不会立刻释放，而是在autorelease pool销毁时，一齐释放栈里面的对象。其实就是相当于release的作用。当时，不明白，既然有了ARC为什么还需要autoreleasepool？其实关键之处在于作用域，如果的创建与释放隔的很近，ARC在编译时就很容易判断在哪个位置插入retain和release，但是如果横跨几个文件或者说不知道什么时候释放该对象，这时候autorelease就很有用了，每个线程的RunLoop都有自己的autoreleasepool，当该RunLoop结束时，autoreleasepool就会被销毁，里面所有的对象也会一一销毁。</p>
+
       
     </div>
     
@@ -260,13 +235,13 @@
   
     
     <div class="copyright">
-        <p><span>本文标题:</span><a href="/2016/03/29/如何理解iOS多线程/"></a></p>
+        <p><span>本文标题:</span><a href="/2016/05/02/iOS内存管理/"></a></p>
         <p><span>文章作者:</span><a href="/" title="访问 JashionHuang 的个人博客">JashionHuang</a></p>
-        <p><span>发布时间:</span>2016年03月29日 - 22时55分</p>
-        <p><span>最后更新:</span>2016年03月29日 - 22时55分</p>
+        <p><span>发布时间:</span>2016年05月02日 - 15时35分</p>
+        <p><span>最后更新:</span>2016年05月02日 - 15时35分</p>
         <p>
-            <span>原始链接:</span><a class="post-url" href="/2016/03/29/如何理解iOS多线程/" title="">http://yoursite.com/2016/03/29/如何理解iOS多线程/</a>
-            <span class="copy-path" data-clipboard-text="原文: http://yoursite.com/2016/03/29/如何理解iOS多线程/　　作者: JashionHuang" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
+            <span>原始链接:</span><a class="post-url" href="/2016/05/02/iOS内存管理/" title="">http://yoursite.com/2016/05/02/iOS内存管理/</a>
+            <span class="copy-path" data-clipboard-text="原文: http://yoursite.com/2016/05/02/iOS内存管理/　　作者: JashionHuang" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
             <script src="/js/clipboard.min.js"></script>
             <script> var clipboard = new Clipboard('.copy-path'); </script>
         </p>
@@ -279,15 +254,9 @@
 
     <nav id="article-nav">
         
-            <div id="article-nav-newer" class="article-nav-title">
-                <a href="/2016/05/02/UIDynamicAnimator/">
-                    UIDynamicAnimator
-                </a>
-            </div>
-        
         
             <div id="article-nav-older" class="article-nav-title">
-                <a href="/2016/03/28/iOS内存管理/">
+                <a href="/2016/05/02/如何理解iOS多线程/">
                     
                 </a>
             </div>
@@ -361,7 +330,7 @@
 
     <div class="duoshuo" id="comments">
 	<!-- 多说评论框 start -->
-	<div class="ds-thread" data-thread-key="2016/03/29/如何理解iOS多线程/" data-title="" data-url="http://yoursite.com/2016/03/29/如何理解iOS多线程/"></div>
+	<div class="ds-thread" data-thread-key="2016/05/02/iOS内存管理/" data-title="" data-url="http://yoursite.com/2016/05/02/iOS内存管理/"></div>
 	<!-- 多说评论框 end -->
 	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
 	<script type="text/javascript">
@@ -399,16 +368,14 @@
         
 
         
-        
-        
             <div  class="post-nav-button">
-                <a href="/2016/05/02/UIDynamicAnimator/" title="上一篇: UIDynamicAnimator">
-                <i class="fa fa-angle-left"></i>
-                </a>
-                <a href="/2016/03/28/iOS内存管理/" title="下一篇: ">
+                <a href="/" title="回到主页"><i class="fa fa-home"></i></a>
+                <a href="/2016/05/02/如何理解iOS多线程/" title="下一篇: ">
                 <i class="fa fa-angle-right"></i>
                 </a>
             </div>
+        
+        
         
 
 
