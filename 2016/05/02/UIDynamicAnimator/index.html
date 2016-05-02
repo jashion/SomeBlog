@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="#UIKit Dynamics动力系统入门
+###1.什么是动力系统(What is the UIKit Dynamics?)动力系统的引入，并不是替代CoreAnimation，而是对模拟现实世界物体运动的补充，比如，碰撞，重力，悬挂等等。所以说，UIKit动力系统的引入，大大简化了一些交互动画（不需要自己实现一些模拟现实世界物理动力系统的动画），丰富了UI设计。
+###2.动力系统怎么使用(H">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Hexo">
+<meta property="og:url" content="http://yoursite.com/2016/05/02/UIDynamicAnimator/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="#UIKit Dynamics动力系统入门
+###1.什么是动力系统(What is the UIKit Dynamics?)动力系统的引入，并不是替代CoreAnimation，而是对模拟现实世界物体运动的补充，比如，碰撞，重力，悬挂等等。所以说，UIKit动力系统的引入，大大简化了一些交互动画（不需要自己实现一些模拟现实世界物理动力系统的动画），丰富了UI设计。
+###2.动力系统怎么使用(H">
+<meta property="og:image" content="http://jashion.b0.upaiyun.com/images/UIDynamics.png">
+<meta property="og:image" content="http://jashion.b0.upaiyun.com/images/UIDynamics.gif">
+<meta property="og:updated_time" content="2016-05-02T07:06:32.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Hexo">
+<meta name="twitter:description" content="#UIKit Dynamics动力系统入门
+###1.什么是动力系统(What is the UIKit Dynamics?)动力系统的引入，并不是替代CoreAnimation，而是对模拟现实世界物体运动的补充，比如，碰撞，重力，悬挂等等。所以说，UIKit动力系统的引入，大大简化了一些交互动画（不需要自己实现一些模拟现实世界物理动力系统的动画），丰富了UI设计。
+###2.动力系统怎么使用(H">
+  
+    <link rel="alternative" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <link rel="stylesheet" href="/css/style.css" type="text/css">
+  <link rel="stylesheet" href="/font-awesome/css/font-awesome.min.css">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  
+</head>
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			
+			<img lazy-src="http://jashion.b0.upaiyun.com/images/avatar.png" class="js-avatar">
+			
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/">JashionHuang</a></h1>
+		</hgroup>
+
+		
+		
+		<form><input type="text" class="search" placeholder=" Search..."></form>
+				
+
+
+		
+			<div id="switch-btn" class="switch-btn">
+				<div class="icon">
+					<div class="icon-ctn">
+						<div class="icon-wrap icon-house" data-idx="0">
+							<div class="birdhouse"></div>
+							<div class="birdhouse_holes"></div>
+						</div>
+						<div class="icon-wrap icon-ribbon hide" data-idx="1">
+							<div class="ribbon"></div>
+						</div>
+						
+						<div class="icon-wrap icon-link hide" data-idx="2">
+							<div class="loopback_l"></div>
+							<div class="loopback_r"></div>
+						</div>
+						
+						
+						<div class="icon-wrap icon-me hide" data-idx="3">
+							<div class="user"></div>
+							<div class="shoulder"></div>
+						</div>
+						
+					</div>
+					
+				</div>
+				<div class="tips-box hide">
+					<div class="tips-arrow"></div>
+					<ul class="tips-inner">
+						<li>菜单</li>
+						<li>标签</li>
+						
+						<li>友情链接</li>
+						
+						
+						<li>关于我</li>
+						
+					</ul>
+				</div>
+			</div>
+		
+
+		<div id="switch-area" class="switch-area">
+			<div class="switch-wrap">
+				<section class="switch-part switch-part1">
+					<nav class="header-menu">
+						<ul>
+						
+							<li><a href="/">主页</a></li>
+				        
+							<li><a href="/archives/">所有文章</a></li>
+				        
+							<li><a href="/tags/">标签云</a></li>
+				        
+							<li><a href="/about/">关于我</a></li>
+				        
+						</ul>
+					</nav>
+					<nav class="header-nav">
+						<ul class="social">
+							
+								<li id="Email"><a class="Email" target="_blank" href="mailto:123@123.com" title="Email"></a></li>
+					        
+								<li id="新浪微博"><a class="新浪微博" target="_blank" href="http://weibo.com/u/3100804855/home?wvr=5&lf=reg" title="新浪微博"></a></li>
+					        
+								<li id="GitHub"><a class="GitHub" target="_blank" href="https://github.com/jashion" title="GitHub"></a></li>
+					        
+						</ul>
+					</nav>
+				</section>
+				
+				
+				<section class="switch-part switch-part2">
+					<div class="widget tagcloud" id="js-tagcloud">
+						
+					</div>
+				</section>
+				
+				
+				
+				<section class="switch-part switch-part3">
+					<div id="js-friends">
+					
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="https://hexo.io">Hexo</a>
+			        
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="https://pages.github.com/">GitHub</a>
+			        
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="http://moxfive.xyz/">MOxFIVE</a>
+			        
+			        </div>
+				</section>
+				
+
+				
+				
+				<section class="switch-part switch-part4">
+				
+					<div id="js-aboutme">专注于iOS移动前端</div>
+				</section>
+				
+			</div>
+		</div>
+	</header>				
+</div>
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"></div>
+  		<h1 class="header-author js-mobile-header hide"><a href="/" title="回到主页">JashionHuang</a></h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<a href="/" class="profilepic">
+				<img lazy-src="http://jashion.b0.upaiyun.com/images/avatar.png" class="js-avatar">
+			</a>
+			<hgroup>
+			  <h1 class="header-author"><a href="/" title="回到主页">JashionHuang</a></h1>
+			</hgroup>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/archives/">所有文章</a></li>
+		        
+					<li><a href="/tags/">标签云</a></li>
+		        
+					<li><a href="/about/">关于我</a></li>
+		        
+		        <div class="clearfix"></div>
+				</ul>
+			</nav>
+			<nav class="header-nav">
+						<ul class="social">
+							
+								<li id="Email"><a class="Email" target="_blank" href="mailto:123@123.com" title="Email"></a></li>
+					        
+								<li id="新浪微博"><a class="新浪微博" target="_blank" href="http://weibo.com/u/3100804855/home?wvr=5&lf=reg" title="新浪微博"></a></li>
+					        
+								<li id="GitHub"><a class="GitHub" target="_blank" href="https://github.com/jashion" title="GitHub"></a></li>
+					        
+						</ul>
+			</nav>
+		</header>				
+	</div>
+</nav>
+      <div class="body-wrap"><article id="post-UIDynamicAnimator" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2016/05/02/UIDynamicAnimator/" class="article-date">
+  	<time datetime="2016-05-02T07:06:32.000Z" itemprop="datePublished">2016-05-02</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        <p>#UIKit Dynamics动力系统入门</p>
+<p>###1.什么是动力系统(What is the UIKit Dynamics?)<br>动力系统的引入，并不是替代CoreAnimation，而是对模拟现实世界物体运动的补充，比如，碰撞，重力，悬挂等等。所以说，UIKit动力系统的引入，大大简化了一些交互动画（不需要自己实现一些模拟现实世界物理动力系统的动画），丰富了UI设计。</p>
+<p>###2.动力系统怎么使用(How to use it?)<br><strong>UIKit动力系统结构如下：</strong></p>
+<p><img src="http://jashion.b0.upaiyun.com/images/UIDynamics.png" alt="image"></p>
+<p>总的来说，先要注册UI系统体系，也就是类似于二维的坐标系，然后添加所需的行为以及行为的作用物体，然后该物体就能在设定的坐标体系里，根据所添加的行为运动。<br><br>光说不练乃是纸上谈兵，没有成效。下面分解动力系统所包含的几类运动。</p>
+<p><strong>UIGravityBehavior</strong></p>
+<p>重力，这个大家应该都很熟悉了。我们每天都能感受到它的存在，所谓脚踏实地就是这种感觉。小时候，大家应该都有过从高处把一些物体扔下来，或者直接让它坐自由落体运动，相似的，这个Gravity也是模拟重力行为，下面直接上代码。</p>
+<figure class="highlight crystal"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">myAnimator = [[<span class="constant">UIDynamicAnimator</span> alloc] <span class="symbol">initWithReferenceView:</span> <span class="keyword">self</span>];</span><br><span class="line">myAnimator.delegate = <span class="keyword">self</span>;</span><br><span class="line"><span class="constant">UIGravityBehavior</span> *gravityBehavior = [[<span class="constant">UIGravityBehavior</span> alloc] <span class="symbol">initWithItems:</span> <span class="annotation">@[ball]</span>];</span><br><span class="line">[myAnimator <span class="symbol">addBehavior:</span> gravityBehavior];</span><br></pre></td></tr></table></figure>
+<p>1.UIDynamicAnimator就是一个播放者，容器。一个容纳动力系统的环境，而referenceView就是该环境的坐标系，物体运动的参照系。<br></p>
+<ol>
+<li>gravityBehavior，初始化一个重力行为，行为的受力物体是ball（只要实现UIDynamicItem接口的类都能作为受力物体，如，View和UICollectionViewLayoutAttributes）。<br></li>
+<li>将这个行为添加到UIDynamicAnimator上面就行了。<br></li>
+<li>显示效果的Demo以及代码下载在最后。</li>
+</ol>
+<p><strong>UICollisionBehavior</strong></p>
+<p>碰撞行为，最直接的感受就是，玩弹珠，一颗弹珠可以被另一颗弹珠弹射到很远的地方，原理就是碰撞产生了一个反方向的作用力，远离事故发生地。废话也不多说，直接上代码：</p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">myAnimator = [[<span class="built_in">UIDynamicAnimator</span> alloc] initWithReferenceView: <span class="keyword">self</span>];</span><br><span class="line"></span><br><span class="line"><span class="built_in">UICollisionBehavior</span> *collision = [[<span class="built_in">UICollisionBehavior</span> alloc] initWithItems: ballsArray2];        collision<span class="variable">.translatesReferenceBoundsIntoBoundary</span> = <span class="literal">YES</span>;</span><br><span class="line">collision<span class="variable">.collisionDelegate</span> = <span class="keyword">self</span>;</span><br><span class="line">[myAnimator addBehavior: collision];</span><br></pre></td></tr></table></figure>
+<p>1.和重力行为一样，也要先初始化一个容器myAnimator。<br><br>2.添加碰撞行为collision，collision.translatesReferenceBoundsIntoBoundary的属性是否设置以参考View的边界为碰撞边界，我们这里选择YES。<br><br>3.除了设置参考View的边界为碰撞边界外，还可以自己设定边界，使用- addBoundaryWithIdentifier: forPath:或者addBoundaryWithIdentifier: fromPoint: toPoint:方法可以自己设定碰撞边界的范围。<br>4。最后，也需要把collision添加到myAnimator上。</p>
+<p><strong>UIAttachmentBehavior</strong></p>
+<p>描述一个物体和一个锚点或者另一个物体的连接，可以是弹性的，也可以是非弹性的连接。直接上代码：</p>
+<figure class="highlight pf"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">UIAttachmentBehavior *attachmentBehavior = [[UIAttachmentBehavior alloc] initWithItem: square offsetFromCenter: UIOffsetMake(<span class="number">0</span>, - <span class="number">40</span>) attachedToAnchor: <span class="built_in">anchor</span>];</span><br><span class="line">attachmentBehavior.length = <span class="number">100</span>;</span><br><span class="line">attachmentBehavior.damping = <span class="number">0.3</span>;</span><br><span class="line">[myAnimator addBehavior: attachmentBehavior];</span><br></pre></td></tr></table></figure>
+<p>1.物体默认的锚点在中心，可以设置偏移。<br><br>2.步骤也是和其它得行为一样，设置参数，把该行为添加到myAnimator上。<br><br>3.更多的方法和属性，请自行参考苹果官方文档。</p>
+<p><strong>UISnapBehavior</strong></p>
+<p>吸附行为，将UIView通过动画吸附到某个点上。API非常简单，看下面代码就懂了。</p>
+<figure class="highlight dns"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">UISnapBehavior *snapBehavior = [[UISnapBehavior alloc] initWithItem: ballView snapToPoint: centerBall.center]<span class="comment">;</span></span><br><span class="line">snapBehavior.damping = 0.4<span class="comment">;</span></span><br><span class="line">[myAnimator addBehavior: snapBehavior]<span class="comment">;</span></span><br></pre></td></tr></table></figure>
+<p><strong>UIPushBehavior</strong></p>
+<p>推动力，可以理解为向一个物体施加一个作用力，可以是持续的，也可以是瞬间的冲击。</p>
+<figure class="highlight crystal"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="constant">UIPushBehavior</span> *pushBehavior = [[<span class="constant">UIPushBehavior</span> alloc] <span class="symbol">initWithItems:</span> <span class="annotation">@[square]</span> <span class="symbol">mode:</span> <span class="constant">UIPushBehaviorModeInstantaneous</span>];</span><br><span class="line">pushBehavior.pushDirection = <span class="constant">CGVectorMake</span>(velocity.x / <span class="number">1000</span>, velocity.y / <span class="number">1000</span>);</span><br><span class="line">[myAnimator <span class="symbol">addBehavior:</span> pushBehavior];</span><br></pre></td></tr></table></figure>
+<p><strong>UIDynamicItemBehavior</strong></p>
+<p>这其实不是一种行为，我的理解是对于将要进行各种行为的物体一些参数上面的设置，比如，弹力，震荡频率，密度等等。</p>
+<figure class="highlight armasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="label">UIDynamicItemBehavior</span> *<span class="keyword">behavior3 </span>= [[UIDynamicItemBehavior alloc] initWithItems: <span class="comment">@[ballsArray2[2]]];</span></span><br><span class="line"><span class="keyword">behavior3.elasticity </span>= <span class="number">0</span>.<span class="number">5</span><span class="comment">;</span></span><br><span class="line"><span class="keyword">behavior3.friction </span>= <span class="number">0</span>.<span class="number">3</span><span class="comment">;</span></span><br><span class="line"><span class="keyword">behavior3.resistance </span>= <span class="number">0</span>.<span class="number">3</span><span class="comment">;</span></span><br><span class="line">[myAnimator <span class="keyword">addBehavior: </span><span class="keyword">behavior3];</span></span><br></pre></td></tr></table></figure>
+<p>###3.组合(Group)</p>
+<p>所有的行为都可以组合起来，如碰撞和重力，可以类似于物体做自由落体运动，然后和地面碰撞。代码如下：</p>
+<figure class="highlight crystal"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">myAnimator = [[<span class="constant">UIDynamicAnimator</span> alloc] <span class="symbol">initWithReferenceView:</span> <span class="keyword">self</span>];</span><br><span class="line"><span class="regexp">//</span>重力行为</span><br><span class="line"><span class="constant">UIGravityBehavior</span> *gravity = [[<span class="constant">UIGravityBehavior</span> alloc] <span class="symbol">initWithItems:</span> <span class="annotation">@[ball]</span>];</span><br><span class="line">[myAnimator <span class="symbol">addBehavior:</span> gravity];</span><br><span class="line"></span><br><span class="line"><span class="regexp">//</span>碰撞行为</span><br><span class="line"><span class="constant">UICollisionBehavior</span> *collision = [[<span class="constant">UICollisionBehavior</span> alloc] <span class="symbol">initWithItems:</span> <span class="annotation">@[ball]</span>];</span><br><span class="line">collision.translatesReferenceBoundsIntoBoundary = <span class="constant">YES</span>;</span><br><span class="line">collision.collisionDelegate = <span class="keyword">self</span>;</span><br><span class="line">[myAnimator <span class="symbol">addBehavior:</span> collision];</span><br><span class="line"></span><br><span class="line"><span class="regexp">//</span>设置物体的一些相关的参数</span><br><span class="line"><span class="constant">UIDynamicItemBehavior</span> *behavior = [[<span class="constant">UIDynamicItemBehavior</span> alloc] init];</span><br><span class="line">behavior.elasticity = <span class="number">0.8</span>;</span><br><span class="line">behavior.friction = <span class="number">0.2</span>;</span><br><span class="line">behavior.resistance = <span class="number">0.3</span>;</span><br><span class="line">behavior.density = <span class="number">0.5</span>;</span><br><span class="line">behavior.angularResistance = <span class="number">0.2</span>;</span><br><span class="line">[behavior <span class="symbol">addItem:</span> ball];</span><br><span class="line">[myAnimator <span class="symbol">addBehavior:</span> behavior];</span><br></pre></td></tr></table></figure>
+<p>###4.自定义行为(DIY)<br>1.将官方的行为打包<br></p>
+<ul>
+<li>继承UIDynamicBehavior(一个抽象类)</li>
+<li>实现添加组合行为的方法，最好和官方的保持一致，比如：initWithItems:，在里面调用addChildBehavior：方法添加需要组合的行为</li>
+<li>初始化该继承类，然后使用</li>
+</ul>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">GravityWithCollisionBehavior</span> : <span class="title">UIDynamicBehavior</span></span></span><br><span class="line"></span><br><span class="line">- (instancetype)initWithItems: (<span class="built_in">NSArray</span> *)items;</span><br><span class="line"></span><br><span class="line"><span class="keyword">@end</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">@implementation</span> <span class="title">GravityWithCollisionBehavior</span></span></span><br><span class="line"></span><br><span class="line">- (instancetype)initWithItems: (<span class="built_in">NSArray</span> *)items &#123;</span><br><span class="line">    <span class="keyword">self</span> = [<span class="keyword">super</span> init];</span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">self</span>) &#123;</span><br><span class="line">        <span class="built_in">UIGravityBehavior</span> *gravityBehavior = [[<span class="built_in">UIGravityBehavior</span> alloc] initWithItems: items];</span><br><span class="line">        [<span class="keyword">self</span> addChildBehavior: gravityBehavior];</span><br><span class="line">        <span class="built_in">UICollisionBehavior</span> *collisionBehavior = [[<span class="built_in">UICollisionBehavior</span> alloc] initWithItems: items];</span><br><span class="line">        collisionBehavior<span class="variable">.translatesReferenceBoundsIntoBoundary</span> = <span class="literal">YES</span>;</span><br><span class="line">        [<span class="keyword">self</span> addChildBehavior: collisionBehavior];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">self</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">@end</span></span><br></pre></td></tr></table></figure>
+<p>2.完全自定义行为<br><br>UIDynamicBehavior里提供了一个<code>@property(nonatomic, copy) void (^action)(void)</code>，animator将会在行为发生期间，每一步都调用这个block。也就是说，你想自定义行为就得在这里写自己的一些代码。具体就是在这个block中向所有的item询问它们当前的center和transform状态，然后经过计算，把新的值赋予相应的item，从而该改变它们在屏幕上的位置，大小，角度，方向等等。</p>
+<p>###5.终结(Summary)<br>总的来说，iOS7引进的这套动力系统，大大丰富了我们动画表达，但是，该系统有着一些限制，会消耗一定的CPU资源，并且，当它们被添加到动画系统后，只能通过动画系统改变位置，而外部对于UIDynamicsItem的center,transform等设定是被忽略的，除此之外，该系统也没有现实世界那么精确，当计算迭代无法得到有效解的时候，动画将无法得到正确的呈现，所以，不要将动力系统神化。</p>
+<p>###6.Demo展示</p>
+<p><img src="http://jashion.b0.upaiyun.com/images/UIDynamics.gif" alt="UIDynamicAnimator"></p>
+<p><a href="https://github.com/jashion/UIDynamicAnimation.git" target="_blank" rel="external">源码下载</a></p>
+
+      
+    </div>
+    
+  </div>
+  
+    
+    <div class="copyright">
+        <p><span>本文标题:</span><a href="/2016/05/02/UIDynamicAnimator/"></a></p>
+        <p><span>文章作者:</span><a href="/" title="访问 JashionHuang 的个人博客">JashionHuang</a></p>
+        <p><span>发布时间:</span>2016年05月02日 - 15时06分</p>
+        <p><span>最后更新:</span>2016年05月02日 - 15时06分</p>
+        <p>
+            <span>原始链接:</span><a class="post-url" href="/2016/05/02/UIDynamicAnimator/" title="">http://yoursite.com/2016/05/02/UIDynamicAnimator/</a>
+            <span class="copy-path" data-clipboard-text="原文: http://yoursite.com/2016/05/02/UIDynamicAnimator/　　作者: JashionHuang" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
+            <script src="/js/clipboard.min.js"></script>
+            <script> var clipboard = new Clipboard('.copy-path'); </script>
+        </p>
+        <p>
+            <span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/" title="中国大陆 (CC BY-NC-SA 3.0 CN)">"署名-非商用-相同方式共享 3.0"</a> 转载请保留原文链接及作者。
+        </p>
+    </div>
+
+
+
+    <nav id="article-nav">
+        
+            <div id="article-nav-newer" class="article-nav-title">
+                <a href="/2016/05/02/iOS观察者模式/">
+                    
+                </a>
+            </div>
+        
+        
+            <div id="article-nav-older" class="article-nav-title">
+                <a href="/2016/03/29/如何理解iOS多线程/">
+                    
+                </a>
+            </div>
+        
+    </nav>
+
+  
+</article>
+
+    <div id="toc" class="toc-article">
+    <strong class="toc-title">文章目录</strong>
+    
+</div>
+<style>
+    .left-col .switch-btn {
+        display: none;
+    }
+    .left-col .switch-area {
+        display: none;
+    }
+</style>
+
+<input type="button" id="tocButton" value="隐藏目录"  title="点击按钮隐藏或者显示文章目录">
+
+<script src="https://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js" type="text/javascript"></script>
+<script>
+    var toc_button = document.getElementById("tocButton");
+    var toc_div = document.getElementById("toc");
+    toc_button.onclick=function() {
+        if (toc_div.style.display == "none") {
+            toc_div.style.display = "block";
+            toc_button.value = "隐藏目录";
+            document.getElementById("switch-btn").style.display = "none";
+            document.getElementById("switch-area").style.display = "none";
+        }
+        else {
+            toc_div.style.display = "none";
+            toc_button.value = "显示目录";
+            document.getElementById("switch-btn").style.display = "block";
+            document.getElementById("switch-area").style.display = "block";
+        }
+    }
+
+    if ($(".toc").length < 1) {
+        $("#toc").css("display","none");
+        $("#tocButton").css("display","none");
+        $(".switch-btn").css("display","block");
+        $(".switch-area").css("display","block");
+    }
+</script>
+
+
+
+
+<div class="share">
+    <div class="bdsharebuttonbox">
+    <a href="#" class="bds_more" data-cmd="more"></a>
+    <a href="#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a>
+    <a href="#" class="bds_sqq" data-cmd="sqq" title="分享给 QQ 好友"></a>
+    <a href="#" class="bds_copy" data-cmd="copy" title="复制网址"></a>
+    <a href="#" class="bds_mail" data-cmd="mail" title="通过邮件分享"></a>
+    <a href="#" class="bds_weixin" data-cmd="weixin" title="生成文章二维码"></a>
+    </div>
+    <script>
+        window._bd_share_config={
+            "common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+    </script>
+</div>
+
+
+
+    <div class="duoshuo" id="comments">
+	<!-- 多说评论框 start -->
+	<div class="ds-thread" data-thread-key="2016/05/02/UIDynamicAnimator/" data-title="" data-url="http://yoursite.com/2016/05/02/UIDynamicAnimator/"></div>
+	<!-- 多说评论框 end -->
+	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+	<script type="text/javascript">
+	var duoshuoQuery = {short_name:"true"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] 
+		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+	</script>
+	<!-- 多说公共JS代码 end -->
+</div>
+
+
+
+
+
+
+    <style>
+        #scroll {
+            display: none;
+        }
+    </style>
+    <div class="scroll">
+        <a href="#" title="返回顶部"><i class="fa fa-arrow-up"></i></a>
+        <a href="#comments" title="查看评论"><i class="fa fa-comments-o"></i></a>
+        <a href="#footer" title="转到底部"><i class="fa fa-arrow-down"></i></a>
+    </div>
+
+
+
+        
+
+        
+        
+        
+            <div  class="post-nav-button">
+                <a href="/2016/05/02/iOS观察者模式/" title="上一篇: ">
+                <i class="fa fa-angle-left"></i>
+                </a>
+                <a href="/2016/03/29/如何理解iOS多线程/" title="下一篇: ">
+                <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+        
+
+
+
+    
+        <link rel="stylesheet" href="/fancybox/jquery.fancybox.css" type="text/css">
+        <script>
+            var yiliaConfig = {
+            fancybox: true,
+            mathjax: true,
+            animate: true,
+            isHome: false,
+            isPost: true,
+            isArchive: false,
+            isTag: false,
+            isCategory: false,
+            open_in_new: false
+            }
+        </script>
+        
+</div>
+      <footer id="footer">
+    <div class="outer">
+        <div id="footer-info">
+            <div class="footer-left">
+                &copy; 2016 JashionHuang
+            </div>
+            <div class="footer-right">
+                <a href="http://hexo.io/" target="_blank" title="快速、简洁且高效的静态博客框架">Hexo</a>  Theme <a href="https://github.com/MOxFIVE/hexo-theme-yelee" target="_blank" title="简而不减双栏 Hexo 博客主题">Yelee</a> by MOxFIVE
+            </div>
+        </div>
+        <div class="visit">
+            <span id="busuanzi_container_site_pv" style='display:none'>
+                <span id="site-visit" >本站到访数: 
+                    <span id="busuanzi_value_site_uv"></span>
+                </span>
+            </span>
+            <span id="busuanzi_container_page_pv" style='display:none'>
+                <span id="page-visit">, 本页阅读量: 
+                    <span id="busuanzi_value_page_pv"></span>
+                </span>
+            </span>
+        </div>
+    </div>
+</footer>
+    </div>
+    
+
+<script src="https://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js" type="text/javascript"></script>
+<script src="/js/main.js" type="text/javascript"></script>
+
+    <script>
+        var backgroundnum = 5;
+        var backgroundimg = "url(/background/bg-x.jpg)".replace(/x/gi, Math.ceil(Math.random() * backgroundnum));
+
+        $("body").css({"background": backgroundimg, "background-attachment": "fixed", "background-size": "cover"});
+    </script>
+
+
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';                 
+    }       
+});
+</script>
+
+<script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+<div class="scroll" id="scroll">
+    <a href="#" title="返回顶部"><i class="fa fa-arrow-up"></i></a>
+    <a href="#footer" title="转到底部"><i class="fa fa-arrow-down"></i></a>
+</div>
+
+<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+  </div>
+</body>
+</html>

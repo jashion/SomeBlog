@@ -200,6 +200,376 @@
 </nav>
       <div class="body-wrap">
   
+    <article id="post-iOS观察者模式" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2016/05/02/iOS观察者模式/" class="article-date">
+  	<time datetime="2016-05-02T07:17:08.000Z" itemprop="datePublished">2016-05-02</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        <p>#iOS观察者模式学习 <br></p>
+<p>###（1）KVC与KVO简介<br></p>
+<ul>
+<li>KVC<br></li>
+</ul>
+<blockquote>
+<p>KVC（Key-value coding）是一种间接更改对象状态的方式。<br><br> 官方文档描述：<br><br> Key-value coding is a mechanism for accessing an  object’s properties indirectly, using strings to identify properties, rather than through invocation of an accessor method or accessing them directly through instance variables. In essence, key-value coding defines the patterns and method signatures that your application’s accessor methods implement.</p>
+</blockquote>
+<ul>
+<li>KVC的作用<br></li>
+</ul>
+<blockquote>
+<p>通过键值的方式访问对象或者修改对象的值<br><br> 比如：NSString *name = [car valueForKey: @”name”];通过-valueForKey:获取对象，它会先查找以参数名命名（格式为-key或-isKey）的getter方法，对于上面的调用，valueForKey:会先寻找-name方法。如果没有这样的getter方法，它将会在对象内寻找名称格式为_key或key的实例变量。通过使用KVC，没有相关getter方法也能获取对象，不需要通过对象指针来直接访问实例变量。</p>
+<p> 
+
+</p></blockquote>
+<ul>
+<li>KVC的优缺点<br></li>
+</ul>
+<blockquote>
+<p>1.KVC可以轻松处理集合类。（如：NSArray）<br><br> 2.KVC没有相关getter方法也能获取对象，不需要通过对象指针来直接访问实例变量<br><br> 3.简化代码<br><br> 4.KVC需要解析字符串，速度比较慢<br><br> 5.编译器无法进行错误检查<br></p>
+</blockquote>
+<ul>
+<li>KVO<br></li>
+</ul>
+<blockquote>
+<p>KVO（Key-value Observing）是基于KVC的，一种监听方式，也就是所谓的观察者模式。<br><br> 官方文档描述：<br><br> Key-value observing provides a mechanism that allows objects to be notified of changes to specific properties of other objects. It is particularly useful for communication between model and controller layers in an application.</p>
+</blockquote>
+<p>###（2）KVC代码实现<br></p>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//1.setValue: forKey</span></span><br><span class="line">[car <span class="string">setValue:</span> @<span class="string">"奔驰"</span> <span class="string">forKey:</span> @<span class="string">"name"</span>];</span><br><span class="line">[car <span class="string">setValue:</span> [NSNumber <span class="string">numberWithFloat:</span> <span class="number">80</span>] <span class="string">forKey:</span> @<span class="string">"speed"</span>];</span><br><span class="line">[car <span class="string">setValue:</span> @<span class="string">"黑色"</span> <span class="string">forKey:</span> @<span class="string">"carPaint"</span>];</span><br><span class="line"></span><br><span class="line"><span class="comment">//1.valueForKey</span></span><br><span class="line">NSString *name = [currentCar <span class="string">valueForKey:</span> @<span class="string">"name"</span>];</span><br><span class="line">NSNumber *speed = [currentCar <span class="string">valueForKey:</span> @<span class="string">"speed"</span>];</span><br><span class="line">NSString *carPaint = [currentCar <span class="string">valueForKey:</span> @<span class="string">"carPaint"</span>];</span><br><span class="line"></span><br><span class="line"><span class="comment">//2.setValue:forKeyPath</span></span><br><span class="line">[car <span class="string">setValue:</span> [NSNumber <span class="string">numberWithFloat:</span> <span class="number">40</span>] <span class="string">forKeyPath:</span> @<span class="string">"engine.horsepower"</span>];</span><br><span class="line">self.showCarDetail.text = [self <span class="string">showCarDetail:</span> car];</span><br><span class="line"></span><br><span class="line"><span class="comment">//2.valueForKeyPath</span></span><br><span class="line">NSNumber *horsepower = [currentCar <span class="string">valueForKeyPath:</span> @<span class="string">"engine.horsepower"</span>];</span><br><span class="line"></span><br><span class="line"><span class="comment">//3.整体操作:访问数组，如果使用某个键值来访问一个NSArray数组，它实际上会查询相应数组中的每个对象，然后将查询结果大包到另一个数组并返回，但是不能直接在建路径中索引这些数组，如：tires[0].pressure</span></span><br><span class="line">NSArray *pressures = [currentCar <span class="string">valueForKeyPath:</span> @<span class="string">"tires.pressure"</span>];</span><br><span class="line">NSLog(@<span class="string">"%@"</span>, pressures);</span><br><span class="line"></span><br><span class="line"><span class="comment">//4.快速运算@count,@sum,@avg,@min,@max,@distinctUnionOfObjects</span></span><br><span class="line">NSNumber *count = [currentCar <span class="string">valueForKeyPath:</span> @<span class="string">"tires.@count"</span>];    <span class="comment">//对左边键值返回数组操作，获取数组数量</span></span><br><span class="line">NSNumber *sum = [currentCar <span class="string">valueForKeyPath:</span> @<span class="string">"tires.@sum.pressure"</span>];    <span class="comment">//对左边键值返回数组操作，获取每个数组里面的pressure值，求和</span></span><br><span class="line">NSNumber *avg = [currentCar <span class="string">valueForKeyPath:</span> @<span class="string">"tires.@avg.pressure"</span>];    <span class="comment">//对左边键值返回数组操作，获取每个数组里面的pressure值，求平均值</span></span><br><span class="line">NSNumber *min = [currentCar <span class="string">valueForKeyPath:</span> @<span class="string">"tires.@min.pressure"</span>];    <span class="comment">//对左边键值返回数组操作，获取每个数组里面的pressure值，找出最小值</span></span><br><span class="line">NSNumber *max = [currentCar <span class="string">valueForKeyPath:</span> @<span class="string">"tires.@max.pressure"</span>];    <span class="comment">//对左边键值返回数组操作，获取每个数组里面的pressure值，找出最大值</span></span><br><span class="line">NSArray *tireType = [currentCar <span class="string">valueForKeyPath:</span> @<span class="string">"tires.@distinctUnionOfObjects.pressure"</span>];    <span class="comment">//对左边键值返回数组操作，获取每个数组里面的pressure值，去掉重复的值，返回一个包含所有不重复值的数组</span></span><br><span class="line">NSLog(@<span class="string">"TiresCount: %@ Sum: %@, Avg: %@, Min: %@, Max: %@, TireType: %@"</span>, count, sum, avg, min, max, tireType);</span><br><span class="line"></span><br><span class="line"><span class="comment">//5.批处理</span></span><br><span class="line"><span class="comment">//字典里面不能为nil，如果返回值有nil，则KVC会自己处理，将返回[NSNull null]表示nil</span></span><br><span class="line"><span class="comment">//&lt;null&gt;和(null)的区别：前者是[NSNull null]对象，而后者是正真的nil。</span></span><br><span class="line">NSArray *keys = [NSArray <span class="string">arrayWithObjects:</span> @<span class="string">"make"</span>, @<span class="string">"modelYear"</span>, @<span class="string">"numberOfDoors"</span>, nil];</span><br><span class="line">NSDictionary *carValues = [currentCar <span class="string">dictionaryWithValuesForKeys:</span> keys];</span><br><span class="line">NSLog(@<span class="string">"%@"</span>, carValues);</span><br><span class="line">    </span><br><span class="line"><span class="comment">//6.nil处理</span></span><br><span class="line"><span class="comment">//可以自己运行一下，重写和没有重写setNilValueForKey:方法的代码</span></span><br><span class="line">[currentCar <span class="string">setValue:</span> nil <span class="string">forKey:</span> @<span class="string">"speed"</span>];</span><br><span class="line">NSLog(@<span class="string">"carSpeed: %@"</span>, [currentCar <span class="string">valueForKey:</span> @<span class="string">"speed"</span>]);</span><br><span class="line">    </span><br><span class="line"><span class="comment">//7.处理未定义的值</span></span><br><span class="line">[currentCar <span class="string">setValue:</span> [NSNumber <span class="string">numberWithFloat:</span> <span class="number">1500</span>] <span class="string">forKey:</span> @<span class="string">"mileage"</span>];</span><br><span class="line">[currentCar <span class="string">setValue:</span> [NSNull <span class="literal">null</span>] <span class="string">forKey:</span> @<span class="string">"price"</span>];</span><br><span class="line">[currentCar <span class="string">setValue:</span> nil <span class="string">forKey:</span> @<span class="string">"capacity"</span>];</span><br><span class="line">NSLog(@<span class="string">"Mileage: %@ Price: %@, Capacity: %@"</span>, [currentCar <span class="string">valueForKey:</span> @<span class="string">"mileage"</span>], [currentCar <span class="string">valueForKey:</span> @<span class="string">"price"</span>], [currentCar <span class="string">valueForKey:</span> @<span class="string">"capacity"</span>]);</span><br><span class="line"></span><br><span class="line"><span class="comment">//8.KVC有自动装箱的功能，当使用valueForKey时，它自动将标量值（int,float,struct...）放入NSNumber或NSValue中；当使用setValueForKey，它自动将标量值从这些对象取出。</span></span><br></pre></td></tr></table></figure>
+<p>###（3）KVO代码实现<br></p>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//应该在监听者里添加监听，而不是在被监听者里添加监听</span></span><br><span class="line"><span class="comment">//在被监听者添加监听会造成循环引用的问题</span></span><br><span class="line">car = [[Car alloc] init];</span><br><span class="line">[car <span class="string">addObserver:</span> self <span class="string">forKeyPath:</span> @<span class="string">"carPaint"</span> <span class="string">options:</span> NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld <span class="string">context:</span> nil];</span><br><span class="line"></span><br><span class="line">- (<span class="typename">void</span>)<span class="string">observeValueForKeyPath:</span>(NSString *)keyPath <span class="string">ofObject:</span>(id)object <span class="string">change:</span>(NSDictionary&lt;NSString *,id&gt; *)change <span class="string">context:</span>(<span class="typename">void</span> *)context &#123;</span><br><span class="line">    <span class="keyword">if</span> ([keyPath <span class="string">isEqualToString:</span> @<span class="string">"carPaint"</span>]) &#123;</span><br><span class="line">        NSLog(@<span class="string">"%@"</span>, [change <span class="string">objectForKey:</span> @<span class="string">"new"</span>]);    <span class="comment">//修改之后的值</span></span><br><span class="line">        self.showCarDetail.text = [NSString <span class="string">stringWithFormat:</span> @<span class="string">"车的颜色是%@"</span>, [change <span class="string">objectForKey:</span> @<span class="string">"new"</span>]];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (<span class="typename">void</span>)dealloc &#123;</span><br><span class="line">    <span class="comment">//监听者应该是self，被监听者是car</span></span><br><span class="line">    [car <span class="string">removeObserver:</span> self <span class="string">forKeyPath:</span> @<span class="string">"carPaint"</span>];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>###(4)Demo展示：<br><br><img src="http://jashion.b0.upaiyun.com/images/iOSObserving.gif" alt="Observer.gif"></p>
+<p><a href="https://github.com/jashion/iOSObserving" target="_blank" rel="external">Demo下载</a></p>
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+
+      
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+
+
+
+    
+        <link rel="stylesheet" href="/fancybox/jquery.fancybox.css" type="text/css">
+        <script>
+            var yiliaConfig = {
+            fancybox: true,
+            mathjax: true,
+            animate: true,
+            isHome: true,
+            isPost: false,
+            isArchive: false,
+            isTag: false,
+            isCategory: false,
+            open_in_new: false
+            }
+        </script>
+        
+
+  
+    <article id="post-UIDynamicAnimator" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2016/05/02/UIDynamicAnimator/" class="article-date">
+  	<time datetime="2016-05-02T07:06:32.000Z" itemprop="datePublished">2016-05-02</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        <p>#UIKit Dynamics动力系统入门</p>
+<p>###1.什么是动力系统(What is the UIKit Dynamics?)<br>动力系统的引入，并不是替代CoreAnimation，而是对模拟现实世界物体运动的补充，比如，碰撞，重力，悬挂等等。所以说，UIKit动力系统的引入，大大简化了一些交互动画（不需要自己实现一些模拟现实世界物理动力系统的动画），丰富了UI设计。</p>
+<p>###2.动力系统怎么使用(How to use it?)<br><strong>UIKit动力系统结构如下：</strong></p>
+<p><img src="http://jashion.b0.upaiyun.com/images/UIDynamics.png" alt="image"></p>
+<p>总的来说，先要注册UI系统体系，也就是类似于二维的坐标系，然后添加所需的行为以及行为的作用物体，然后该物体就能在设定的坐标体系里，根据所添加的行为运动。<br><br>光说不练乃是纸上谈兵，没有成效。下面分解动力系统所包含的几类运动。</p>
+<p><strong>UIGravityBehavior</strong></p>
+<p>重力，这个大家应该都很熟悉了。我们每天都能感受到它的存在，所谓脚踏实地就是这种感觉。小时候，大家应该都有过从高处把一些物体扔下来，或者直接让它坐自由落体运动，相似的，这个Gravity也是模拟重力行为，下面直接上代码。</p>
+<figure class="highlight crystal"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">myAnimator = [[<span class="constant">UIDynamicAnimator</span> alloc] <span class="symbol">initWithReferenceView:</span> <span class="keyword">self</span>];</span><br><span class="line">myAnimator.delegate = <span class="keyword">self</span>;</span><br><span class="line"><span class="constant">UIGravityBehavior</span> *gravityBehavior = [[<span class="constant">UIGravityBehavior</span> alloc] <span class="symbol">initWithItems:</span> <span class="annotation">@[ball]</span>];</span><br><span class="line">[myAnimator <span class="symbol">addBehavior:</span> gravityBehavior];</span><br></pre></td></tr></table></figure>
+<p>1.UIDynamicAnimator就是一个播放者，容器。一个容纳动力系统的环境，而referenceView就是该环境的坐标系，物体运动的参照系。<br></p>
+<ol>
+<li>gravityBehavior，初始化一个重力行为，行为的受力物体是ball（只要实现UIDynamicItem接口的类都能作为受力物体，如，View和UICollectionViewLayoutAttributes）。<br></li>
+<li>将这个行为添加到UIDynamicAnimator上面就行了。<br></li>
+<li>显示效果的Demo以及代码下载在最后。</li>
+</ol>
+<p><strong>UICollisionBehavior</strong></p>
+<p>碰撞行为，最直接的感受就是，玩弹珠，一颗弹珠可以被另一颗弹珠弹射到很远的地方，原理就是碰撞产生了一个反方向的作用力，远离事故发生地。废话也不多说，直接上代码：</p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">myAnimator = [[<span class="built_in">UIDynamicAnimator</span> alloc] initWithReferenceView: <span class="keyword">self</span>];</span><br><span class="line"></span><br><span class="line"><span class="built_in">UICollisionBehavior</span> *collision = [[<span class="built_in">UICollisionBehavior</span> alloc] initWithItems: ballsArray2];        collision<span class="variable">.translatesReferenceBoundsIntoBoundary</span> = <span class="literal">YES</span>;</span><br><span class="line">collision<span class="variable">.collisionDelegate</span> = <span class="keyword">self</span>;</span><br><span class="line">[myAnimator addBehavior: collision];</span><br></pre></td></tr></table></figure>
+<p>1.和重力行为一样，也要先初始化一个容器myAnimator。<br><br>2.添加碰撞行为collision，collision.translatesReferenceBoundsIntoBoundary的属性是否设置以参考View的边界为碰撞边界，我们这里选择YES。<br><br>3.除了设置参考View的边界为碰撞边界外，还可以自己设定边界，使用- addBoundaryWithIdentifier: forPath:或者addBoundaryWithIdentifier: fromPoint: toPoint:方法可以自己设定碰撞边界的范围。<br>4。最后，也需要把collision添加到myAnimator上。</p>
+<p><strong>UIAttachmentBehavior</strong></p>
+<p>描述一个物体和一个锚点或者另一个物体的连接，可以是弹性的，也可以是非弹性的连接。直接上代码：</p>
+<figure class="highlight pf"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">UIAttachmentBehavior *attachmentBehavior = [[UIAttachmentBehavior alloc] initWithItem: square offsetFromCenter: UIOffsetMake(<span class="number">0</span>, - <span class="number">40</span>) attachedToAnchor: <span class="built_in">anchor</span>];</span><br><span class="line">attachmentBehavior.length = <span class="number">100</span>;</span><br><span class="line">attachmentBehavior.damping = <span class="number">0.3</span>;</span><br><span class="line">[myAnimator addBehavior: attachmentBehavior];</span><br></pre></td></tr></table></figure>
+<p>1.物体默认的锚点在中心，可以设置偏移。<br><br>2.步骤也是和其它得行为一样，设置参数，把该行为添加到myAnimator上。<br><br>3.更多的方法和属性，请自行参考苹果官方文档。</p>
+<p><strong>UISnapBehavior</strong></p>
+<p>吸附行为，将UIView通过动画吸附到某个点上。API非常简单，看下面代码就懂了。</p>
+<figure class="highlight dns"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">UISnapBehavior *snapBehavior = [[UISnapBehavior alloc] initWithItem: ballView snapToPoint: centerBall.center]<span class="comment">;</span></span><br><span class="line">snapBehavior.damping = 0.4<span class="comment">;</span></span><br><span class="line">[myAnimator addBehavior: snapBehavior]<span class="comment">;</span></span><br></pre></td></tr></table></figure>
+<p><strong>UIPushBehavior</strong></p>
+<p>推动力，可以理解为向一个物体施加一个作用力，可以是持续的，也可以是瞬间的冲击。</p>
+<figure class="highlight crystal"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="constant">UIPushBehavior</span> *pushBehavior = [[<span class="constant">UIPushBehavior</span> alloc] <span class="symbol">initWithItems:</span> <span class="annotation">@[square]</span> <span class="symbol">mode:</span> <span class="constant">UIPushBehaviorModeInstantaneous</span>];</span><br><span class="line">pushBehavior.pushDirection = <span class="constant">CGVectorMake</span>(velocity.x / <span class="number">1000</span>, velocity.y / <span class="number">1000</span>);</span><br><span class="line">[myAnimator <span class="symbol">addBehavior:</span> pushBehavior];</span><br></pre></td></tr></table></figure>
+<p><strong>UIDynamicItemBehavior</strong></p>
+<p>这其实不是一种行为，我的理解是对于将要进行各种行为的物体一些参数上面的设置，比如，弹力，震荡频率，密度等等。</p>
+<figure class="highlight armasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="label">UIDynamicItemBehavior</span> *<span class="keyword">behavior3 </span>= [[UIDynamicItemBehavior alloc] initWithItems: <span class="comment">@[ballsArray2[2]]];</span></span><br><span class="line"><span class="keyword">behavior3.elasticity </span>= <span class="number">0</span>.<span class="number">5</span><span class="comment">;</span></span><br><span class="line"><span class="keyword">behavior3.friction </span>= <span class="number">0</span>.<span class="number">3</span><span class="comment">;</span></span><br><span class="line"><span class="keyword">behavior3.resistance </span>= <span class="number">0</span>.<span class="number">3</span><span class="comment">;</span></span><br><span class="line">[myAnimator <span class="keyword">addBehavior: </span><span class="keyword">behavior3];</span></span><br></pre></td></tr></table></figure>
+<p>###3.组合(Group)</p>
+<p>所有的行为都可以组合起来，如碰撞和重力，可以类似于物体做自由落体运动，然后和地面碰撞。代码如下：</p>
+<figure class="highlight crystal"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">myAnimator = [[<span class="constant">UIDynamicAnimator</span> alloc] <span class="symbol">initWithReferenceView:</span> <span class="keyword">self</span>];</span><br><span class="line"><span class="regexp">//</span>重力行为</span><br><span class="line"><span class="constant">UIGravityBehavior</span> *gravity = [[<span class="constant">UIGravityBehavior</span> alloc] <span class="symbol">initWithItems:</span> <span class="annotation">@[ball]</span>];</span><br><span class="line">[myAnimator <span class="symbol">addBehavior:</span> gravity];</span><br><span class="line"></span><br><span class="line"><span class="regexp">//</span>碰撞行为</span><br><span class="line"><span class="constant">UICollisionBehavior</span> *collision = [[<span class="constant">UICollisionBehavior</span> alloc] <span class="symbol">initWithItems:</span> <span class="annotation">@[ball]</span>];</span><br><span class="line">collision.translatesReferenceBoundsIntoBoundary = <span class="constant">YES</span>;</span><br><span class="line">collision.collisionDelegate = <span class="keyword">self</span>;</span><br><span class="line">[myAnimator <span class="symbol">addBehavior:</span> collision];</span><br><span class="line"></span><br><span class="line"><span class="regexp">//</span>设置物体的一些相关的参数</span><br><span class="line"><span class="constant">UIDynamicItemBehavior</span> *behavior = [[<span class="constant">UIDynamicItemBehavior</span> alloc] init];</span><br><span class="line">behavior.elasticity = <span class="number">0.8</span>;</span><br><span class="line">behavior.friction = <span class="number">0.2</span>;</span><br><span class="line">behavior.resistance = <span class="number">0.3</span>;</span><br><span class="line">behavior.density = <span class="number">0.5</span>;</span><br><span class="line">behavior.angularResistance = <span class="number">0.2</span>;</span><br><span class="line">[behavior <span class="symbol">addItem:</span> ball];</span><br><span class="line">[myAnimator <span class="symbol">addBehavior:</span> behavior];</span><br></pre></td></tr></table></figure>
+<p>###4.自定义行为(DIY)<br>1.将官方的行为打包<br></p>
+<ul>
+<li>继承UIDynamicBehavior(一个抽象类)</li>
+<li>实现添加组合行为的方法，最好和官方的保持一致，比如：initWithItems:，在里面调用addChildBehavior：方法添加需要组合的行为</li>
+<li>初始化该继承类，然后使用</li>
+</ul>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">GravityWithCollisionBehavior</span> : <span class="title">UIDynamicBehavior</span></span></span><br><span class="line"></span><br><span class="line">- (instancetype)initWithItems: (<span class="built_in">NSArray</span> *)items;</span><br><span class="line"></span><br><span class="line"><span class="keyword">@end</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">@implementation</span> <span class="title">GravityWithCollisionBehavior</span></span></span><br><span class="line"></span><br><span class="line">- (instancetype)initWithItems: (<span class="built_in">NSArray</span> *)items &#123;</span><br><span class="line">    <span class="keyword">self</span> = [<span class="keyword">super</span> init];</span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">self</span>) &#123;</span><br><span class="line">        <span class="built_in">UIGravityBehavior</span> *gravityBehavior = [[<span class="built_in">UIGravityBehavior</span> alloc] initWithItems: items];</span><br><span class="line">        [<span class="keyword">self</span> addChildBehavior: gravityBehavior];</span><br><span class="line">        <span class="built_in">UICollisionBehavior</span> *collisionBehavior = [[<span class="built_in">UICollisionBehavior</span> alloc] initWithItems: items];</span><br><span class="line">        collisionBehavior<span class="variable">.translatesReferenceBoundsIntoBoundary</span> = <span class="literal">YES</span>;</span><br><span class="line">        [<span class="keyword">self</span> addChildBehavior: collisionBehavior];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">self</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">@end</span></span><br></pre></td></tr></table></figure>
+<p>2.完全自定义行为<br><br>UIDynamicBehavior里提供了一个<code>@property(nonatomic, copy) void (^action)(void)</code>，animator将会在行为发生期间，每一步都调用这个block。也就是说，你想自定义行为就得在这里写自己的一些代码。具体就是在这个block中向所有的item询问它们当前的center和transform状态，然后经过计算，把新的值赋予相应的item，从而该改变它们在屏幕上的位置，大小，角度，方向等等。</p>
+<p>###5.终结(Summary)<br>总的来说，iOS7引进的这套动力系统，大大丰富了我们动画表达，但是，该系统有着一些限制，会消耗一定的CPU资源，并且，当它们被添加到动画系统后，只能通过动画系统改变位置，而外部对于UIDynamicsItem的center,transform等设定是被忽略的，除此之外，该系统也没有现实世界那么精确，当计算迭代无法得到有效解的时候，动画将无法得到正确的呈现，所以，不要将动力系统神化。</p>
+<p>###6.Demo展示</p>
+<p><img src="http://jashion.b0.upaiyun.com/images/UIDynamics.gif" alt="UIDynamicAnimator"></p>
+<p><a href="https://github.com/jashion/UIDynamicAnimation.git" target="_blank" rel="external">源码下载</a></p>
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+
+      
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+
+
+
+    
+        <link rel="stylesheet" href="/fancybox/jquery.fancybox.css" type="text/css">
+        <script>
+            var yiliaConfig = {
+            fancybox: true,
+            mathjax: true,
+            animate: true,
+            isHome: true,
+            isPost: false,
+            isArchive: false,
+            isTag: false,
+            isCategory: false,
+            open_in_new: false
+            }
+        </script>
+        
+
+  
+    <article id="post-如何理解iOS多线程" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2016/03/29/如何理解iOS多线程/" class="article-date">
+  	<time datetime="2016-03-29T14:55:09.000Z" itemprop="datePublished">2016-03-29</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        <p>#如何理解iOS的多线程</p>
+<p>###前言：<br \=""><br>前段时间，很想静下心来研究一下YYText，看了ibireme的一篇《iOS保持界面流畅的技巧》的博客，下了源码，发现里面用到多线程，异步渲染，异步记载，悲催的是，自己对于多线程并不很熟悉，只是在公司项目里面用过轻量级的GCD，所以，下定决心来补一下iOS多线程的知识。<br \=""></p>
+<p>###1.先弄清楚和线程有关的几个概念（大学读书不用功的同学伤不起T_T）<br \=""></p>
+<blockquote>
+<p>进程：一个包含多个线程的可执行文件。（The term process is used to refer to a running executable, which can encompass multiple threads.）<br \=""><br>线程：一段可以执行的对立代码。（The term thread is used to refer to a separate path of execution for code.）<br \=""><br>任务：对于所做工作的抽象概念。（The term task is used to refer to the abstract concept of work that needs to be performed.）<br \=""><br>队列：我的理解是，一个装载任务的容器。<br \=""><br>同步：在当前的线程执行任务，会阻塞当前线程的操作。<br \=""><br>异步：另开一个新线程执行任务，不会阻塞当前的线程操作。<br \=""><br>串行：队列的任务，根据FIFO的规则，一个个执行。<br \=""><br>并行：队列的任务，并行执行。如果CPU是多核，则会多个线程一齐执行，如果非多核，则会采取时间片轮转的调度方式，根据FIFO的规则执行，由于没个线程执行的时间很短，可以看成是同步执行的队列。<br \=""></p>
+</blockquote>
+<p>####进程，线程，任务和队列的区别和联系：<br \=""></p>
+<blockquote>
+<p>（1）进程可以看作一个程序，可以理解成一个App就是一个进程，一个进程包括一个或者多个线程。<br \=""><br>（2）线程则是一个进程里面的概念，同一个进程包含的线程可以共享进程里面的数据，所以，多线程安全的问题也就突显出来了。线程里面的数据不共享，但线程和线程之间可以通信。<br \=""><br>（3）任务只是一个抽象的概念，一个线程里面的某个有意义的代码片段可以称之为任务，多个线程完成一个工作也可以称之为任务，所以，任务和线程不是同一层面的意思。<br \=""><br>（4）队列，可以简单的理解为，一个容纳任务的容器。<br \=""></p>
+</blockquote>
+<p>###2.iOS里面可用的多线程</p>
+<blockquote>
+<ul>
+<li>PThread(现实中不怎么用到，所以略过)</li>
+<li>NSThread</li>
+<li>GCD(Grand Central Dispatch)</li>
+<li>NSOperation</li>
+</ul>
+</blockquote>
+<p>下面我会一一讲解，我所了解到的多线程。<br \=""><br>NSThread基于Objective-C对象，是苹果用来取代PThread的，方便使用，但是需要手动管理线程的生命周期(线程创建，调度和销毁等)。NSThread相比于GCD，NSOperation更趋向于系统级别的多线程的封装，使用起来没有GCDN和SOperation那么方便，但是，也有一些好用的功能，比如获取当前线程的相关信息：[NSThread currentThread];所以，多线程开发使用哪种实现，取决于你需要实现功能的情景，一般比较轻量级的，好用的就选GCD.GCD是苹果开发的，基于C语言的多线程，不需要手动管理线程的生命周期，而且它可以充分利用多核的优势。如果只想新开一个线程运行一些函数而不关心其他的东西，你可以选择GCD；但是如果你想实现更复杂的行为，那么应该选择NSOperation，因为NSOperation是基于GCD（以前基于NSThread）的更高层次的API，并且功能比CGD更强大，自由度更高，可以实现更复杂的线程依赖。             </p>
+<p>####NSThread<br>（1）启动一个NSThread的通用方法</p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//NSThread</span></span><br><span class="line"><span class="built_in">NSThread</span> *thread = [[<span class="built_in">NSThread</span> alloc] initWithTarget: <span class="keyword">self</span> selector: <span class="keyword">@selector</span>(runThread) object: <span class="literal">nil</span>];</span><br><span class="line">[thread start];    <span class="comment">//通过start启动线程，启动的时间可以自己设置，比如通过NSTimer延时启动</span></span><br><span class="line">    </span><br><span class="line">[<span class="built_in">NSThread</span> detachNewThreadSelector: <span class="keyword">@selector</span>(runThread) toTarget: <span class="keyword">self</span> withObject: <span class="literal">nil</span>];    <span class="comment">//自启动线程，不能掌握线程的启动时间</span></span><br></pre></td></tr></table></figure>
+<p>（2）其他的一些方法</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="keyword">void</span>)main    <span class="comment">//不会调用直接调用，线程调用start时会自动调用。如果自定义NSThread的子类，并想在自定义的线程进行一些操作时，就需要重写改方法</span></span><br><span class="line"></span><br><span class="line">+ sleepUntilDate:    <span class="comment">//在你设定的时间之前阻塞当前的线程</span></span><br><span class="line">+ <span class="built_in">exit</span>    <span class="comment">//结束当前线程，不过在之前会发NSThreadWillExitNotification</span></span><br><span class="line">+ currentThread    <span class="comment">//获取当前线程的相关信息，这个也是最常用的</span></span><br><span class="line">－ cancel    <span class="comment">//并不会停止正在进行的操作，只能更改还在队列里面，还没运行的任务</span></span><br><span class="line">+ setThreadPriority    <span class="comment">//设置当前线程的优先级</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//一些表示线程的状态值</span></span><br><span class="line">executing    <span class="comment">//A Boolean value that indicates whether the receiver is executing. (read-only)</span></span><br><span class="line">finished    <span class="comment">//A Boolean value that indicates whether the receiver has finished execution. (read-only)</span></span><br><span class="line">cancelled    <span class="comment">//A Boolean value that indicates whether the receiver is cancelled. (read-only)</span></span><br></pre></td></tr></table></figure>
+<p>小结：NSThread比较接近系统级别的多线程API，平时比较少用到，一般GCD和NSOperation就够用了。</p>
+<p>####GCD(Grand Central Dispatch)<br>GCD不得不说是苹果造福广大开发者的一大创举，充分利用手机的多核，自动管理生命周期，用起来简单，不用关系线程的调度。所以，一般不是要求太高的，用GCD就完全可以解决需要。废话不多说，我们继续进入状态。<br \=""></p>
+<p>（1）创建全局并行队列</p>
+<pre><code>
+</code></pre>
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+
+      
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+
+
+
+    
+        <link rel="stylesheet" href="/fancybox/jquery.fancybox.css" type="text/css">
+        <script>
+            var yiliaConfig = {
+            fancybox: true,
+            mathjax: true,
+            animate: true,
+            isHome: true,
+            isPost: false,
+            isArchive: false,
+            isTag: false,
+            isCategory: false,
+            open_in_new: false
+            }
+        </script>
+        
+
+  
+    <article id="post-iOS内存管理" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2016/03/28/iOS内存管理/" class="article-date">
+  	<time datetime="2016-03-28T13:51:46.000Z" itemprop="datePublished">2016-03-28</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        <p>#浅谈iOS内存管理</p>
+<p>###1.MRC(Manul Reference Counting)人工引用计数</p>
+<p>在ARC出现之前，需要手动管理内存。如何手动管理内存呢？首先，得知道，在iOS系统里面，对象的生命周期是通过引用计数管理的。每个对象   都有着一个与之关联的整数。当使用alloc,new方法或者通过copy消息创建对象的时候，对象的保留计数器的值设置为1。当对象调用retain方法，该对象的保留计数增加1，反之，如果对象调用release方法，该对象的保留计数减少1（注意：如果对象本身的保留计数为0，再调用或者说发送release消息就会造成crash）。当一个对象的计数为0时，系统会自动向对象发送dealloc消息，销毁对象，释放内存。</p>
+<blockquote>
+<p>手动管理内存需要注意下面几点：<br \=""><br>（1）使用alloc,new或copy方法创建对象时，该对象的保留计数为1。当不再使用该对象时，向该对象发送一条release或者autorelease消息。<br \=""><br>（2）如果你通过其他方法获得一个对象，则不需要你来管理该对象的生命周期，除非你想在一段时间内拥有改对象，则需要在使用前retain，使用完成后release。<br \=""><br>（3）必须保证retain和release成对出现。<br \=""><br>（4）release操作只是使当前对象的保留计数减1，并不是销毁该对象。当该对象的保留计数为0时，系统才会发送dealloc消息，销毁对象。<br \=""><br>（5）把对象加入autorelease也不是立马使该对象的保留计数减1，而是在未来适当的时机release该对象。</p>
+</blockquote>
+<p>###2.ARC（Automatic reference counting）自动引用计数</p>
+<p>不得不说，苹果引入ARC是一个英明的决定，从此，苹果开发者告别手动管理内存的艰难时期，是广大开发者的福音。为什么ARC那么强大呢？其实ARC只是做了一件事，就是在编译时自动帮你的代码插入retain和release。恰恰，它强大之处就在于这里，避免开发者忘记添加retian和release，一两个对象不觉得的，如果对象很多的话，就很容易忘记，所以说，ARC帮我们解决了手动管理对象生命周期的痛苦，让我们更专注于代码的逻辑实现。<br \=""><br>虽然ARC很强大，但是并不是所有的对象都能用ARC,一些不能使用ARC的对象，还是得手动管理内存。<br \=""></p>
+<blockquote>
+<p>可以使用ARC的对象：<br \=""><br>（1）block<br \=""><br>（2）Objective-C对象<br \=""><br>（3）_<em>attribute</em>((NSObject))修饰的对象<br \=""></p>
+<p>说说strong,weak,retain,assign,copy修饰符：<br \=""><br>（1）strong和weak<br \=""><br>以前一直不明白，strong和weak修饰变量，有什么用？网上的说法大多都是雷同，就是强引用和弱引用关系。现在才明白，其实强引用指的是修饰的变量指向的对象的关系，也就相对于对象的强引用和弱引用。比如，对象A用strong修饰，对象B用weak修饰，那么A引用B就是强引用，B引用A就是弱引用。strong和weak的区别在于对对象的束缚力。stackOver上有个比较有趣的例子形容strong和weak，就是在某棵树下有一条狗，strong就是那些拿着拴狗链的人，只要还有人在，狗就跑不了，而weak是没有拴狗链的人，只是语言上的规劝，要狗好好的呆着别动，但是狗还是可以跑的。总之一句话，有强哥在准跑不了。<br \=""><br>（2）strong和retain<br \=""><br>strong和retain差不多，没啥区别，只不过ARC以后都习惯用strong。<br \=""><br>（3）weak和assign<br \=""><br>weak和assign最大的区别在于，weak修饰的对象保留计数为0，则把该对象设置为nil，assign不会。设置为nil的好处在于，如果误发消息给该对象，不会crash，因为nil也是属于对象，如果是null就会crash。<br \=""><br>（4）retain和copy<br \=""></p>
+</blockquote>
+<p>&gt;<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">\\retain</span><br><span class="line">- (void)<span class="built_in">set</span>TestObject: (id)newValue &#123;</span><br><span class="line">	<span class="keyword">if</span> (<span class="built_in">test</span>Object != newValue) &#123;</span><br><span class="line">		[<span class="built_in">test</span>Object release];</span><br><span class="line">		<span class="built_in">test</span>Object = [newValue retain];</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line">&gt;</span><br><span class="line">\\copy</span><br><span class="line">- (void)<span class="built_in">set</span>TestObject: (id)newValue &#123;</span><br><span class="line">	<span class="keyword">if</span> (<span class="built_in">test</span>Object != newValue) &#123;</span><br><span class="line">		[<span class="built_in">test</span>Object release];</span><br><span class="line">		<span class="built_in">test</span>Object = [newValue copy];</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>###3.ARC与autorelease<br>ARC的作用就是在编译时期帮代码自动插入retain和release，而autorelease就是将需要释放的对象加入到一个stack里面，并不会立刻释放，而是在autorelease pool销毁时，一齐释放栈里面的对象。其实就是相当于release的作用。当时，不明白，既然有了ARC为什么还需要autoreleasepool？其实关键之处在于作用域，如果的创建与释放隔的很近，ARC在编译时就很容易判断在哪个位置插入retain和release，但是如果横跨几个文件或者说不知道什么时候释放该对象，这时候autorelease就很有用了，每个线程的RunLoop都有自己的autoreleasepool，当该RunLoop结束时，autoreleasepool就会被销毁，里面所有的对象也会一一销毁。</p>
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+
+      
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+
+
+
+    
+        <link rel="stylesheet" href="/fancybox/jquery.fancybox.css" type="text/css">
+        <script>
+            var yiliaConfig = {
+            fancybox: true,
+            mathjax: true,
+            animate: true,
+            isHome: true,
+            isPost: false,
+            isArchive: false,
+            isTag: false,
+            isCategory: false,
+            open_in_new: false
+            }
+        </script>
+        
+
+  
     <article id="post-future" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">

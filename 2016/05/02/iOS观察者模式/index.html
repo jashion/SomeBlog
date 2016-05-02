@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="#iOS观察者模式学习 
+###（1）KVC与KVO简介
+
+KVC
+
+
+KVC（Key-value coding）是一种间接更改对象状态的方式。 官方文档描述： Key-value coding is a mechanism for accessing an  object’s properties indirectly, using strings to identify properties,">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Hexo">
+<meta property="og:url" content="http://yoursite.com/2016/05/02/iOS观察者模式/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="#iOS观察者模式学习 
+###（1）KVC与KVO简介
+
+KVC
+
+
+KVC（Key-value coding）是一种间接更改对象状态的方式。 官方文档描述： Key-value coding is a mechanism for accessing an  object’s properties indirectly, using strings to identify properties,">
+<meta property="og:image" content="http://jashion.b0.upaiyun.com/images/iOSObserving.gif">
+<meta property="og:updated_time" content="2016-05-02T07:17:08.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Hexo">
+<meta name="twitter:description" content="#iOS观察者模式学习 
+###（1）KVC与KVO简介
+
+KVC
+
+
+KVC（Key-value coding）是一种间接更改对象状态的方式。 官方文档描述： Key-value coding is a mechanism for accessing an  object’s properties indirectly, using strings to identify properties,">
+  
+    <link rel="alternative" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <link rel="stylesheet" href="/css/style.css" type="text/css">
+  <link rel="stylesheet" href="/font-awesome/css/font-awesome.min.css">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  
+</head>
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			
+			<img lazy-src="http://jashion.b0.upaiyun.com/images/avatar.png" class="js-avatar">
+			
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/">JashionHuang</a></h1>
+		</hgroup>
+
+		
+		
+		<form><input type="text" class="search" placeholder=" Search..."></form>
+				
+
+
+		
+			<div id="switch-btn" class="switch-btn">
+				<div class="icon">
+					<div class="icon-ctn">
+						<div class="icon-wrap icon-house" data-idx="0">
+							<div class="birdhouse"></div>
+							<div class="birdhouse_holes"></div>
+						</div>
+						<div class="icon-wrap icon-ribbon hide" data-idx="1">
+							<div class="ribbon"></div>
+						</div>
+						
+						<div class="icon-wrap icon-link hide" data-idx="2">
+							<div class="loopback_l"></div>
+							<div class="loopback_r"></div>
+						</div>
+						
+						
+						<div class="icon-wrap icon-me hide" data-idx="3">
+							<div class="user"></div>
+							<div class="shoulder"></div>
+						</div>
+						
+					</div>
+					
+				</div>
+				<div class="tips-box hide">
+					<div class="tips-arrow"></div>
+					<ul class="tips-inner">
+						<li>菜单</li>
+						<li>标签</li>
+						
+						<li>友情链接</li>
+						
+						
+						<li>关于我</li>
+						
+					</ul>
+				</div>
+			</div>
+		
+
+		<div id="switch-area" class="switch-area">
+			<div class="switch-wrap">
+				<section class="switch-part switch-part1">
+					<nav class="header-menu">
+						<ul>
+						
+							<li><a href="/">主页</a></li>
+				        
+							<li><a href="/archives/">所有文章</a></li>
+				        
+							<li><a href="/tags/">标签云</a></li>
+				        
+							<li><a href="/about/">关于我</a></li>
+				        
+						</ul>
+					</nav>
+					<nav class="header-nav">
+						<ul class="social">
+							
+								<li id="Email"><a class="Email" target="_blank" href="mailto:123@123.com" title="Email"></a></li>
+					        
+								<li id="新浪微博"><a class="新浪微博" target="_blank" href="http://weibo.com/u/3100804855/home?wvr=5&lf=reg" title="新浪微博"></a></li>
+					        
+								<li id="GitHub"><a class="GitHub" target="_blank" href="https://github.com/jashion" title="GitHub"></a></li>
+					        
+						</ul>
+					</nav>
+				</section>
+				
+				
+				<section class="switch-part switch-part2">
+					<div class="widget tagcloud" id="js-tagcloud">
+						
+					</div>
+				</section>
+				
+				
+				
+				<section class="switch-part switch-part3">
+					<div id="js-friends">
+					
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="https://hexo.io">Hexo</a>
+			        
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="https://pages.github.com/">GitHub</a>
+			        
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="http://moxfive.xyz/">MOxFIVE</a>
+			        
+			        </div>
+				</section>
+				
+
+				
+				
+				<section class="switch-part switch-part4">
+				
+					<div id="js-aboutme">专注于iOS移动前端</div>
+				</section>
+				
+			</div>
+		</div>
+	</header>				
+</div>
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"></div>
+  		<h1 class="header-author js-mobile-header hide"><a href="/" title="回到主页">JashionHuang</a></h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<a href="/" class="profilepic">
+				<img lazy-src="http://jashion.b0.upaiyun.com/images/avatar.png" class="js-avatar">
+			</a>
+			<hgroup>
+			  <h1 class="header-author"><a href="/" title="回到主页">JashionHuang</a></h1>
+			</hgroup>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/archives/">所有文章</a></li>
+		        
+					<li><a href="/tags/">标签云</a></li>
+		        
+					<li><a href="/about/">关于我</a></li>
+		        
+		        <div class="clearfix"></div>
+				</ul>
+			</nav>
+			<nav class="header-nav">
+						<ul class="social">
+							
+								<li id="Email"><a class="Email" target="_blank" href="mailto:123@123.com" title="Email"></a></li>
+					        
+								<li id="新浪微博"><a class="新浪微博" target="_blank" href="http://weibo.com/u/3100804855/home?wvr=5&lf=reg" title="新浪微博"></a></li>
+					        
+								<li id="GitHub"><a class="GitHub" target="_blank" href="https://github.com/jashion" title="GitHub"></a></li>
+					        
+						</ul>
+			</nav>
+		</header>				
+	</div>
+</nav>
+      <div class="body-wrap"><article id="post-iOS观察者模式" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2016/05/02/iOS观察者模式/" class="article-date">
+  	<time datetime="2016-05-02T07:17:08.000Z" itemprop="datePublished">2016-05-02</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        <p>#iOS观察者模式学习 <br></p>
+<p>###（1）KVC与KVO简介<br></p>
+<ul>
+<li>KVC<br></li>
+</ul>
+<blockquote>
+<p>KVC（Key-value coding）是一种间接更改对象状态的方式。<br><br> 官方文档描述：<br><br> Key-value coding is a mechanism for accessing an  object’s properties indirectly, using strings to identify properties, rather than through invocation of an accessor method or accessing them directly through instance variables. In essence, key-value coding defines the patterns and method signatures that your application’s accessor methods implement.</p>
+</blockquote>
+<ul>
+<li>KVC的作用<br></li>
+</ul>
+<blockquote>
+<p>通过键值的方式访问对象或者修改对象的值<br><br> 比如：NSString *name = [car valueForKey: @”name”];通过-valueForKey:获取对象，它会先查找以参数名命名（格式为-key或-isKey）的getter方法，对于上面的调用，valueForKey:会先寻找-name方法。如果没有这样的getter方法，它将会在对象内寻找名称格式为_key或key的实例变量。通过使用KVC，没有相关getter方法也能获取对象，不需要通过对象指针来直接访问实例变量。</p>
+<p> 
+
+</p></blockquote>
+<ul>
+<li>KVC的优缺点<br></li>
+</ul>
+<blockquote>
+<p>1.KVC可以轻松处理集合类。（如：NSArray）<br><br> 2.KVC没有相关getter方法也能获取对象，不需要通过对象指针来直接访问实例变量<br><br> 3.简化代码<br><br> 4.KVC需要解析字符串，速度比较慢<br><br> 5.编译器无法进行错误检查<br></p>
+</blockquote>
+<ul>
+<li>KVO<br></li>
+</ul>
+<blockquote>
+<p>KVO（Key-value Observing）是基于KVC的，一种监听方式，也就是所谓的观察者模式。<br><br> 官方文档描述：<br><br> Key-value observing provides a mechanism that allows objects to be notified of changes to specific properties of other objects. It is particularly useful for communication between model and controller layers in an application.</p>
+</blockquote>
+<p>###（2）KVC代码实现<br></p>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//1.setValue: forKey</span></span><br><span class="line">[car <span class="string">setValue:</span> @<span class="string">"奔驰"</span> <span class="string">forKey:</span> @<span class="string">"name"</span>];</span><br><span class="line">[car <span class="string">setValue:</span> [NSNumber <span class="string">numberWithFloat:</span> <span class="number">80</span>] <span class="string">forKey:</span> @<span class="string">"speed"</span>];</span><br><span class="line">[car <span class="string">setValue:</span> @<span class="string">"黑色"</span> <span class="string">forKey:</span> @<span class="string">"carPaint"</span>];</span><br><span class="line"></span><br><span class="line"><span class="comment">//1.valueForKey</span></span><br><span class="line">NSString *name = [currentCar <span class="string">valueForKey:</span> @<span class="string">"name"</span>];</span><br><span class="line">NSNumber *speed = [currentCar <span class="string">valueForKey:</span> @<span class="string">"speed"</span>];</span><br><span class="line">NSString *carPaint = [currentCar <span class="string">valueForKey:</span> @<span class="string">"carPaint"</span>];</span><br><span class="line"></span><br><span class="line"><span class="comment">//2.setValue:forKeyPath</span></span><br><span class="line">[car <span class="string">setValue:</span> [NSNumber <span class="string">numberWithFloat:</span> <span class="number">40</span>] <span class="string">forKeyPath:</span> @<span class="string">"engine.horsepower"</span>];</span><br><span class="line">self.showCarDetail.text = [self <span class="string">showCarDetail:</span> car];</span><br><span class="line"></span><br><span class="line"><span class="comment">//2.valueForKeyPath</span></span><br><span class="line">NSNumber *horsepower = [currentCar <span class="string">valueForKeyPath:</span> @<span class="string">"engine.horsepower"</span>];</span><br><span class="line"></span><br><span class="line"><span class="comment">//3.整体操作:访问数组，如果使用某个键值来访问一个NSArray数组，它实际上会查询相应数组中的每个对象，然后将查询结果大包到另一个数组并返回，但是不能直接在建路径中索引这些数组，如：tires[0].pressure</span></span><br><span class="line">NSArray *pressures = [currentCar <span class="string">valueForKeyPath:</span> @<span class="string">"tires.pressure"</span>];</span><br><span class="line">NSLog(@<span class="string">"%@"</span>, pressures);</span><br><span class="line"></span><br><span class="line"><span class="comment">//4.快速运算@count,@sum,@avg,@min,@max,@distinctUnionOfObjects</span></span><br><span class="line">NSNumber *count = [currentCar <span class="string">valueForKeyPath:</span> @<span class="string">"tires.@count"</span>];    <span class="comment">//对左边键值返回数组操作，获取数组数量</span></span><br><span class="line">NSNumber *sum = [currentCar <span class="string">valueForKeyPath:</span> @<span class="string">"tires.@sum.pressure"</span>];    <span class="comment">//对左边键值返回数组操作，获取每个数组里面的pressure值，求和</span></span><br><span class="line">NSNumber *avg = [currentCar <span class="string">valueForKeyPath:</span> @<span class="string">"tires.@avg.pressure"</span>];    <span class="comment">//对左边键值返回数组操作，获取每个数组里面的pressure值，求平均值</span></span><br><span class="line">NSNumber *min = [currentCar <span class="string">valueForKeyPath:</span> @<span class="string">"tires.@min.pressure"</span>];    <span class="comment">//对左边键值返回数组操作，获取每个数组里面的pressure值，找出最小值</span></span><br><span class="line">NSNumber *max = [currentCar <span class="string">valueForKeyPath:</span> @<span class="string">"tires.@max.pressure"</span>];    <span class="comment">//对左边键值返回数组操作，获取每个数组里面的pressure值，找出最大值</span></span><br><span class="line">NSArray *tireType = [currentCar <span class="string">valueForKeyPath:</span> @<span class="string">"tires.@distinctUnionOfObjects.pressure"</span>];    <span class="comment">//对左边键值返回数组操作，获取每个数组里面的pressure值，去掉重复的值，返回一个包含所有不重复值的数组</span></span><br><span class="line">NSLog(@<span class="string">"TiresCount: %@ Sum: %@, Avg: %@, Min: %@, Max: %@, TireType: %@"</span>, count, sum, avg, min, max, tireType);</span><br><span class="line"></span><br><span class="line"><span class="comment">//5.批处理</span></span><br><span class="line"><span class="comment">//字典里面不能为nil，如果返回值有nil，则KVC会自己处理，将返回[NSNull null]表示nil</span></span><br><span class="line"><span class="comment">//&lt;null&gt;和(null)的区别：前者是[NSNull null]对象，而后者是正真的nil。</span></span><br><span class="line">NSArray *keys = [NSArray <span class="string">arrayWithObjects:</span> @<span class="string">"make"</span>, @<span class="string">"modelYear"</span>, @<span class="string">"numberOfDoors"</span>, nil];</span><br><span class="line">NSDictionary *carValues = [currentCar <span class="string">dictionaryWithValuesForKeys:</span> keys];</span><br><span class="line">NSLog(@<span class="string">"%@"</span>, carValues);</span><br><span class="line">    </span><br><span class="line"><span class="comment">//6.nil处理</span></span><br><span class="line"><span class="comment">//可以自己运行一下，重写和没有重写setNilValueForKey:方法的代码</span></span><br><span class="line">[currentCar <span class="string">setValue:</span> nil <span class="string">forKey:</span> @<span class="string">"speed"</span>];</span><br><span class="line">NSLog(@<span class="string">"carSpeed: %@"</span>, [currentCar <span class="string">valueForKey:</span> @<span class="string">"speed"</span>]);</span><br><span class="line">    </span><br><span class="line"><span class="comment">//7.处理未定义的值</span></span><br><span class="line">[currentCar <span class="string">setValue:</span> [NSNumber <span class="string">numberWithFloat:</span> <span class="number">1500</span>] <span class="string">forKey:</span> @<span class="string">"mileage"</span>];</span><br><span class="line">[currentCar <span class="string">setValue:</span> [NSNull <span class="literal">null</span>] <span class="string">forKey:</span> @<span class="string">"price"</span>];</span><br><span class="line">[currentCar <span class="string">setValue:</span> nil <span class="string">forKey:</span> @<span class="string">"capacity"</span>];</span><br><span class="line">NSLog(@<span class="string">"Mileage: %@ Price: %@, Capacity: %@"</span>, [currentCar <span class="string">valueForKey:</span> @<span class="string">"mileage"</span>], [currentCar <span class="string">valueForKey:</span> @<span class="string">"price"</span>], [currentCar <span class="string">valueForKey:</span> @<span class="string">"capacity"</span>]);</span><br><span class="line"></span><br><span class="line"><span class="comment">//8.KVC有自动装箱的功能，当使用valueForKey时，它自动将标量值（int,float,struct...）放入NSNumber或NSValue中；当使用setValueForKey，它自动将标量值从这些对象取出。</span></span><br></pre></td></tr></table></figure>
+<p>###（3）KVO代码实现<br></p>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//应该在监听者里添加监听，而不是在被监听者里添加监听</span></span><br><span class="line"><span class="comment">//在被监听者添加监听会造成循环引用的问题</span></span><br><span class="line">car = [[Car alloc] init];</span><br><span class="line">[car <span class="string">addObserver:</span> self <span class="string">forKeyPath:</span> @<span class="string">"carPaint"</span> <span class="string">options:</span> NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld <span class="string">context:</span> nil];</span><br><span class="line"></span><br><span class="line">- (<span class="typename">void</span>)<span class="string">observeValueForKeyPath:</span>(NSString *)keyPath <span class="string">ofObject:</span>(id)object <span class="string">change:</span>(NSDictionary&lt;NSString *,id&gt; *)change <span class="string">context:</span>(<span class="typename">void</span> *)context &#123;</span><br><span class="line">    <span class="keyword">if</span> ([keyPath <span class="string">isEqualToString:</span> @<span class="string">"carPaint"</span>]) &#123;</span><br><span class="line">        NSLog(@<span class="string">"%@"</span>, [change <span class="string">objectForKey:</span> @<span class="string">"new"</span>]);    <span class="comment">//修改之后的值</span></span><br><span class="line">        self.showCarDetail.text = [NSString <span class="string">stringWithFormat:</span> @<span class="string">"车的颜色是%@"</span>, [change <span class="string">objectForKey:</span> @<span class="string">"new"</span>]];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (<span class="typename">void</span>)dealloc &#123;</span><br><span class="line">    <span class="comment">//监听者应该是self，被监听者是car</span></span><br><span class="line">    [car <span class="string">removeObserver:</span> self <span class="string">forKeyPath:</span> @<span class="string">"carPaint"</span>];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>###(4)Demo展示：<br><br><img src="http://jashion.b0.upaiyun.com/images/iOSObserving.gif" alt="Observer.gif"></p>
+<p><a href="https://github.com/jashion/iOSObserving" target="_blank" rel="external">Demo下载</a></p>
+
+      
+    </div>
+    
+  </div>
+  
+    
+    <div class="copyright">
+        <p><span>本文标题:</span><a href="/2016/05/02/iOS观察者模式/"></a></p>
+        <p><span>文章作者:</span><a href="/" title="访问 JashionHuang 的个人博客">JashionHuang</a></p>
+        <p><span>发布时间:</span>2016年05月02日 - 15时17分</p>
+        <p><span>最后更新:</span>2016年05月02日 - 15时17分</p>
+        <p>
+            <span>原始链接:</span><a class="post-url" href="/2016/05/02/iOS观察者模式/" title="">http://yoursite.com/2016/05/02/iOS观察者模式/</a>
+            <span class="copy-path" data-clipboard-text="原文: http://yoursite.com/2016/05/02/iOS观察者模式/　　作者: JashionHuang" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
+            <script src="/js/clipboard.min.js"></script>
+            <script> var clipboard = new Clipboard('.copy-path'); </script>
+        </p>
+        <p>
+            <span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/" title="中国大陆 (CC BY-NC-SA 3.0 CN)">"署名-非商用-相同方式共享 3.0"</a> 转载请保留原文链接及作者。
+        </p>
+    </div>
+
+
+
+    <nav id="article-nav">
+        
+        
+            <div id="article-nav-older" class="article-nav-title">
+                <a href="/2016/05/02/UIDynamicAnimator/">
+                    
+                </a>
+            </div>
+        
+    </nav>
+
+  
+</article>
+
+    <div id="toc" class="toc-article">
+    <strong class="toc-title">文章目录</strong>
+    
+</div>
+<style>
+    .left-col .switch-btn {
+        display: none;
+    }
+    .left-col .switch-area {
+        display: none;
+    }
+</style>
+
+<input type="button" id="tocButton" value="隐藏目录"  title="点击按钮隐藏或者显示文章目录">
+
+<script src="https://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js" type="text/javascript"></script>
+<script>
+    var toc_button = document.getElementById("tocButton");
+    var toc_div = document.getElementById("toc");
+    toc_button.onclick=function() {
+        if (toc_div.style.display == "none") {
+            toc_div.style.display = "block";
+            toc_button.value = "隐藏目录";
+            document.getElementById("switch-btn").style.display = "none";
+            document.getElementById("switch-area").style.display = "none";
+        }
+        else {
+            toc_div.style.display = "none";
+            toc_button.value = "显示目录";
+            document.getElementById("switch-btn").style.display = "block";
+            document.getElementById("switch-area").style.display = "block";
+        }
+    }
+
+    if ($(".toc").length < 1) {
+        $("#toc").css("display","none");
+        $("#tocButton").css("display","none");
+        $(".switch-btn").css("display","block");
+        $(".switch-area").css("display","block");
+    }
+</script>
+
+
+
+
+<div class="share">
+    <div class="bdsharebuttonbox">
+    <a href="#" class="bds_more" data-cmd="more"></a>
+    <a href="#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a>
+    <a href="#" class="bds_sqq" data-cmd="sqq" title="分享给 QQ 好友"></a>
+    <a href="#" class="bds_copy" data-cmd="copy" title="复制网址"></a>
+    <a href="#" class="bds_mail" data-cmd="mail" title="通过邮件分享"></a>
+    <a href="#" class="bds_weixin" data-cmd="weixin" title="生成文章二维码"></a>
+    </div>
+    <script>
+        window._bd_share_config={
+            "common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+    </script>
+</div>
+
+
+
+    <div class="duoshuo" id="comments">
+	<!-- 多说评论框 start -->
+	<div class="ds-thread" data-thread-key="2016/05/02/iOS观察者模式/" data-title="" data-url="http://yoursite.com/2016/05/02/iOS观察者模式/"></div>
+	<!-- 多说评论框 end -->
+	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+	<script type="text/javascript">
+	var duoshuoQuery = {short_name:"true"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] 
+		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+	</script>
+	<!-- 多说公共JS代码 end -->
+</div>
+
+
+
+
+
+
+    <style>
+        #scroll {
+            display: none;
+        }
+    </style>
+    <div class="scroll">
+        <a href="#" title="返回顶部"><i class="fa fa-arrow-up"></i></a>
+        <a href="#comments" title="查看评论"><i class="fa fa-comments-o"></i></a>
+        <a href="#footer" title="转到底部"><i class="fa fa-arrow-down"></i></a>
+    </div>
+
+
+
+        
+
+        
+            <div  class="post-nav-button">
+                <a href="/" title="回到主页"><i class="fa fa-home"></i></a>
+                <a href="/2016/05/02/UIDynamicAnimator/" title="下一篇: ">
+                <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+        
+        
+        
+
+
+
+    
+        <link rel="stylesheet" href="/fancybox/jquery.fancybox.css" type="text/css">
+        <script>
+            var yiliaConfig = {
+            fancybox: true,
+            mathjax: true,
+            animate: true,
+            isHome: false,
+            isPost: true,
+            isArchive: false,
+            isTag: false,
+            isCategory: false,
+            open_in_new: false
+            }
+        </script>
+        
+</div>
+      <footer id="footer">
+    <div class="outer">
+        <div id="footer-info">
+            <div class="footer-left">
+                &copy; 2016 JashionHuang
+            </div>
+            <div class="footer-right">
+                <a href="http://hexo.io/" target="_blank" title="快速、简洁且高效的静态博客框架">Hexo</a>  Theme <a href="https://github.com/MOxFIVE/hexo-theme-yelee" target="_blank" title="简而不减双栏 Hexo 博客主题">Yelee</a> by MOxFIVE
+            </div>
+        </div>
+        <div class="visit">
+            <span id="busuanzi_container_site_pv" style='display:none'>
+                <span id="site-visit" >本站到访数: 
+                    <span id="busuanzi_value_site_uv"></span>
+                </span>
+            </span>
+            <span id="busuanzi_container_page_pv" style='display:none'>
+                <span id="page-visit">, 本页阅读量: 
+                    <span id="busuanzi_value_page_pv"></span>
+                </span>
+            </span>
+        </div>
+    </div>
+</footer>
+    </div>
+    
+
+<script src="https://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js" type="text/javascript"></script>
+<script src="/js/main.js" type="text/javascript"></script>
+
+    <script>
+        var backgroundnum = 5;
+        var backgroundimg = "url(/background/bg-x.jpg)".replace(/x/gi, Math.ceil(Math.random() * backgroundnum));
+
+        $("body").css({"background": backgroundimg, "background-attachment": "fixed", "background-size": "cover"});
+    </script>
+
+
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';                 
+    }       
+});
+</script>
+
+<script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+<div class="scroll" id="scroll">
+    <a href="#" title="返回顶部"><i class="fa fa-arrow-up"></i></a>
+    <a href="#footer" title="转到底部"><i class="fa fa-arrow-down"></i></a>
+</div>
+
+<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+  </div>
+</body>
+</html>

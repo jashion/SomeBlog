@@ -3,18 +3,30 @@
 <head>
   <meta charset="utf-8">
   
-  <title>Who are you want to be?(杂谈) | Hexo</title>
+  <title>Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="自从辞职后，我就有点迷茫，虽然，从大学毕业后就开始了，但是，在公司的时候不觉得，因为在公司有事情做，忙点就没有多的时间思考自己的未来，现在，我在想，我到底想要的是什么样的生活，想要的是什么样的未来，想过的事什么样的人生…">
+  <meta name="description" content="#如何理解iOS的多线程
+###前言：前段时间，很想静下心来研究一下YYText，看了ibireme的一篇《iOS保持界面流畅的技巧》的博客，下了源码，发现里面用到多线程，异步渲染，异步记载，悲催的是，自己对于多线程并不很熟悉，只是在公司项目里面用过轻量级的GCD，所以，下定决心来补一下iOS多线程的知识。
+###1.先弄清楚和线程有关的几个概念（大学读书不用功的同学伤不起T_T）
+
+进程：一个包">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Who are you want to be?(杂谈)">
-<meta property="og:url" content="http://yoursite.com/2015/12/29/future/index.html">
+<meta property="og:title" content="Hexo">
+<meta property="og:url" content="http://yoursite.com/2016/03/29/如何理解iOS多线程/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="自从辞职后，我就有点迷茫，虽然，从大学毕业后就开始了，但是，在公司的时候不觉得，因为在公司有事情做，忙点就没有多的时间思考自己的未来，现在，我在想，我到底想要的是什么样的生活，想要的是什么样的未来，想过的事什么样的人生…">
-<meta property="og:updated_time" content="2015-12-29T09:28:56.000Z">
+<meta property="og:description" content="#如何理解iOS的多线程
+###前言：前段时间，很想静下心来研究一下YYText，看了ibireme的一篇《iOS保持界面流畅的技巧》的博客，下了源码，发现里面用到多线程，异步渲染，异步记载，悲催的是，自己对于多线程并不很熟悉，只是在公司项目里面用过轻量级的GCD，所以，下定决心来补一下iOS多线程的知识。
+###1.先弄清楚和线程有关的几个概念（大学读书不用功的同学伤不起T_T）
+
+进程：一个包">
+<meta property="og:updated_time" content="2016-03-29T14:55:09.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Who are you want to be?(杂谈)">
-<meta name="twitter:description" content="自从辞职后，我就有点迷茫，虽然，从大学毕业后就开始了，但是，在公司的时候不觉得，因为在公司有事情做，忙点就没有多的时间思考自己的未来，现在，我在想，我到底想要的是什么样的生活，想要的是什么样的未来，想过的事什么样的人生…">
+<meta name="twitter:title" content="Hexo">
+<meta name="twitter:description" content="#如何理解iOS的多线程
+###前言：前段时间，很想静下心来研究一下YYText，看了ibireme的一篇《iOS保持界面流畅的技巧》的博客，下了源码，发现里面用到多线程，异步渲染，异步记载，悲催的是，自己对于多线程并不很熟悉，只是在公司项目里面用过轻量级的GCD，所以，下定决心来补一下iOS多线程的知识。
+###1.先弄清楚和线程有关的几个概念（大学读书不用功的同学伤不起T_T）
+
+进程：一个包">
   
     <link rel="alternative" href="/atom.xml" title="Hexo" type="application/atom+xml">
   
@@ -196,11 +208,11 @@
 		</header>				
 	</div>
 </nav>
-      <div class="body-wrap"><article id="post-future" class="article article-type-post" itemscope itemprop="blogPost">
+      <div class="body-wrap"><article id="post-如何理解iOS多线程" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2015/12/29/future/" class="article-date">
-  	<time datetime="2015-12-29T09:28:56.000Z" itemprop="datePublished">2015-12-29</time>
+      <a href="/2016/03/29/如何理解iOS多线程/" class="article-date">
+  	<time datetime="2016-03-29T14:55:09.000Z" itemprop="datePublished">2016-03-29</time>
 </a>
     </div>
   
@@ -209,33 +221,38 @@
       <input type="hidden" class="isFancy" />
     
     
-      <header class="article-header">
-        
-  
-    <h1 class="article-title" itemprop="name">
-      Who are you want to be?(杂谈)
-    </h1>
-  
-
-      </header>
-      
-      <div class="article-info article-info-post">
-        
-
-        
-        <div class="clearfix"></div>
-      </div>
-      
-    
     <div class="article-entry" itemprop="articleBody">
       
           
-        <p>自从辞职后，我就有点迷茫，虽然，从大学毕业后就开始了，但是，在公司的时候不觉得，因为在公司有事情做，忙点就没有多的时间思考自己的未来，现在，我在想，我到底想要的是什么样的生活，想要的是什么样的未来，想过的事什么样的人生…</p>
-<a id="more"></a>
-<h3 id="u751F_u6D3B"><a href="#u751F_u6D3B" class="headerlink" title="生活"></a>生活</h3><p>生活，不错，就是生活。有人说：有些人活着，但却死了，有些人死了，但他们还活着。以前不理解这句话，但是，现在，懂了。现在的社会，压力太大了，都是为了生计奔波，大多数人都没有时间静下心来想过，自己现在过的是不是自己想要的生活。中国大多数普通人的一生都是模版式，从小学到大学，初入社会，工作赚钱，买车买房，娶妻生子，完满的一生。这就是我想要的生活吗？呵呵，也许是，也许不是。现在还没有弄明白自己到底想要的生活是安稳，安定的生活，还是丰富多采的生活，也许，某一天，自己才会恍然大悟，不过，现在还在探索中。</p>
-<h3 id="u4EBA_u751F_uFF0C_u672A_u6765"><a href="#u4EBA_u751F_uFF0C_u672A_u6765" class="headerlink" title="人生，未来"></a>人生，未来</h3><p>想想还挺羡慕那些疯子的，至少，他们很明确自己到底想要的是什么，为之一个自己想要的未来为之奋斗，很幸福，不是吗？！从现在开来，无论我未来选择怎么样的生活，有一件事是确定的，我需要努力赚钱，很多很多的钱，因为，穷人是没有选择生活的权利。乔布斯说过，如果你做的事情不是你自己感兴趣的，那么，你会很痛苦，至少，很大可能在低谷的时候，你会放弃手中的事情，所以，无论怎么想赚钱，记住，要找一个自己感兴趣的工作，至少，你会乐在其中。目前来说，我的目标就是学习iOS称为移动端的大神，然后，做自己感兴趣的应用；学习后台开发，有机会的话，自己客户端和服务端都做；学习设计，某些设计师的设计简直不能忍，毫无特点；学习画画，有时间的话，可以出一本自己的漫画书；学习烹饪，毕竟还是一个吃货；健身塑形，努力成为一个不倒翁；户外拍摄，还是挺喜欢摄影的，虽然，技术不咋地；户外旅游，周游列国也是我人生的一大目标；写作，作为一个坚定的小说爱好着，是得练练自己的文笔了；练习英语口语，为以后出国，做准备…</p>
-<h3 id="u603B_u7ED3"><a href="#u603B_u7ED3" class="headerlink" title="总结"></a>总结</h3><p>上面说了一大堆，是时候做一下总结了，总的来说，想好了就开始做，不要想得太多，做的太少。Just do it!</p>
-
+        <p>#如何理解iOS的多线程</p>
+<p>###前言：<br \=""><br>前段时间，很想静下心来研究一下YYText，看了ibireme的一篇《iOS保持界面流畅的技巧》的博客，下了源码，发现里面用到多线程，异步渲染，异步记载，悲催的是，自己对于多线程并不很熟悉，只是在公司项目里面用过轻量级的GCD，所以，下定决心来补一下iOS多线程的知识。<br \=""></p>
+<p>###1.先弄清楚和线程有关的几个概念（大学读书不用功的同学伤不起T_T）<br \=""></p>
+<blockquote>
+<p>进程：一个包含多个线程的可执行文件。（The term process is used to refer to a running executable, which can encompass multiple threads.）<br \=""><br>线程：一段可以执行的对立代码。（The term thread is used to refer to a separate path of execution for code.）<br \=""><br>任务：对于所做工作的抽象概念。（The term task is used to refer to the abstract concept of work that needs to be performed.）<br \=""><br>队列：我的理解是，一个装载任务的容器。<br \=""><br>同步：在当前的线程执行任务，会阻塞当前线程的操作。<br \=""><br>异步：另开一个新线程执行任务，不会阻塞当前的线程操作。<br \=""><br>串行：队列的任务，根据FIFO的规则，一个个执行。<br \=""><br>并行：队列的任务，并行执行。如果CPU是多核，则会多个线程一齐执行，如果非多核，则会采取时间片轮转的调度方式，根据FIFO的规则执行，由于没个线程执行的时间很短，可以看成是同步执行的队列。<br \=""></p>
+</blockquote>
+<p>####进程，线程，任务和队列的区别和联系：<br \=""></p>
+<blockquote>
+<p>（1）进程可以看作一个程序，可以理解成一个App就是一个进程，一个进程包括一个或者多个线程。<br \=""><br>（2）线程则是一个进程里面的概念，同一个进程包含的线程可以共享进程里面的数据，所以，多线程安全的问题也就突显出来了。线程里面的数据不共享，但线程和线程之间可以通信。<br \=""><br>（3）任务只是一个抽象的概念，一个线程里面的某个有意义的代码片段可以称之为任务，多个线程完成一个工作也可以称之为任务，所以，任务和线程不是同一层面的意思。<br \=""><br>（4）队列，可以简单的理解为，一个容纳任务的容器。<br \=""></p>
+</blockquote>
+<p>###2.iOS里面可用的多线程</p>
+<blockquote>
+<ul>
+<li>PThread(现实中不怎么用到，所以略过)</li>
+<li>NSThread</li>
+<li>GCD(Grand Central Dispatch)</li>
+<li>NSOperation</li>
+</ul>
+</blockquote>
+<p>下面我会一一讲解，我所了解到的多线程。<br \=""><br>NSThread基于Objective-C对象，是苹果用来取代PThread的，方便使用，但是需要手动管理线程的生命周期(线程创建，调度和销毁等)。NSThread相比于GCD，NSOperation更趋向于系统级别的多线程的封装，使用起来没有GCDN和SOperation那么方便，但是，也有一些好用的功能，比如获取当前线程的相关信息：[NSThread currentThread];所以，多线程开发使用哪种实现，取决于你需要实现功能的情景，一般比较轻量级的，好用的就选GCD.GCD是苹果开发的，基于C语言的多线程，不需要手动管理线程的生命周期，而且它可以充分利用多核的优势。如果只想新开一个线程运行一些函数而不关心其他的东西，你可以选择GCD；但是如果你想实现更复杂的行为，那么应该选择NSOperation，因为NSOperation是基于GCD（以前基于NSThread）的更高层次的API，并且功能比CGD更强大，自由度更高，可以实现更复杂的线程依赖。             </p>
+<p>####NSThread<br>（1）启动一个NSThread的通用方法</p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//NSThread</span></span><br><span class="line"><span class="built_in">NSThread</span> *thread = [[<span class="built_in">NSThread</span> alloc] initWithTarget: <span class="keyword">self</span> selector: <span class="keyword">@selector</span>(runThread) object: <span class="literal">nil</span>];</span><br><span class="line">[thread start];    <span class="comment">//通过start启动线程，启动的时间可以自己设置，比如通过NSTimer延时启动</span></span><br><span class="line">    </span><br><span class="line">[<span class="built_in">NSThread</span> detachNewThreadSelector: <span class="keyword">@selector</span>(runThread) toTarget: <span class="keyword">self</span> withObject: <span class="literal">nil</span>];    <span class="comment">//自启动线程，不能掌握线程的启动时间</span></span><br></pre></td></tr></table></figure>
+<p>（2）其他的一些方法</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="keyword">void</span>)main    <span class="comment">//不会调用直接调用，线程调用start时会自动调用。如果自定义NSThread的子类，并想在自定义的线程进行一些操作时，就需要重写改方法</span></span><br><span class="line"></span><br><span class="line">+ sleepUntilDate:    <span class="comment">//在你设定的时间之前阻塞当前的线程</span></span><br><span class="line">+ <span class="built_in">exit</span>    <span class="comment">//结束当前线程，不过在之前会发NSThreadWillExitNotification</span></span><br><span class="line">+ currentThread    <span class="comment">//获取当前线程的相关信息，这个也是最常用的</span></span><br><span class="line">－ cancel    <span class="comment">//并不会停止正在进行的操作，只能更改还在队列里面，还没运行的任务</span></span><br><span class="line">+ setThreadPriority    <span class="comment">//设置当前线程的优先级</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//一些表示线程的状态值</span></span><br><span class="line">executing    <span class="comment">//A Boolean value that indicates whether the receiver is executing. (read-only)</span></span><br><span class="line">finished    <span class="comment">//A Boolean value that indicates whether the receiver has finished execution. (read-only)</span></span><br><span class="line">cancelled    <span class="comment">//A Boolean value that indicates whether the receiver is cancelled. (read-only)</span></span><br></pre></td></tr></table></figure>
+<p>小结：NSThread比较接近系统级别的多线程API，平时比较少用到，一般GCD和NSOperation就够用了。</p>
+<p>####GCD(Grand Central Dispatch)<br>GCD不得不说是苹果造福广大开发者的一大创举，充分利用手机的多核，自动管理生命周期，用起来简单，不用关系线程的调度。所以，一般不是要求太高的，用GCD就完全可以解决需要。废话不多说，我们继续进入状态。<br \=""></p>
+<p>（1）创建全局并行队列</p>
+<pre><code>
+</code></pre>
       
     </div>
     
@@ -243,13 +260,13 @@
   
     
     <div class="copyright">
-        <p><span>本文标题:</span><a href="/2015/12/29/future/">Who are you want to be?(杂谈)</a></p>
+        <p><span>本文标题:</span><a href="/2016/03/29/如何理解iOS多线程/"></a></p>
         <p><span>文章作者:</span><a href="/" title="访问 JashionHuang 的个人博客">JashionHuang</a></p>
-        <p><span>发布时间:</span>2015年12月29日 - 17时28分</p>
-        <p><span>最后更新:</span>2015年12月29日 - 17时28分</p>
+        <p><span>发布时间:</span>2016年03月29日 - 22时55分</p>
+        <p><span>最后更新:</span>2016年03月29日 - 22时55分</p>
         <p>
-            <span>原始链接:</span><a class="post-url" href="/2015/12/29/future/" title="Who are you want to be?(杂谈)">http://yoursite.com/2015/12/29/future/</a>
-            <span class="copy-path" data-clipboard-text="原文: http://yoursite.com/2015/12/29/future/　　作者: JashionHuang" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
+            <span>原始链接:</span><a class="post-url" href="/2016/03/29/如何理解iOS多线程/" title="">http://yoursite.com/2016/03/29/如何理解iOS多线程/</a>
+            <span class="copy-path" data-clipboard-text="原文: http://yoursite.com/2016/03/29/如何理解iOS多线程/　　作者: JashionHuang" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
             <script src="/js/clipboard.min.js"></script>
             <script> var clipboard = new Clipboard('.copy-path'); </script>
         </p>
@@ -263,15 +280,15 @@
     <nav id="article-nav">
         
             <div id="article-nav-newer" class="article-nav-title">
-                <a href="/2016/03/28/iOS内存管理/">
+                <a href="/2016/05/02/UIDynamicAnimator/">
                     
                 </a>
             </div>
         
         
             <div id="article-nav-older" class="article-nav-title">
-                <a href="/2015/12/21/Hexo Blog 搭建（Hexo + Github）/">
-                    Hexo Blog 搭建（Hexo + Github）
+                <a href="/2016/03/28/iOS内存管理/">
+                    
                 </a>
             </div>
         
@@ -282,7 +299,7 @@
 
     <div id="toc" class="toc-article">
     <strong class="toc-title">文章目录</strong>
-    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#u751F_u6D3B"><span class="toc-number">1.</span> <span class="toc-text">生活</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#u4EBA_u751F_uFF0C_u672A_u6765"><span class="toc-number">2.</span> <span class="toc-text">人生，未来</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#u603B_u7ED3"><span class="toc-number">3.</span> <span class="toc-text">总结</span></a></li></ol>
+    
 </div>
 <style>
     .left-col .switch-btn {
@@ -344,7 +361,7 @@
 
     <div class="duoshuo" id="comments">
 	<!-- 多说评论框 start -->
-	<div class="ds-thread" data-thread-key="2015/12/29/future/" data-title="Who are you want to be?(杂谈)" data-url="http://yoursite.com/2015/12/29/future/"></div>
+	<div class="ds-thread" data-thread-key="2016/03/29/如何理解iOS多线程/" data-title="" data-url="http://yoursite.com/2016/03/29/如何理解iOS多线程/"></div>
 	<!-- 多说评论框 end -->
 	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
 	<script type="text/javascript">
@@ -385,10 +402,10 @@
         
         
             <div  class="post-nav-button">
-                <a href="/2016/03/28/iOS内存管理/" title="上一篇: ">
+                <a href="/2016/05/02/UIDynamicAnimator/" title="上一篇: ">
                 <i class="fa fa-angle-left"></i>
                 </a>
-                <a href="/2015/12/21/Hexo Blog 搭建（Hexo + Github）/" title="下一篇: Hexo Blog 搭建（Hexo + Github）">
+                <a href="/2016/03/28/iOS内存管理/" title="下一篇: ">
                 <i class="fa fa-angle-right"></i>
                 </a>
             </div>
