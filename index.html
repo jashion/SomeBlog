@@ -204,7 +204,7 @@
   
     <div class="article-meta">
       <a href="/2016/05/02/如何理解iOS多线程/" class="article-date">
-  	<time datetime="2016-05-02T07:40:27.000Z" itemprop="datePublished">2016-05-02</time>
+  	<time datetime="2016-05-02T07:46:27.000Z" itemprop="datePublished">2016-05-02</time>
 </a>
     </div>
   
@@ -216,7 +216,7 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-              <h1 id="u5982_u4F55_u7406_u89E3iOS_u7684_u591A_u7EBF_u7A0B"><a href="#u5982_u4F55_u7406_u89E3iOS_u7684_u591A_u7EBF_u7A0B" class="headerlink" title="如何理解iOS的多线程"></a>如何理解iOS的多线程</h1><h3 id="u524D_u8A00_uFF1A"><a href="#u524D_u8A00_uFF1A" class="headerlink" title="前言："></a>前言：<br \></h3><p>前段时间，很想静下心来研究一下YYText，看了ibireme的一篇《iOS保持界面流畅的技巧》的博客，下了源码，发现里面用到多线程，异步渲染，异步记载，悲催的是，自己对于多线程并不很熟悉，只是在公司项目里面用过轻量级的GCD，所以，下定决心来补一下iOS多线程的知识。<br \></p>
+              <h2 id="title_3A_u5982_u4F55_u7406_u89E3iOS_u7684_u591A_u7EBF_u7A0B"><a href="#title_3A_u5982_u4F55_u7406_u89E3iOS_u7684_u591A_u7EBF_u7A0B" class="headerlink" title="title:如何理解iOS的多线程"></a>title:如何理解iOS的多线程</h2><h3 id="u524D_u8A00_uFF1A"><a href="#u524D_u8A00_uFF1A" class="headerlink" title="前言："></a>前言：<br \></h3><p>前段时间，很想静下心来研究一下YYText，看了ibireme的一篇《iOS保持界面流畅的技巧》的博客，下了源码，发现里面用到多线程，异步渲染，异步记载，悲催的是，自己对于多线程并不很熟悉，只是在公司项目里面用过轻量级的GCD，所以，下定决心来补一下iOS多线程的知识。<br \></p>
           
       
     </div>
@@ -271,7 +271,7 @@
   
     <div class="article-meta">
       <a href="/2016/05/02/iOS内存管理/" class="article-date">
-  	<time datetime="2016-05-02T07:40:05.000Z" itemprop="datePublished">2016-05-02</time>
+  	<time datetime="2016-05-02T07:45:52.000Z" itemprop="datePublished">2016-05-02</time>
 </a>
     </div>
   
@@ -280,10 +280,21 @@
       <input type="hidden" class="isFancy" />
     
     
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/05/02/iOS内存管理/">浅谈iOS内存管理</a>
+    </h1>
+  
+
+      </header>
+      
+    
     <div class="article-entry" itemprop="articleBody">
       
           
-              <h1 id="u6D45_u8C08iOS_u5185_u5B58_u7BA1_u7406"><a href="#u6D45_u8C08iOS_u5185_u5B58_u7BA1_u7406" class="headerlink" title="浅谈iOS内存管理"></a>浅谈iOS内存管理</h1>
+              <h3 id="1-MRC_28Manul_Reference_Counting_29_u4EBA_u5DE5_u5F15_u7528_u8BA1_u6570"><a href="#1-MRC_28Manul_Reference_Counting_29_u4EBA_u5DE5_u5F15_u7528_u8BA1_u6570" class="headerlink" title="1.MRC(Manul Reference Counting)人工引用计数"></a>1.MRC(Manul Reference Counting)人工引用计数</h3><p>在ARC出现之前，需要手动管理内存。如何手动管理内存呢？首先，得知道，在iOS系统里面，对象的生命周期是通过引用计数管理的。每个对象   都有着一个与之关联的整数。当使用alloc,new方法或者通过copy消息创建对象的时候，对象的保留计数器的值设置为1。当对象调用retain方法，该对象的保留计数增加1，反之，如果对象调用release方法，该对象的保留计数减少1（注意：如果对象本身的保留计数为0，再调用或者说发送release消息就会造成crash）。当一个对象的计数为0时，系统会自动向对象发送dealloc消息，销毁对象，释放内存。</p>
           
       
     </div>
@@ -361,7 +372,12 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-              <h1 id="iOS_u89C2_u5BDF_u8005_u6A21_u5F0F_u5B66_u4E60"><a href="#iOS_u89C2_u5BDF_u8005_u6A21_u5F0F_u5B66_u4E60" class="headerlink" title="iOS观察者模式学习"></a>iOS观察者模式学习 <br></h1>
+              <h3 id="281_29KVC_u4E0EKVO_u7B80_u4ECB"><a href="#281_29KVC_u4E0EKVO_u7B80_u4ECB" class="headerlink" title="(1)KVC与KVO简介"></a>(1)KVC与KVO简介<br></h3><ul>
+<li>KVC<br></li>
+</ul>
+<blockquote>
+<p>KVC（Key-value coding）是一种间接更改对象状态的方式。<br><br> 官方文档描述：<br><br> Key-value coding is a mechanism for accessing an  object’s properties indirectly, using strings to identify properties, rather than through invocation of an accessor method or accessing them directly through instance variables. In essence, key-value coding defines the patterns and method signatures that your application’s accessor methods implement.</p>
+</blockquote>
           
       
     </div>
@@ -439,7 +455,7 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-              <h1 id="UIKit_Dynamics_u52A8_u529B_u7CFB_u7EDF_u5165_u95E8"><a href="#UIKit_Dynamics_u52A8_u529B_u7CFB_u7EDF_u5165_u95E8" class="headerlink" title="UIKit Dynamics动力系统入门"></a>UIKit Dynamics动力系统入门</h1>
+              <h3 id="1-_u4EC0_u4E48_u662F_u52A8_u529B_u7CFB_u7EDF_28What_is_the_UIKit_Dynamics_3F_29"><a href="#1-_u4EC0_u4E48_u662F_u52A8_u529B_u7CFB_u7EDF_28What_is_the_UIKit_Dynamics_3F_29" class="headerlink" title="1.什么是动力系统(What is the UIKit Dynamics?)"></a>1.什么是动力系统(What is the UIKit Dynamics?)</h3><p>动力系统的引入，并不是替代CoreAnimation，而是对模拟现实世界物体运动的补充，比如，碰撞，重力，悬挂等等。所以说，UIKit动力系统的引入，大大简化了一些交互动画（不需要自己实现一些模拟现实世界物理动力系统的动画），丰富了UI设计。</p>
           
       
     </div>

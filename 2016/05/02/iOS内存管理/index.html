@@ -3,18 +3,18 @@
 <head>
   <meta charset="utf-8">
   
-  <title>Hexo</title>
+  <title>浅谈iOS内存管理 | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="浅谈iOS内存管理">
+  <meta name="description" content="1.MRC(Manul Reference Counting)人工引用计数在ARC出现之前，需要手动管理内存。如何手动管理内存呢？首先，得知道，在iOS系统里面，对象的生命周期是通过引用计数管理的。每个对象   都有着一个与之关联的整数。当使用alloc,new方法或者通过copy消息创建对象的时候，对象的保留计数器的值设置为1。当对象调用retain方法，该对象的保留计数增加1，反之，如果对象调">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Hexo">
+<meta property="og:title" content="浅谈iOS内存管理">
 <meta property="og:url" content="http://yoursite.com/2016/05/02/iOS内存管理/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="浅谈iOS内存管理">
-<meta property="og:updated_time" content="2016-05-02T07:40:05.000Z">
+<meta property="og:description" content="1.MRC(Manul Reference Counting)人工引用计数在ARC出现之前，需要手动管理内存。如何手动管理内存呢？首先，得知道，在iOS系统里面，对象的生命周期是通过引用计数管理的。每个对象   都有着一个与之关联的整数。当使用alloc,new方法或者通过copy消息创建对象的时候，对象的保留计数器的值设置为1。当对象调用retain方法，该对象的保留计数增加1，反之，如果对象调">
+<meta property="og:updated_time" content="2016-05-02T07:45:52.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Hexo">
-<meta name="twitter:description" content="浅谈iOS内存管理">
+<meta name="twitter:title" content="浅谈iOS内存管理">
+<meta name="twitter:description" content="1.MRC(Manul Reference Counting)人工引用计数在ARC出现之前，需要手动管理内存。如何手动管理内存呢？首先，得知道，在iOS系统里面，对象的生命周期是通过引用计数管理的。每个对象   都有着一个与之关联的整数。当使用alloc,new方法或者通过copy消息创建对象的时候，对象的保留计数器的值设置为1。当对象调用retain方法，该对象的保留计数增加1，反之，如果对象调">
   
     <link rel="alternative" href="/atom.xml" title="Hexo" type="application/atom+xml">
   
@@ -200,7 +200,7 @@
   
     <div class="article-meta">
       <a href="/2016/05/02/iOS内存管理/" class="article-date">
-  	<time datetime="2016-05-02T07:40:05.000Z" itemprop="datePublished">2016-05-02</time>
+  	<time datetime="2016-05-02T07:45:52.000Z" itemprop="datePublished">2016-05-02</time>
 </a>
     </div>
   
@@ -209,11 +209,29 @@
       <input type="hidden" class="isFancy" />
     
     
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      浅谈iOS内存管理
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+
+        
+        <div class="clearfix"></div>
+      </div>
+      
+    
     <div class="article-entry" itemprop="articleBody">
       
           
-        <h1 id="u6D45_u8C08iOS_u5185_u5B58_u7BA1_u7406"><a href="#u6D45_u8C08iOS_u5185_u5B58_u7BA1_u7406" class="headerlink" title="浅谈iOS内存管理"></a>浅谈iOS内存管理</h1><a id="more"></a>
-<h3 id="1-MRC_28Manul_Reference_Counting_29_u4EBA_u5DE5_u5F15_u7528_u8BA1_u6570"><a href="#1-MRC_28Manul_Reference_Counting_29_u4EBA_u5DE5_u5F15_u7528_u8BA1_u6570" class="headerlink" title="1.MRC(Manul Reference Counting)人工引用计数"></a>1.MRC(Manul Reference Counting)人工引用计数</h3><p>在ARC出现之前，需要手动管理内存。如何手动管理内存呢？首先，得知道，在iOS系统里面，对象的生命周期是通过引用计数管理的。每个对象   都有着一个与之关联的整数。当使用alloc,new方法或者通过copy消息创建对象的时候，对象的保留计数器的值设置为1。当对象调用retain方法，该对象的保留计数增加1，反之，如果对象调用release方法，该对象的保留计数减少1（注意：如果对象本身的保留计数为0，再调用或者说发送release消息就会造成crash）。当一个对象的计数为0时，系统会自动向对象发送dealloc消息，销毁对象，释放内存。</p>
+        <h3 id="1-MRC_28Manul_Reference_Counting_29_u4EBA_u5DE5_u5F15_u7528_u8BA1_u6570"><a href="#1-MRC_28Manul_Reference_Counting_29_u4EBA_u5DE5_u5F15_u7528_u8BA1_u6570" class="headerlink" title="1.MRC(Manul Reference Counting)人工引用计数"></a>1.MRC(Manul Reference Counting)人工引用计数</h3><p>在ARC出现之前，需要手动管理内存。如何手动管理内存呢？首先，得知道，在iOS系统里面，对象的生命周期是通过引用计数管理的。每个对象   都有着一个与之关联的整数。当使用alloc,new方法或者通过copy消息创建对象的时候，对象的保留计数器的值设置为1。当对象调用retain方法，该对象的保留计数增加1，反之，如果对象调用release方法，该对象的保留计数减少1（注意：如果对象本身的保留计数为0，再调用或者说发送release消息就会造成crash）。当一个对象的计数为0时，系统会自动向对象发送dealloc消息，销毁对象，释放内存。</p>
+<a id="more"></a>
 <blockquote>
 <p>手动管理内存需要注意下面几点：<br \=""><br>（1）使用alloc,new或copy方法创建对象时，该对象的保留计数为1。当不再使用该对象时，向该对象发送一条release或者autorelease消息。<br \=""><br>（2）如果你通过其他方法获得一个对象，则不需要你来管理该对象的生命周期，除非你想在一段时间内拥有改对象，则需要在使用前retain，使用完成后release。<br \=""><br>（3）必须保证retain和release成对出现。<br \=""><br>（4）release操作只是使当前对象的保留计数减1，并不是销毁该对象。当该对象的保留计数为0时，系统才会发送dealloc消息，销毁对象。<br \=""><br>（5）把对象加入autorelease也不是立马使该对象的保留计数减1，而是在未来适当的时机release该对象。</p>
 </blockquote>
@@ -232,12 +250,12 @@
   
     
     <div class="copyright">
-        <p><span>本文标题:</span><a href="/2016/05/02/iOS内存管理/"></a></p>
+        <p><span>本文标题:</span><a href="/2016/05/02/iOS内存管理/">浅谈iOS内存管理</a></p>
         <p><span>文章作者:</span><a href="/" title="访问 JashionHuang 的个人博客">JashionHuang</a></p>
-        <p><span>发布时间:</span>2016年05月02日 - 15时40分</p>
-        <p><span>最后更新:</span>2016年05月02日 - 15时40分</p>
+        <p><span>发布时间:</span>2016年05月02日 - 15时45分</p>
+        <p><span>最后更新:</span>2016年05月02日 - 15时45分</p>
         <p>
-            <span>原始链接:</span><a class="post-url" href="/2016/05/02/iOS内存管理/" title="">http://yoursite.com/2016/05/02/iOS内存管理/</a>
+            <span>原始链接:</span><a class="post-url" href="/2016/05/02/iOS内存管理/" title="浅谈iOS内存管理">http://yoursite.com/2016/05/02/iOS内存管理/</a>
             <span class="copy-path" data-clipboard-text="原文: http://yoursite.com/2016/05/02/iOS内存管理/　　作者: JashionHuang" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
             <script src="/js/clipboard.min.js"></script>
             <script> var clipboard = new Clipboard('.copy-path'); </script>
@@ -271,7 +289,7 @@
 
     <div id="toc" class="toc-article">
     <strong class="toc-title">文章目录</strong>
-    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#u6D45_u8C08iOS_u5185_u5B58_u7BA1_u7406"><span class="toc-number">1.</span> <span class="toc-text">浅谈iOS内存管理</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-MRC_28Manul_Reference_Counting_29_u4EBA_u5DE5_u5F15_u7528_u8BA1_u6570"><span class="toc-number">1.0.1.</span> <span class="toc-text">1.MRC(Manul Reference Counting)人工引用计数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-ARC_uFF08Automatic_reference_counting_uFF09_u81EA_u52A8_u5F15_u7528_u8BA1_u6570"><span class="toc-number">1.0.2.</span> <span class="toc-text">2.ARC（Automatic reference counting）自动引用计数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-ARC_u4E0Eautorelease"><span class="toc-number">1.0.3.</span> <span class="toc-text">3.ARC与autorelease</span></a></li></ol></li></ol></li></ol>
+    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-MRC_28Manul_Reference_Counting_29_u4EBA_u5DE5_u5F15_u7528_u8BA1_u6570"><span class="toc-number">1.</span> <span class="toc-text">1.MRC(Manul Reference Counting)人工引用计数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-ARC_uFF08Automatic_reference_counting_uFF09_u81EA_u52A8_u5F15_u7528_u8BA1_u6570"><span class="toc-number">2.</span> <span class="toc-text">2.ARC（Automatic reference counting）自动引用计数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-ARC_u4E0Eautorelease"><span class="toc-number">3.</span> <span class="toc-text">3.ARC与autorelease</span></a></li></ol>
 </div>
 <style>
     .left-col .switch-btn {
@@ -333,7 +351,7 @@
 
     <div class="duoshuo" id="comments">
 	<!-- 多说评论框 start -->
-	<div class="ds-thread" data-thread-key="2016/05/02/iOS内存管理/" data-title="" data-url="http://yoursite.com/2016/05/02/iOS内存管理/"></div>
+	<div class="ds-thread" data-thread-key="2016/05/02/iOS内存管理/" data-title="浅谈iOS内存管理" data-url="http://yoursite.com/2016/05/02/iOS内存管理/"></div>
 	<!-- 多说评论框 end -->
 	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
 	<script type="text/javascript">
