@@ -200,11 +200,11 @@
 </nav>
       <div class="body-wrap">
   
-    <article id="post-如何理解iOS多线程" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-iOS的图片框架" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2016/05/02/如何理解iOS多线程/" class="article-date">
-  	<time datetime="2016-05-02T07:55:44.000Z" itemprop="datePublished">2016-05-02</time>
+      <a href="/2016/09/25/iOS的图片框架/" class="article-date">
+  	<time datetime="2016-09-25T10:03:44.000Z" itemprop="datePublished">2016-09-25</time>
 </a>
     </div>
   
@@ -217,7 +217,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2016/05/02/如何理解iOS多线程/">如何理解iOS多线程</a>
+      <a class="article-title" href="/2016/09/25/iOS的图片框架/">iOS的图片框架</a>
     </h1>
   
 
@@ -227,7 +227,7 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-              <h3 id="u524D_u8A00_uFF1A"><a href="#u524D_u8A00_uFF1A" class="headerlink" title="前言："></a>前言：<br \></h3><p>前段时间，很想静下心来研究一下YYText，看了ibireme的一篇《iOS保持界面流畅的技巧》的博客，下了源码，发现里面用到多线程，异步渲染，异步记载，悲催的是，自己对于多线程并不很熟悉，只是在公司项目里面用过轻量级的GCD，所以，下定决心来补一下iOS多线程的知识。<br \></p>
+              <p>###前言<br>今年五月份进的新公司，接手的第一个新项目，里面我主要负责发帖，具体是图文，不包括视频。由于时间紧急，开发时间只有3天，实际上包括开发，测试和修复BUG，用了差不多3周的时间，第一周开发完成基本功能，后面两周测试和修复BUG,由于当时没有做过相册相关的功能，也因为时间紧急，所以，使用了一个<a href="https://github.com/zhuochenming/ImagePickerController">第三方的库</a>，大家可以去看一下，写的比较全面。后来，项目完成之后，终于有时间，静下心慢慢研究iOS的图片框架了，个人对于不懂的东西，好奇心和求知欲还是比较强的。</p>
           
       
     </div>
@@ -239,7 +239,246 @@
       
       
         <p class="article-more-link">
-          <a  href="/2016/05/02/如何理解iOS多线程/#more">more >></a>
+          <a  href="/2016/09/25/iOS的图片框架/#more">more >></a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+
+
+
+    
+        <link rel="stylesheet" href="/fancybox/jquery.fancybox.css" type="text/css">
+        <script>
+            var yiliaConfig = {
+            fancybox: true,
+            mathjax: true,
+            animate: true,
+            isHome: true,
+            isPost: false,
+            isArchive: false,
+            isTag: false,
+            isCategory: false,
+            open_in_new: false
+            }
+        </script>
+        
+
+  
+    <article id="post-CoreText" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2016/08/04/CoreText/" class="article-date">
+  	<time datetime="2016-08-04T08:12:08.000Z" itemprop="datePublished">2016-08-04</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/08/04/CoreText/">iOS CoreText的理解</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+              <p>  虽然踩入iOS这个坑已经一年多了，但是，还是感觉自己能力离大神级别差了十万八千里，有时候会感觉到自己的智商严重不足，该充值了。苦也好，乐也罢，这注定是虐恋。年初，为了提高自己的iOS编程能力，想了一个办法，就是把自己所学的知识，分成不同的部分，写成Demo上传Github并且，写成Blog上传自己的个人博客上。在刚入职的这段时间时忙时闲，有些东西写写停停，也脱了很久。现在，我也是来找虐的，研究一下CoreText。其实，我之前在写输入框，就想来了解一下CoreText，因为，当时使用UITextView，计算文字高度换行的时候不完美，老是有瑕疵，没有微信输入框那么Perfect，所以，就想自己写一个完美的输入框，但是由于种种原因，一直没有去学习CoreText，所以，现在有一点时间，就开始来找虐了。Hello, CoreText, I’m coming!</p>
+          
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+
+      
+      
+        <p class="article-more-link">
+          <a  href="/2016/08/04/CoreText/#more">more >></a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+
+
+
+    
+        <link rel="stylesheet" href="/fancybox/jquery.fancybox.css" type="text/css">
+        <script>
+            var yiliaConfig = {
+            fancybox: true,
+            mathjax: true,
+            animate: true,
+            isHome: true,
+            isPost: false,
+            isArchive: false,
+            isTag: false,
+            isCategory: false,
+            open_in_new: false
+            }
+        </script>
+        
+
+  
+    <article id="post-iOS观察者模式" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2016/05/11/iOS观察者模式/" class="article-date">
+  	<time datetime="2016-05-11T09:37:22.000Z" itemprop="datePublished">2016-05-11</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/05/11/iOS观察者模式/">iOS观察者模式</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+              <h3 id="281_29KVC_u4E0EKVO_u7B80_u4ECB"><a href="#281_29KVC_u4E0EKVO_u7B80_u4ECB" class="headerlink" title="(1)KVC与KVO简介"></a>(1)KVC与KVO简介</h3><ul>
+<li>KVC<br></li>
+</ul>
+<blockquote>
+<p>KVC（Key-value coding）是一种间接更改对象状态的方式。<br><br> 官方文档描述：<br><br> Key-value coding is a mechanism for accessing an  object’s properties indirectly, using strings to identify properties, rather than through invocation of an accessor method or accessing them directly through instance variables. In essence, key-value coding defines the patterns and method signatures that your application’s accessor methods implement.</p>
+</blockquote>
+          
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+
+      
+      
+        <p class="article-more-link">
+          <a  href="/2016/05/11/iOS观察者模式/#more">more >></a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+
+
+
+    
+        <link rel="stylesheet" href="/fancybox/jquery.fancybox.css" type="text/css">
+        <script>
+            var yiliaConfig = {
+            fancybox: true,
+            mathjax: true,
+            animate: true,
+            isHome: true,
+            isPost: false,
+            isArchive: false,
+            isTag: false,
+            isCategory: false,
+            open_in_new: false
+            }
+        </script>
+        
+
+  
+    <article id="post-如何理解iOS多线程" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2016/05/11/如何理解iOS多线程/" class="article-date">
+  	<time datetime="2016-05-11T09:35:01.000Z" itemprop="datePublished">2016-05-11</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/05/11/如何理解iOS多线程/">如何理解iOS多线程</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+              <h3 id="u524D_u8A00_uFF1A"><a href="#u524D_u8A00_uFF1A" class="headerlink" title="前言："></a>前言：</h3><p>前段时间，很想静下心来研究一下YYText，看了ibireme的一篇《iOS保持界面流畅的技巧》的博客，下了源码，发现里面用到多线程，异步渲染，异步记载，悲催的是，自己对于多线程并不很熟悉，只是在公司项目里面用过轻量级的GCD，所以，下定决心来补一下iOS多线程的知识。</p>
+          
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+
+      
+      
+        <p class="article-more-link">
+          <a  href="/2016/05/11/如何理解iOS多线程/#more">more >></a>
         </p>
       
       <div class="clearfix"></div>
@@ -318,89 +557,6 @@
       
         <p class="article-more-link">
           <a  href="/2016/05/02/iOS内存管理/#more">more >></a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-
-
-
-    
-        <link rel="stylesheet" href="/fancybox/jquery.fancybox.css" type="text/css">
-        <script>
-            var yiliaConfig = {
-            fancybox: true,
-            mathjax: true,
-            animate: true,
-            isHome: true,
-            isPost: false,
-            isArchive: false,
-            isTag: false,
-            isCategory: false,
-            open_in_new: false
-            }
-        </script>
-        
-
-  
-    <article id="post-iOS观察者模式" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2016/05/02/iOS观察者模式/" class="article-date">
-  	<time datetime="2016-05-02T07:29:51.000Z" itemprop="datePublished">2016-05-02</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/05/02/iOS观察者模式/">iOS观察者模式</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-          
-              <h3 id="281_29KVC_u4E0EKVO_u7B80_u4ECB"><a href="#281_29KVC_u4E0EKVO_u7B80_u4ECB" class="headerlink" title="(1)KVC与KVO简介"></a>(1)KVC与KVO简介<br></h3><ul>
-<li>KVC<br></li>
-</ul>
-<blockquote>
-<p>KVC（Key-value coding）是一种间接更改对象状态的方式。<br><br> 官方文档描述：<br><br> Key-value coding is a mechanism for accessing an  object’s properties indirectly, using strings to identify properties, rather than through invocation of an accessor method or accessing them directly through instance variables. In essence, key-value coding defines the patterns and method signatures that your application’s accessor methods implement.</p>
-</blockquote>
-          
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-
-      
-      
-        <p class="article-more-link">
-          <a  href="/2016/05/02/iOS观察者模式/#more">more >></a>
         </p>
       
       <div class="clearfix"></div>
